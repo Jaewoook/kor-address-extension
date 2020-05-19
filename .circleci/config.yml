@@ -1,0 +1,65 @@
+version: 2.1
+jobs:
+  prepare:
+    working_directory: ~/app
+    docker:
+      - image: 'circleci/node:latest'
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: ~/app
+          paths:
+            - node_modules
+  build:
+    working_directory: ~/app
+    docker:
+      - image: 'circleci/node:latest'
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/app
+      - run: yarn build
+  lint:
+    working_directory: ~/app
+    docker:
+      - image: 'circleci/node:latest'
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/app
+      - run: yarn lint
+  package:
+    working_directory: ~/app
+    docker:
+      - image: 'circleci/node:latest'
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/app
+      - run: yarn package
+workflows:
+  version: 2
+  build-test:
+    jobs:
+      - prepare
+      - build:
+          requires:
+            - prepare
+      - lint:
+          requires:
+            - prepare
+      - package:
+          requires:
+            - build
+            - lint
+          filters:
+            branches:
+              only:
+                - master
