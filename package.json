@@ -8,7 +8,9 @@
   "scripts": {
     "build": "react-scripts build",
     "dev": "react-scripts start",
-    "lint": "eslint . --ext .js,.ts,.jsx,.tsx"
+    "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
+    "prepackage": "yarn build",
+    "package": "cp manifest.json ./build"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.112",
@@ -24,6 +26,7 @@
   },
   "dependencies": {
     "antd": "^4.2.4",
+    "axios": "^0.19.2",
     "clipboard": "^2.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
