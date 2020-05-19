@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "module": "CommonJS",
+        "jsx": "preserve",
+        "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "ESNext"
+        ]
+    },
+    "include": [
+        "src/**/*"
+    ]
+}

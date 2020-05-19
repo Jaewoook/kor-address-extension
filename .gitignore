@@ -1,0 +1,6 @@
+yarn-*.log
+npm-*.log
+*.log
+
+node_modules
+.DS_Store
