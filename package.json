@@ -1,13 +1,14 @@
 {
-  "name": "kor-adress-extension",
+  "name": "kor-address-extension",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "repository": "git@github.com:Jaewoook/kor-adress-extension.git",
+  "repository": "git@github.com:Jaewoook/kor-address-extension.git",
   "author": "Jaewook Ahn <ajw4586@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "react-scripts build",
-    "dev": "react-scripts start"
+    "dev": "react-scripts start",
+    "lint": "eslint . --ext .js,.ts,.jsx,.tsx"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.112",
@@ -15,13 +16,29 @@
     "@types/node": "^14.0.1",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
-    "eslint": "^7.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "eslint": "^6.6.0",
+    "eslint-plugin-react": "^7.20.0",
     "typescript": "^3.9.2"
   },
   "dependencies": {
+    "antd": "^4.2.4",
     "clipboard": "^2.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
