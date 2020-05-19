@@ -2,7 +2,7 @@ import axios from "axios";
 
 const JUSO_API = "http://www.juso.go.kr/addrlink/addrLinkApi.do";
 
-type AddressData = {
+export type AddressData = {
     roadAddr: string;
     roadAddrPart1: string;
     roadAddrPart2?: string;
@@ -55,7 +55,11 @@ export class AddressManager {
             method: "POST",
             url: JUSO_API,
             data: form,
-            transformResponse: (r: APIResponse) => r.results,
+            responseType: "json",
+            transformResponse: (r: APIResponse) => {
+                console.log("transform: ", r.results);
+                return r.results;
+            },
         });
     }
 }

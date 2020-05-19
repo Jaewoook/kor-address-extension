@@ -6,7 +6,9 @@ import {
     Layout,
     PageHeader,
 } from "antd";
-import { AddressManager } from "./AddressManager";
+import { CheckCircleFilled, CheckCircleOutlined } from "@ant-design/icons";
+import { AddressData, AddressManager } from "./AddressManager";
+import { AddressList } from "./components/AddressList";
 
 const addrManager = new AddressManager();
 
@@ -15,6 +17,7 @@ export const App = () => {
     const [showEngAddr, setShowEngAddr] = React.useState(false);
     const [showRoadAddr, setShowRoadAddr] = React.useState(true);
     const [showLegacyAddr, setShowLegacyAddr] = React.useState(true);
+    const [addressData, setAddressData] = React.useState<AddressData[]>([]);
 
     const handleSearchValueChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
@@ -26,11 +29,12 @@ export const App = () => {
             currentPage: "1",
             keyword: searchValue,
         })?.then((res) => {
-            console.log("Response data", res.data);
+            console.log("Response data", res);
+            setAddressData(res.data.juso);
         }).catch((err) => {
             console.error(err);
         });
-    }, [searchValue]);
+    }, [searchValue, setAddressData]);
 
     const handleSearchOptionClick = React.useCallback((type: "eng" | "road" | "legacy") => () => {
         switch (type) {
@@ -52,15 +56,18 @@ export const App = () => {
                 title="주소검색"
                 extra={[
                     <Button
-                        key={1} ghost={!showEngAddr} type="primary"
+                        key={1} type="link"
+                        icon={showEngAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}
                         onClick={handleSearchOptionClick("eng")}>
                             영문주소
                     </Button>,
-                    <Button key={2} ghost={!showRoadAddr} type="primary"
+                    <Button key={2} type="link"
+                        icon={showRoadAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}
                         onClick={handleSearchOptionClick("road")}>
                             도로명주소
                     </Button>,
-                    <Button key={3} ghost={!showLegacyAddr} type="primary"
+                    <Button key={3} type="link"
+                        icon={showLegacyAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}
                         onClick={handleSearchOptionClick("legacy")}>
                             지번주소
                     </Button>,
@@ -74,7 +81,7 @@ export const App = () => {
                     onPressEnter={handleSearchClick} />
             </Layout.Content>
             <Layout.Content>
-
+                <AddressList data={addressData} />
             </Layout.Content>
         </Layout>
     );
