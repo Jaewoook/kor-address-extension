@@ -17,8 +17,9 @@ module.exports = {
         ecmaFeatures: {
             jsx: true
         },
-        ecmaVersion: 2018,
-        sourceType: "module"
+        ecmaVersion: 9,
+        sourceType: "module",
+        project: "./tsconfig.json",
     },
     plugins: [
         "react",
@@ -28,5 +29,7 @@ module.exports = {
         "comma-dangle": ["warn", "always-multiline"],
         "quotes": ["error", "double", { allowTemplateLiterals: true }],
         "semi": ["error", "always"],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error",
     },
 };
