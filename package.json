@@ -22,7 +22,7 @@
     "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^6.6.0",
     "eslint-plugin-react": "^7.20.0",
-    "typescript": "^3.9.2"
+    "typescript": "^3.9.3"
   },
   "dependencies": {
     "@ant-design/icons": "^4.1.0",
