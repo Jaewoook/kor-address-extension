@@ -3,3 +3,9 @@
     display: inline-block;
     margin: 0;
 }
+
+.no-data-label {
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em !important;
+}
