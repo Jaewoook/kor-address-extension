@@ -6,7 +6,11 @@ import {
 import copy from "copy-to-clipboard";
 import "./ClickToCopyText.css";
 
-export const ClickToCopyText: React.FC<{ children: string }> = ({ children }) => {
+interface ClickToCopyTextProps {
+    children: string;
+}
+
+export const ClickToCopyText: React.FC<ClickToCopyTextProps> = ({ children }: ClickToCopyTextProps) => {
     const [copied, setCopied] = React.useState(false);
 
     const handleCopyClick = React.useCallback(() => {
