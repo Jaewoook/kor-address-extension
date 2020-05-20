@@ -10,7 +10,7 @@
       "DOM.Iterable",
       "ESNext"
     ],
-    "target": "es5",
+    "target": "ESNext",
     "esModuleInterop": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
