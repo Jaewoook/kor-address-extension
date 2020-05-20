@@ -27,7 +27,7 @@ cd kor-address-extension && yarn
 yarn package
 ```
 
-마지막으로, `chrome://extensions/` 에 접속해 개발자 모드를 활성화 하고, 프로젝트 루트의 build 폴더를 추가합니다.
+마지막으로, [크롬 익스텐션 페이지](chrome://extensions/)에 접속해 개발자 모드를 활성화하고, 프로젝트 루트의 build 폴더를 추가합니다.
 
 
 ## 만든이
