@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const JUSO_API = "http://www.juso.go.kr/addrlink/addrLinkApi.do";
+const API_KEY = "U01TX0FVVEgyMDIwMDUyMTEzNTUwOTEwOTc4NDI=";
 
 export type AddressData = {
     roadAddr: string;
@@ -45,7 +46,7 @@ export class AddressManager {
         this.previousSearchKey = searchKey;
 
         const form = new FormData();
-        form.append("confmKey", "devU01TX0FVVEgyMDIwMDUxOTE4NTUwNjEwOTc3NDA=");
+        form.append("confmKey", API_KEY);
         form.append("resultType", "json");
         for (let key in searchKey) {
             form.append(key, searchKey[key]);
