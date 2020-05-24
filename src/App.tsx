@@ -20,6 +20,7 @@ export const App = () => {
     const [showRoadAddr, setShowRoadAddr] = React.useState(true);
     const [showLegacyAddr, setShowLegacyAddr] = React.useState(true);
     const [addressData, setAddressData] = React.useState<AddressData[]>([]);
+    const [updatingSettings, setUpdatingSettings] = React.useState(false);
 
     const handleSearchValueChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
@@ -38,40 +39,49 @@ export const App = () => {
         });
     }, [searchValue, setAddressData]);
 
-    const handleSearchOptionClick = React.useCallback((type: "eng" | "road" | "legacy") => () => {
-        switch (type) {
-            case "eng":
-                setShowEngAddr(!showEngAddr);
-                updateSettings({
-                    searchResult: {
-                        showEng: !showEngAddr,
-                        showRoad: showRoadAddr,
-                        showLegacy: showLegacyAddr,
-                    },
-                });
-                break;
-            case "road":
-                setShowRoadAddr(!showRoadAddr);
-                updateSettings({
-                    searchResult: {
-                        showEng: showEngAddr,
-                        showRoad: !showRoadAddr,
-                        showLegacy: showLegacyAddr,
-                    },
-                });
-                break;
-            case "legacy":
-                setShowLegacyAddr(!showLegacyAddr);
-                updateSettings({
-                    searchResult: {
-                        showEng: showEngAddr,
-                        showRoad: !showRoadAddr,
-                        showLegacy: showLegacyAddr,
-                    },
-                });
-                break;
+    const handleSearchOptionClick = React.useCallback((type: "eng" | "road" | "legacy") => async () => {
+        if (updatingSettings) {
+            return;
         }
-    }, [showEngAddr, showRoadAddr, showLegacyAddr, setShowEngAddr, setShowRoadAddr, setShowLegacyAddr]);
+
+        setUpdatingSettings(true);
+        try {
+            switch (type) {
+                case "eng":
+                    setShowEngAddr(!showEngAddr);
+                    await updateSettings({
+                        searchResult: {
+                            showEng: !showEngAddr,
+                            showRoad: showRoadAddr,
+                            showLegacy: showLegacyAddr,
+                        },
+                    });
+                    break;
+                case "road":
+                    setShowRoadAddr(!showRoadAddr);
+                    await updateSettings({
+                        searchResult: {
+                            showEng: showEngAddr,
+                            showRoad: !showRoadAddr,
+                            showLegacy: showLegacyAddr,
+                        },
+                    });
+                    break;
+                case "legacy":
+                    setShowLegacyAddr(!showLegacyAddr);
+                    await updateSettings({
+                        searchResult: {
+                            showEng: showEngAddr,
+                            showRoad: !showRoadAddr,
+                            showLegacy: showLegacyAddr,
+                        },
+                    });
+                    break;
+            }
+        } finally {
+            setUpdatingSettings(false);
+        }
+    }, [showEngAddr, showRoadAddr, showLegacyAddr, updatingSettings, setShowEngAddr, setShowRoadAddr, setShowLegacyAddr, setUpdatingSettings]);
 
     React.useEffect(() => {
         if (getRuntime() === "extension") {
@@ -89,17 +99,17 @@ export const App = () => {
                 title="주소검색"
                 extra={[
                     <Button
-                        key={1} type="link"
+                        key={1} type="link" disabled={updatingSettings}
                         icon={showEngAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}
                         onClick={handleSearchOptionClick("eng")}>
                             영문주소
                     </Button>,
-                    <Button key={2} type="link"
+                    <Button key={2} type="link" disabled={updatingSettings}
                         icon={showRoadAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}
                         onClick={handleSearchOptionClick("road")}>
                             도로명주소
                     </Button>,
-                    <Button key={3} type="link"
+                    <Button key={3} type="link" disabled={updatingSettings}
                         icon={showLegacyAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}
                         onClick={handleSearchOptionClick("legacy")}>
                             지번주소

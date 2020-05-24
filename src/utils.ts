@@ -34,7 +34,16 @@ export const loadSettings = () => {
 };
 
 export const updateSettings = (settings: Settings) => {
-    chrome.storage.local.set(settings);
+    return new Promise((resolve, reject) => {
+        if (getRuntime() === "extension") {
+            chrome.storage.local.set(settings, () => {
+                console.log("Settings updated!");
+                resolve();
+            });
+        } else {
+            reject("It works on extension only.");
+        }
+    });
 };
 
 type Runtime = "other" | "page" | "extension";
