@@ -9,9 +9,13 @@ import "./AddressList.css";
 
 interface Props {
     data: AddressData[];
+    showEngAddr: boolean;
+    showRoadAddr: boolean;
+    showLegacyAddr: boolean;
 }
 
-export const AddressList = ({ data }: Props) => {
+export const AddressList = (props: Props) => {
+    const { data, showEngAddr, showRoadAddr, showLegacyAddr } = props;
     if (!data || !data.length) {
         return <Typography.Paragraph className="no-data-label" type="secondary">데이터가 없습니다.</Typography.Paragraph>;
     }
@@ -23,21 +27,27 @@ export const AddressList = ({ data }: Props) => {
                     <ClickToCopyText>
                         {row.zipNo}
                     </ClickToCopyText>
-                    <br />
-                    <Typography.Paragraph className="addr-label">도로명주소:</Typography.Paragraph>
-                    <ClickToCopyText>
-                        {row.roadAddr}
-                    </ClickToCopyText>
-                    <br />
-                    <Typography.Paragraph className="addr-label">지번주소:</Typography.Paragraph>
-                    <ClickToCopyText>
-                        {row.jibunAddr}
-                    </ClickToCopyText>
-                    <br />
-                    <Typography.Paragraph className="addr-label">영문주소:</Typography.Paragraph>
-                    <ClickToCopyText>
-                        {row.engAddr}
-                    </ClickToCopyText>
+                    {showRoadAddr ? <>
+                        <br />
+                        <Typography.Paragraph className="addr-label">도로명주소:</Typography.Paragraph>
+                        <ClickToCopyText>
+                            {row.roadAddr}
+                        </ClickToCopyText>
+                    </> : null}
+                    {showLegacyAddr ? <>
+                        <br />
+                        <Typography.Paragraph className="addr-label">지번주소:</Typography.Paragraph>
+                        <ClickToCopyText>
+                            {row.jibunAddr}
+                        </ClickToCopyText>
+                    </> : null}
+                    {showEngAddr ? <>
+                        <br />
+                        <Typography.Paragraph className="addr-label">영문주소:</Typography.Paragraph>
+                        <ClickToCopyText>
+                            {row.engAddr}
+                        </ClickToCopyText>
+                    </> : null}
                 </Collapse.Panel>
             ))}
         </Collapse>

@@ -124,7 +124,11 @@ export const App = () => {
                     onPressEnter={handleSearchClick} />
             </Layout.Content>
             <Layout.Content>
-                <AddressList data={addressData} />
+                <AddressList
+                    data={addressData}
+                    showEngAddr={showEngAddr}
+                    showRoadAddr={showRoadAddr}
+                    showLegacyAddr={showLegacyAddr} />
             </Layout.Content>
         </Layout>
     );
