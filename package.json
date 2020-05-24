@@ -6,8 +6,8 @@
   "author": "Jaewook Ahn <ajw4586@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "craco build",
-    "dev": "craco start",
+    "build": "REACT_APP_ENV=production craco build",
+    "dev": "REACT_APP_ENV=development craco start",
     "lint": "eslint src --ext .js,.ts,.jsx,.tsx",
     "prepackage": "yarn build",
     "package": "cp manifest.json ./build"

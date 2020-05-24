@@ -1,5 +1,15 @@
 import React from "react";
 import { render } from "react-dom";
 import { App } from "./App";
+import { initializeSettings, getRuntime } from "./utils";
+
+if (getRuntime() === "extension") {
+    chrome.runtime.onInstalled.addListener((details) => {
+        if (details.reason === "install") {
+            console.log("Set default settings");
+            initializeSettings();
+        }
+    });
+}
 
 render(<App />, document.getElementById("root"));

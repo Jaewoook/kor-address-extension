@@ -10,12 +10,13 @@ import {
 import { CheckCircleFilled, CheckCircleOutlined } from "@ant-design/icons";
 import { AddressData, AddressManager } from "./AddressManager";
 import { AddressList } from "./components/AddressList";
+import { loadSettings, updateSettings, getRuntime } from "./utils";
 
 const addrManager = new AddressManager();
 
 export const App = () => {
     const [searchValue, setSearchValue] = React.useState("");
-    const [showEngAddr, setShowEngAddr] = React.useState(false);
+    const [showEngAddr, setShowEngAddr] = React.useState(true);
     const [showRoadAddr, setShowRoadAddr] = React.useState(true);
     const [showLegacyAddr, setShowLegacyAddr] = React.useState(true);
     const [addressData, setAddressData] = React.useState<AddressData[]>([]);
@@ -41,15 +42,46 @@ export const App = () => {
         switch (type) {
             case "eng":
                 setShowEngAddr(!showEngAddr);
+                updateSettings({
+                    searchResult: {
+                        showEng: !showEngAddr,
+                        showRoad: showRoadAddr,
+                        showLegacy: showLegacyAddr,
+                    },
+                });
                 break;
             case "road":
                 setShowRoadAddr(!showRoadAddr);
+                updateSettings({
+                    searchResult: {
+                        showEng: showEngAddr,
+                        showRoad: !showRoadAddr,
+                        showLegacy: showLegacyAddr,
+                    },
+                });
                 break;
             case "legacy":
                 setShowLegacyAddr(!showLegacyAddr);
+                updateSettings({
+                    searchResult: {
+                        showEng: showEngAddr,
+                        showRoad: !showRoadAddr,
+                        showLegacy: showLegacyAddr,
+                    },
+                });
                 break;
         }
     }, [showEngAddr, showRoadAddr, showLegacyAddr, setShowEngAddr, setShowRoadAddr, setShowLegacyAddr]);
+
+    React.useEffect(() => {
+        if (getRuntime() === "extension") {
+            loadSettings().then((settings) => {
+                setShowEngAddr(settings.searchResult.showEng);
+                setShowRoadAddr(settings.searchResult.showRoad);
+                setShowLegacyAddr(settings.searchResult.showLegacy);
+            });
+        }
+    }, []);
 
     return (
         <Layout>
