@@ -92,6 +92,7 @@ export const App = () => {
                 await addrManager.current.loadSavedResult();
                 if (addrManager.current.addressData) {
                     setAddressData(addrManager.current.addressData);
+                    setSearchValue(addrManager.current.previousSearchKey?.keyword || "");
                 }
             })();
         }

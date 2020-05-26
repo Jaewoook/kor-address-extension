@@ -1,7 +1,8 @@
-import { AddressData } from "./AddressManager";
+import { AddressData, SearchKey } from "./AddressManager";
 
 const SETTINGS_KEY_SEARCH_RESULT = "searchResult";
 const SETTINGS_KEY_CACHED_DATA = "addressData";
+const SETTINGS_KEY_PREVIOUS_SEARCH_KEY = "prevSearchKey";
 
 type Settings = {
     searchResult?: {
@@ -10,6 +11,7 @@ type Settings = {
         showLegacy: boolean;
     };
     addressData?: AddressData[];
+    prevSearchKey?: SearchKey;
 };
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -19,6 +21,11 @@ export const DEFAULT_SETTINGS: Settings = {
         showLegacy: true,
     },
     addressData: [],
+    prevSearchKey: {
+        countPerPage: "20",
+        currentPage: "1",
+        keyword: "",
+    },
 };
 
 export const initializeSettings = () => {
@@ -40,12 +47,8 @@ export const loadSettings = () => {
 
 export const loadCachedData = () => {
     return new Promise<Settings>((resolve) => {
-        chrome.storage.local.get([SETTINGS_KEY_CACHED_DATA], (data) => {
-            if (data) {
-                resolve(data as Settings);
-            } else {
-                resolve({ addressData: [] });
-            }
+        chrome.storage.local.get([SETTINGS_KEY_CACHED_DATA, SETTINGS_KEY_PREVIOUS_SEARCH_KEY], (data) => {
+            resolve(data as Settings || DEFAULT_SETTINGS);
         });
     });
 };

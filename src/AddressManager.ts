@@ -1,5 +1,5 @@
 import axios from "axios";
-import { updateSettings, loadCachedData, getRuntime } from "./utils";
+import { updateSettings, loadCachedData, getRuntime, DEFAULT_SETTINGS } from "./utils";
 
 const JUSO_API = "http://www.juso.go.kr/addrlink/addrLinkApi.do";
 const API_KEY = "U01TX0FVVEgyMDIwMDUyMTEzNTUwOTEwOTc4NDI=";
@@ -13,7 +13,7 @@ export type AddressData = {
     zipNo: string;
 };
 
-type SearchKey = {
+export type SearchKey = {
     [key: string]: string;
     currentPage: string;
     countPerPage: string;
@@ -44,6 +44,7 @@ export class AddressManager {
         if (getRuntime() === "extension") {
             const data = await loadCachedData();
             this.addressData = data.addressData || [];
+            this.previousSearchKey = data.prevSearchKey || DEFAULT_SETTINGS.prevSearchKey as SearchKey;
             console.log("AddrManager address loaded", this.addressData);
         }
     }
@@ -75,6 +76,7 @@ export class AddressManager {
                 try {
                     await updateSettings({
                         addressData: res.data.juso,
+                        prevSearchKey: searchKey,
                     });
                 } finally {
                     resolve(res.data.juso);
