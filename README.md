@@ -1,5 +1,9 @@
 # kor-address-extension
 
+[![CircleCI](https://circleci.com/gh/Jaewoook/kor-address-extension.svg?style=shield)](https://circleci.com/gh/Jaewoook/kor-address-extension)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/Jaewoook/kor-address-extension/pulls)
+[![GitHub license](https://img.shields.io/github/license/Jaewoook/kor-address-extension.svg?color=brightgreen&style=flat)](https://github.com/Jaewoook/kor-address-extension/blob/master/LICENSE)
+
 ## 프로젝트 소개
 
 해외 사이트에 주소 입력을 할 때마다 매번 영문 주소 변환 사이트에서 주소 검색 후 복사하는게 불편했습니다. 그래서 주소 검색 후 복사까지 해주는 이 프로젝트를 시작하게 됐습니다.
