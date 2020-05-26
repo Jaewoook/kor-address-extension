@@ -12,8 +12,6 @@ import { AddressData, AddressManager } from "./AddressManager";
 import { AddressList } from "./components/AddressList";
 import { loadSettings, updateSettings, getRuntime } from "./utils";
 
-const addrManager = new AddressManager();
-
 export const App = () => {
     const [searchValue, setSearchValue] = React.useState("");
     const [showEngAddr, setShowEngAddr] = React.useState(true);
@@ -21,19 +19,19 @@ export const App = () => {
     const [showLegacyAddr, setShowLegacyAddr] = React.useState(true);
     const [addressData, setAddressData] = React.useState<AddressData[]>([]);
     const [updatingSettings, setUpdatingSettings] = React.useState(false);
+    const addrManager = React.useRef<AddressManager>(new AddressManager());
 
     const handleSearchValueChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
     }, [setSearchValue]);
 
     const handleSearchClick = React.useCallback(() => {
-        addrManager.search({
+        addrManager.current.search({
             countPerPage: "20",
             currentPage: "1",
             keyword: searchValue,
-        })?.then((res) => {
-            console.log("Response data", res);
-            setAddressData(res.data.juso);
+        })?.then((data) => {
+            setAddressData(data);
         }).catch((err) => {
             console.error(err);
         });
@@ -85,11 +83,17 @@ export const App = () => {
 
     React.useEffect(() => {
         if (getRuntime() === "extension") {
-            loadSettings().then((settings) => {
-                setShowEngAddr(settings.searchResult.showEng);
-                setShowRoadAddr(settings.searchResult.showRoad);
-                setShowLegacyAddr(settings.searchResult.showLegacy);
-            });
+            (async () => {
+                const { searchResult } = await loadSettings();
+                setShowEngAddr(searchResult?.showEng || false);
+                setShowRoadAddr(searchResult?.showRoad || true);
+                setShowLegacyAddr(searchResult?.showLegacy || true);
+
+                await addrManager.current.loadSavedResult();
+                if (addrManager.current.addressData) {
+                    setAddressData(addrManager.current.addressData);
+                }
+            })();
         }
     }, []);
 
