@@ -1,3 +1,5 @@
+![logo](/icons/icon_128.png)
+
 # kor-address-extension
 
 [![CircleCI](https://circleci.com/gh/Jaewoook/kor-address-extension.svg?style=shield)](https://circleci.com/gh/Jaewoook/kor-address-extension)
