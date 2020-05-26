@@ -10,7 +10,7 @@
     "dev": "REACT_APP_ENV=development craco start",
     "lint": "eslint src --ext .js,.ts,.jsx,.tsx",
     "prepackage": "yarn build",
-    "package": "cp manifest.json ./build"
+    "package": "cp manifest.json ./build && cp -r icons ./build/icons"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.114",
