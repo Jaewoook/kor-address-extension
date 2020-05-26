@@ -41,4 +41,4 @@ yarn package
 
 ## License
 
-MIT (see LICENSE file)
+MIT (see [LICENSE](https://github.com/Jaewoook/kor-address-extension/blob/master/LICENSE) file)
