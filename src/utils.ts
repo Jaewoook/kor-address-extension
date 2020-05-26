@@ -1,11 +1,15 @@
+import { AddressData } from "./AddressManager";
+
 const SETTINGS_KEY_SEARCH_RESULT = "searchResult";
+const SETTINGS_KEY_CACHED_DATA = "addressData";
 
 type Settings = {
-    searchResult: {
+    searchResult?: {
         showEng: boolean;
         showRoad: boolean;
         showLegacy: boolean;
     };
+    addressData?: AddressData[];
 };
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -14,6 +18,7 @@ export const DEFAULT_SETTINGS: Settings = {
         showRoad: true,
         showLegacy: true,
     },
+    addressData: [],
 };
 
 export const initializeSettings = () => {
@@ -33,11 +38,23 @@ export const loadSettings = () => {
     });
 };
 
+export const loadCachedData = () => {
+    return new Promise<Settings>((resolve) => {
+        chrome.storage.local.get([SETTINGS_KEY_CACHED_DATA], (data) => {
+            if (data) {
+                resolve(data as Settings);
+            } else {
+                resolve({ addressData: [] });
+            }
+        });
+    });
+};
+
 export const updateSettings = (settings: Settings) => {
     return new Promise((resolve, reject) => {
         if (getRuntime() === "extension") {
             chrome.storage.local.set(settings, () => {
-                console.log("Settings updated!");
+                console.log("Settings updated!", settings);
                 resolve();
             });
         } else {

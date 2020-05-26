@@ -1,4 +1,5 @@
 import axios from "axios";
+import { updateSettings, loadCachedData, getRuntime } from "./utils";
 
 const JUSO_API = "http://www.juso.go.kr/addrlink/addrLinkApi.do";
 const API_KEY = "U01TX0FVVEgyMDIwMDUyMTEzNTUwOTEwOTc4NDI=";
@@ -37,30 +38,51 @@ type APIResponse = {
 export class AddressManager {
 
     previousSearchKey: SearchKey | null = null;
+    addressData: AddressData[] = [];
+
+    async loadSavedResult() {
+        if (getRuntime() === "extension") {
+            const data = await loadCachedData();
+            this.addressData = data.addressData || [];
+            console.log("AddrManager address loaded", this.addressData);
+        }
+    }
 
     search(searchKey: SearchKey) {
-        if (this.previousSearchKey === searchKey) {
-            return;
-        }
+        return new Promise<AddressData[]>((resolve, reject) => {
+            if (this.previousSearchKey === searchKey) {
+                reject("Cancel search because same search key requested");
+            }
 
-        this.previousSearchKey = searchKey;
+            this.previousSearchKey = searchKey;
 
-        const form = new FormData();
-        form.append("confmKey", API_KEY);
-        form.append("resultType", "json");
-        for (let key in searchKey) {
-            form.append(key, searchKey[key]);
-        }
+            const form = new FormData();
+            form.append("confmKey", API_KEY);
+            form.append("resultType", "json");
+            for (let key in searchKey) {
+                form.append(key, searchKey[key]);
+            }
 
-        return axios.request<AddressResponse>({
-            method: "POST",
-            url: JUSO_API,
-            data: form,
-            responseType: "json",
-            transformResponse: (r: APIResponse) => {
-                console.log("transform: ", r.results);
-                return r.results;
-            },
+            axios.request<AddressResponse>({
+                method: "POST",
+                url: JUSO_API,
+                data: form,
+                responseType: "json",
+                transformResponse: (r: APIResponse) => r.results,
+            }).then(async (res) => {
+                console.log("Response data", res);
+                this.addressData = res.data.juso;
+                try {
+                    await updateSettings({
+                        addressData: res.data.juso,
+                    });
+                } finally {
+                    resolve(res.data.juso);
+                }
+            }).catch((err) => {
+                console.error(err);
+                reject(err);
+            });
         });
     }
 }
