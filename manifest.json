@@ -3,8 +3,18 @@
     "name": "주소검색",
     "version": "1.0.0",
     "description": "대한민국 주소검색 크롬 확장 프로그램",
+    "icons": {
+        "16": "icons/icon_16.png",
+        "48": "icons/icon_48.png",
+        "128": "icons/icon_128.png"
+    },
     "permissions": ["storage"],
     "browser_action": {
-        "default_popup": "index.html"
+        "default_popup": "index.html",
+        "default_icon": {
+            "16": "icons/icon_16.png",
+            "24": "icons/icon_24.png",
+            "32": "icons/icon_32.png"
+        }
     }
 }
