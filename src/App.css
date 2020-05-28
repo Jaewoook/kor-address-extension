@@ -1,3 +1,12 @@
+
+html, body {
+    font-family: Noto Sans KR, sans-serif;
+}
+
+#root {
+    min-width: 500px;
+}
+
 /* .ant-tooltip.ant-tooltip-placement-top .ant-tooltip-inner,
 .ant-tooltip-arrow::before {
     background-color: rgba(56,158,13, 0.8);
