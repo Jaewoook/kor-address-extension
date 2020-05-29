@@ -132,7 +132,7 @@ export const App = () => {
                     value={searchValue}
                     loading={showLoading}
                     onChange={handleSearchValueChange}
-                    onPressEnter={handleSearchClick} />
+                    onSearch={handleSearchClick} />
             </Layout.Content>
             <Layout.Content>
                 <AddressList
