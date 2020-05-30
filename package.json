@@ -10,19 +10,22 @@
     "dev": "cross-env REACT_APP_ENV=development craco start",
     "lint": "eslint src --ext .js,.ts,.jsx,.tsx",
     "prepackage": "yarn build",
-    "package": "cp manifest.json ./build && cp -r icons ./build/icons"
+    "package": "node scripts/CreatePackage.js"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.114",
     "@types/clipboard": "^2.0.1",
+    "@types/fs-extra": "^9.0.1",
     "@types/node": "^14.0.5",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^3.0.0",
+    "chalk": "^4.0.0",
     "cross-env": "^7.0.2",
     "eslint": "^6.6.0",
     "eslint-plugin-react": "^7.20.0",
+    "fs-extra": "^9.0.0",
     "typescript": "^3.9.3"
   },
   "dependencies": {
