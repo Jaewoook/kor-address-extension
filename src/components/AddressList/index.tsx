@@ -23,31 +23,38 @@ export const AddressList = (props: Props) => {
         <Collapse bordered={false} defaultActiveKey={[0]}>
             {data.map((row, i) => (
                 <Collapse.Panel key={i} header={row.roadAddr}>
-                    <Typography.Paragraph className="addr-label">우편번호:</Typography.Paragraph>
-                    <ClickToCopyText>
-                        {row.zipNo}
-                    </ClickToCopyText>
-                    {showRoadAddr ? <>
-                        <br />
+                    <div>
+                        <Typography.Paragraph className="addr-label">우편번호:</Typography.Paragraph>
+                        <div>
+                            <ClickToCopyText>
+                                {row.zipNo}
+                            </ClickToCopyText>
+                        </div>
+                    </div>
+                    {showRoadAddr ? <div>
                         <Typography.Paragraph className="addr-label">도로명주소:</Typography.Paragraph>
-                        <ClickToCopyText>
-                            {row.roadAddr}
-                        </ClickToCopyText>
-                    </> : null}
-                    {showLegacyAddr ? <>
-                        <br />
+                        <div>
+                            <ClickToCopyText>
+                                {row.roadAddr}
+                            </ClickToCopyText>
+                        </div>
+                    </div> : null}
+                    {showLegacyAddr ? <div>
                         <Typography.Paragraph className="addr-label">지번주소:</Typography.Paragraph>
-                        <ClickToCopyText>
-                            {row.jibunAddr}
-                        </ClickToCopyText>
-                    </> : null}
-                    {showEngAddr ? <>
-                        <br />
+                        <div>
+                            <ClickToCopyText>
+                                {row.jibunAddr}
+                            </ClickToCopyText>
+                        </div>
+                    </div> : null}
+                    {showEngAddr ? <div>
                         <Typography.Paragraph className="addr-label">영문주소:</Typography.Paragraph>
-                        <ClickToCopyText>
-                            {row.engAddr}
-                        </ClickToCopyText>
-                    </> : null}
+                        <div>
+                            <ClickToCopyText>
+                                {row.engAddr}
+                            </ClickToCopyText>
+                        </div>
+                    </div> : null}
                 </Collapse.Panel>
             ))}
         </Collapse>
