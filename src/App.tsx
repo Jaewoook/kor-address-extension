@@ -14,6 +14,7 @@ import { loadSettings, updateSettings, getRuntime } from "./utils";
 
 export const App = () => {
     const [searchValue, setSearchValue] = React.useState("");
+    const [showLoading, setShowLoading] = React.useState(false);
     const [showEngAddr, setShowEngAddr] = React.useState(true);
     const [showRoadAddr, setShowRoadAddr] = React.useState(true);
     const [showLegacyAddr, setShowLegacyAddr] = React.useState(true);
@@ -26,6 +27,8 @@ export const App = () => {
     }, [setSearchValue]);
 
     const handleSearchClick = React.useCallback(() => {
+        setShowLoading(true);
+
         addrManager.current.search({
             countPerPage: "20",
             currentPage: "1",
@@ -34,8 +37,10 @@ export const App = () => {
             setAddressData(data);
         }).catch((err) => {
             console.error(err);
+        }).finally(() => {
+            setShowLoading(false);
         });
-    }, [searchValue, setAddressData]);
+    }, [searchValue, setAddressData, setShowLoading]);
 
     const handleSearchOptionClick = React.useCallback((type: "eng" | "road" | "legacy") => async () => {
         if (updatingSettings) {
@@ -125,8 +130,9 @@ export const App = () => {
                 <Input.Search
                     enterButton allowClear
                     value={searchValue}
+                    loading={showLoading}
                     onChange={handleSearchValueChange}
-                    onPressEnter={handleSearchClick} />
+                    onSearch={handleSearchClick} />
             </Layout.Content>
             <Layout.Content>
                 <AddressList
