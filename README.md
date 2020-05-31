@@ -13,7 +13,7 @@
 
 ## 데모
 
-![Demo GIF](/demo.gif)
+![Demo GIF](/images/demo.gif)
 
 [![download](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_340x96.png)](https://chrome.google.com/webstore/detail/%EC%A3%BC%EC%86%8C%EA%B2%80%EC%83%89/kiamcbcponnlbnanbbfnfdjhioebpiah)
 
