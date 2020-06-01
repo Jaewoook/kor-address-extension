@@ -25,9 +25,6 @@ module.exports = {
         "react",
         "@typescript-eslint"
     ],
-    ignorePatterns: [
-        "scripts/*.js"
-    ],
     rules: {
         "comma-dangle": ["warn", "always-multiline"],
         "quotes": ["error", "double", { allowTemplateLiterals: true }],

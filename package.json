@@ -8,7 +8,7 @@
   "scripts": {
     "build": "cross-env REACT_APP_ENV=production craco build",
     "dev": "cross-env REACT_APP_ENV=development craco start",
-    "lint": "eslint src --ext .js,.ts,.jsx,.tsx",
+    "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "prepackage": "yarn build",
     "package": "node scripts/CreatePackage.js"
   },
