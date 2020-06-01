@@ -21,4 +21,4 @@ fs.copyFileSync(path.join(__dirname, "../manifest.json"), path.join(distDirPath,
 fs.copySync(buildDirPath, distDirPath);
 fs.copySync(iconDisPath, distIconsDirPath);
 
-console.log(chalk.green("success"), "Created unpacked package!");
+console.log(chalk.green("success"), "unpacked package created!");
