@@ -6,6 +6,8 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/Jaewoook/kor-address-extension/pulls)
 [![GitHub license](https://img.shields.io/github/license/Jaewoook/kor-address-extension.svg?color=brightgreen&style=flat)](https://github.com/Jaewoook/kor-address-extension/blob/master/LICENSE)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/v/kiamcbcponnlbnanbbfnfdjhioebpiah)
+![Mozilla Add-on](https://img.shields.io/amo/v/주소검색)
+![whale store](https://img.shields.io/badge/whale_store-support_soon-blue)
 
 ## 프로젝트 소개
 
@@ -16,14 +18,28 @@
 
 ![Demo GIF](/images/demo.gif)
 
+## 지원 브라우저
+
+### Google Chrome
+
 [![download](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_340x96.png)](https://chrome.google.com/webstore/detail/%EC%A3%BC%EC%86%8C%EA%B2%80%EC%83%89/kiamcbcponnlbnanbbfnfdjhioebpiah)
+
+### Firefox
+
+- 심사중
+
+### NAVER Whale
+
+- 등록 예정
 
 ## 구현 예정 기능
 
 - 검색 결과 페이지네이션 (👨‍💻 Working In Progress...)
 - 검색 결과에 따라 동적으로 팝업 높이 조정
 
-## 수동으로 크롬에 설치하기
+## 수동으로 설치하기
+
+### 공통
 
 먼저, 이 저장소를 클론하고 의존성 설치를 합니다.
 
@@ -38,8 +54,17 @@ cd kor-address-extension && yarn
 yarn package
 ```
 
-마지막으로, [크롬 익스텐션 페이지](chrome://extensions/)에 접속해 개발자 모드를 활성화하고, 프로젝트 루트의 dist 폴더를 추가합니다.
+### Google Chrome 및 NAVER Whale 브라우저
 
+1. <chrome://extensions> 페이지에 접속합니다. (Whale은 <whale://extensions> 통해서도 접속 가능)
+2. 개발자 모드가 활성화되어 있지 않다면, 활성화합니다.
+3. **Load unpacked 버튼**을 클릭해 프로젝트 루트의 **dist 폴더**를 추가합니다.
+
+### Firefox 브라우저
+
+1. <about:debugging> 페이지에 접속합니다.
+2. **This Firefox** 메뉴 선택을 합니다.
+3. **Load Temporary Add-on... 버튼**을 클릭해 프로젝트 루트의 **dist.zip 파일**을 추가합니다.
 
 ## 제작자
 
