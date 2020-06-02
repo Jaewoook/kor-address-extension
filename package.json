@@ -6,8 +6,8 @@
   "author": "Jaewook Ahn <ajw4586@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "cross-env REACT_APP_ENV=production craco build",
-    "dev": "cross-env REACT_APP_ENV=development craco start",
+    "build": "cross-env REACT_APP_ENV=production react-scripts build",
+    "dev": "cross-env REACT_APP_ENV=development react-scripts start",
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "prepackage": "yarn build",
     "package": "node scripts/CreatePackage.js",
@@ -32,11 +32,9 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.1.0",
-    "@craco/craco": "^5.6.4",
     "antd": "^4.3.0",
     "axios": "^0.19.2",
     "copy-to-clipboard": "^3.3.1",
-    "craco-less": "^1.16.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1"
