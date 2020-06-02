@@ -74,9 +74,9 @@ export const getEnv = () => {
 };
 
 export const getRuntime = (): Runtime => {
-    if (!chrome) {
+    if (!chrome || !browser) {
         return "other";
-    } else if (chrome.runtime.id) {
+    } else if (browser.runtime.id || chrome.runtime.id) {
         return "extension";
     } else {
         return "page";
