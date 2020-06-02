@@ -3,6 +3,7 @@
     "name": "주소검색",
     "version": "1.0.1",
     "description": "대한민국 주소검색 크롬 확장 프로그램",
+    "author": "Jaewook Ahn",
     "icons": {
         "16": "icons/icon_16.png",
         "48": "icons/icon_48.png",
