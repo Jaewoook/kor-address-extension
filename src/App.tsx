@@ -129,6 +129,7 @@ export const App = () => {
                 {/* <h1>주소 검색</h1> */}
                 <Input.Search
                     enterButton allowClear
+                    placeholder="검색할 주소 입력"
                     value={searchValue}
                     loading={showLoading}
                     onChange={handleSearchValueChange}
