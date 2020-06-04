@@ -80,7 +80,7 @@ export class AddressManager {
                 responseType: "json",
                 transformResponse: (r: APIResponse) => r.results,
             }).then(async (res) => {
-                console.log(res.data.juso);;
+                console.log(res.data.juso);
                 this.addressData = res.data.juso || [];
                 try {
                     await this.settingsManager?.updateSettings({
