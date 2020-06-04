@@ -2,12 +2,12 @@
 
 # kor-address-extension
 
-[![CircleCI](https://circleci.com/gh/Jaewoook/kor-address-extension.svg?style=shield)](https://circleci.com/gh/Jaewoook/kor-address-extension)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/Jaewoook/kor-address-extension/pulls)
-[![GitHub license](https://img.shields.io/github/license/Jaewoook/kor-address-extension.svg?color=brightgreen&style=flat)](https://github.com/Jaewoook/kor-address-extension/blob/master/LICENSE)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/v/kiamcbcponnlbnanbbfnfdjhioebpiah)
-![Mozilla Add-on](https://img.shields.io/amo/v/주소검색)
-![whale store](https://img.shields.io/badge/whale_store-support_soon-blue)
+![CircleCI](https://img.shields.io/circleci/build/github/Jaewoook/kor-address-extension?style=flat-square)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Jaewoook/kor-address-extension/pulls)
+![GitHub License](https://img.shields.io/github/license/Jaewoook/kor-address-extension?color=brightgreen&style=flat-square)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/v/kiamcbcponnlbnanbbfnfdjhioebpiah?style=flat-square)
+![Mozilla Add-on](https://img.shields.io/amo/v/kor-address-extension?style=flat-square)
+![whale store](https://img.shields.io/github/package-json/v/Jaewoook/kor-address-extension?label=whale%20store&style=flat-square)
 
 ## 프로젝트 소개
 
@@ -26,11 +26,17 @@
 
 ### Firefox
 
-- 심사중
+- [다운로드](https://addons.mozilla.org/ko/firefox/addon/kor-address-extension/)
 
 ### NAVER Whale
 
-- 등록 예정
+- [다운로드](https://store.whale.naver.com/detail/pidjpaocfolbbaminggjijheckcdfcdj)
+
+### (비공식) 그 외 브라우저
+
+아래 **"수동으로 설치하기"** 의 공통 섹션과 브라우저별 확장 프로그램 설치 방법 참조
+
+> NOTE: 브라우저는 WebExtension API를 지원해야 합니다. 기본적으로 WebExtension spec을 준수하지만 안정적인 동작을 보장하지는 않습니다.
 
 ## 구현 예정 기능
 
