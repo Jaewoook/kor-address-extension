@@ -28,7 +28,7 @@
     "cross-env": "^7.0.2",
     "eslint": "^6.6.0",
     "eslint-plugin-react": "^7.20.0",
-    "fs-extra": "^9.0.0",
+    "fs-extra": "^9.0.1",
     "typescript": "^3.9.3"
   },
   "dependencies": {
