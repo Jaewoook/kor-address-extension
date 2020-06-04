@@ -10,9 +10,16 @@ import {
 import { CheckCircleFilled, CheckCircleOutlined } from "@ant-design/icons";
 import { AddressData, AddressManager } from "./AddressManager";
 import { AddressList } from "./components/AddressList";
-import { loadSettings, updateSettings, getRuntime } from "./utils";
+import { getRuntime } from "./utils";
+import { SettingsManager, Settings } from "./SettingsManager";
 
-export const App = () => {
+interface Props {
+    settings: SettingsManager<Settings> | null;
+    address: AddressManager;
+}
+
+export const App = (props: Props) => {
+    const { settings, address } = props;
     const [searchValue, setSearchValue] = React.useState("");
     const [showLoading, setShowLoading] = React.useState(false);
     const [showEngAddr, setShowEngAddr] = React.useState(true);
@@ -20,7 +27,6 @@ export const App = () => {
     const [showLegacyAddr, setShowLegacyAddr] = React.useState(true);
     const [addressData, setAddressData] = React.useState<AddressData[]>([]);
     const [updatingSettings, setUpdatingSettings] = React.useState(false);
-    const addrManager = React.useRef<AddressManager>(new AddressManager());
 
     const handleSearchValueChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
@@ -29,7 +35,7 @@ export const App = () => {
     const handleSearchClick = React.useCallback(() => {
         setShowLoading(true);
 
-        addrManager.current.search({
+        address.search({
             countPerPage: "20",
             currentPage: "1",
             keyword: searchValue,
@@ -40,7 +46,7 @@ export const App = () => {
         }).finally(() => {
             setShowLoading(false);
         });
-    }, [searchValue, setAddressData, setShowLoading]);
+    }, [address, searchValue, setAddressData, setShowLoading]);
 
     const handleSearchOptionClick = React.useCallback((type: "eng" | "road" | "legacy") => async () => {
         if (updatingSettings) {
@@ -52,56 +58,44 @@ export const App = () => {
             switch (type) {
                 case "eng":
                     setShowEngAddr(!showEngAddr);
-                    await updateSettings({
-                        searchResult: {
-                            showEng: !showEngAddr,
-                            showRoad: showRoadAddr,
-                            showLegacy: showLegacyAddr,
-                        },
+                    await settings?.updateSettings({
+                        searchResult: { showEng: !showEngAddr },
                     });
                     break;
                 case "road":
                     setShowRoadAddr(!showRoadAddr);
-                    await updateSettings({
-                        searchResult: {
-                            showEng: showEngAddr,
-                            showRoad: !showRoadAddr,
-                            showLegacy: showLegacyAddr,
-                        },
+                    await settings?.updateSettings({
+                        searchResult: { showRoad: !showRoadAddr },
                     });
                     break;
                 case "legacy":
                     setShowLegacyAddr(!showLegacyAddr);
-                    await updateSettings({
-                        searchResult: {
-                            showEng: showEngAddr,
-                            showRoad: !showRoadAddr,
-                            showLegacy: showLegacyAddr,
-                        },
+                    await settings?.updateSettings({
+                        searchResult: { showLegacy: !showLegacyAddr },
                     });
                     break;
             }
         } finally {
             setUpdatingSettings(false);
         }
-    }, [showEngAddr, showRoadAddr, showLegacyAddr, updatingSettings, setShowEngAddr, setShowRoadAddr, setShowLegacyAddr, setUpdatingSettings]);
+    }, [settings, showEngAddr, showRoadAddr, showLegacyAddr, updatingSettings, setShowEngAddr, setShowRoadAddr, setShowLegacyAddr, setUpdatingSettings]);
 
     React.useEffect(() => {
         if (getRuntime() === "extension") {
-            (async () => {
-                const { searchResult } = await loadSettings();
+            settings?.once("ready", () => {
+                console.log("Settings loaded", settings);
+                const searchResult = settings?.settings?.searchResult;
                 setShowEngAddr(searchResult?.showEng ?? false);
                 setShowRoadAddr(searchResult?.showRoad ?? true);
                 setShowLegacyAddr(searchResult?.showLegacy ?? true);
 
-                await addrManager.current.loadSavedResult();
-                if (addrManager.current.addressData) {
-                    setAddressData(addrManager.current.addressData);
-                    setSearchValue(addrManager.current.previousSearchKey?.keyword ?? "");
+                if (settings.settings?.addressData?.length) {
+                    setAddressData(settings.settings.addressData);
+                    setSearchValue(settings.settings.prevSearchKey?.keyword ?? "");
                 }
-            })();
+            });
         }
-    }, []);
+    }, [settings]);
 
     return (
         <Layout>
