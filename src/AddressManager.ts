@@ -1,5 +1,6 @@
 import axios from "axios";
-import { updateSettings, loadCachedData, getRuntime, DEFAULT_SETTINGS } from "./utils";
+import { getRuntime } from "./utils";
+import { SettingsManager, Settings, DEFAULT_SETTINGS } from "./SettingsManager";
 
 const JUSO_API = "http://www.juso.go.kr/addrlink/addrLinkApi.do";
 const API_KEY = "U01TX0FVVEgyMDIwMDUyMTEzNTUwOTEwOTc4NDI=";
@@ -39,13 +40,21 @@ export class AddressManager {
 
     previousSearchKey: SearchKey | null = null;
     addressData: AddressData[] = [];
+    settingsManager: SettingsManager<Settings> | null = null;
 
-    async loadSavedResult() {
-        if (getRuntime() === "extension") {
-            const data = await loadCachedData();
-            this.addressData = data.addressData || [];
-            this.previousSearchKey = data.prevSearchKey || DEFAULT_SETTINGS.prevSearchKey as SearchKey;
-            console.log("AddrManager address loaded", this.addressData);
+    constructor(settingsManager: SettingsManager<Settings> | null) {
+        this.settingsManager = settingsManager;
+
+        if (this.settingsManager && getRuntime() === "extension") {
+            this.settingsManager.once("ready", () => {
+                const settings = this.settingsManager?.settings;
+                if (!settings) {
+                    console.warn("AddressManager", "No settings found!");
+                    return;
+                }
+                this.addressData = settings.addressData || [];
+                this.previousSearchKey = settings.prevSearchKey || DEFAULT_SETTINGS.prevSearchKey as SearchKey;
+            });
         }
     }
 
@@ -71,13 +80,13 @@ export class AddressManager {
                 responseType: "json",
                 transformResponse: (r: APIResponse) => r.results,
             }).then(async (res) => {
-                console.log("Response data", res);
-                this.addressData = res.data.juso;
+                console.log(res.data.juso);;
+                this.addressData = res.data.juso || [];
                 try {
-                    await updateSettings({
-                        addressData: res.data.juso,
+                    await this.settingsManager?.updateSettings({
+                        addressData: this.addressData,
                         prevSearchKey: searchKey,
-                    });
+                    }).then((result) => console.log(result)).catch((err) => console.log("error! ", err));
                 } finally {
                     resolve(res.data.juso);
                 }
