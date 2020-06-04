@@ -90,14 +90,14 @@ export const App = () => {
         if (getRuntime() === "extension") {
             (async () => {
                 const { searchResult } = await loadSettings();
-                setShowEngAddr(searchResult?.showEng || false);
-                setShowRoadAddr(searchResult?.showRoad || true);
-                setShowLegacyAddr(searchResult?.showLegacy || true);
+                setShowEngAddr(searchResult?.showEng ?? false);
+                setShowRoadAddr(searchResult?.showRoad ?? true);
+                setShowLegacyAddr(searchResult?.showLegacy ?? true);
 
                 await addrManager.current.loadSavedResult();
                 if (addrManager.current.addressData) {
                     setAddressData(addrManager.current.addressData);
-                    setSearchValue(addrManager.current.previousSearchKey?.keyword || "");
+                    setSearchValue(addrManager.current.previousSearchKey?.keyword ?? "");
                 }
             })();
         }
