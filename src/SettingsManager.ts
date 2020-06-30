@@ -27,6 +27,7 @@ export const DEFAULT_SETTINGS: Settings = {
         countPerPage: "20",
         currentPage: "1",
         keyword: "",
+        end: false,
     },
 };
 
