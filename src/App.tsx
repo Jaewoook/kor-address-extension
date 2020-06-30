@@ -183,7 +183,7 @@ export const App = (props: Props) => {
         document.addEventListener("scroll", handleScrollEvent);
         return () => {
             document.removeEventListener("scroll", handleScrollEvent);
-        }
+        };
     }, [handleScrollEvent]);
 
     return (
