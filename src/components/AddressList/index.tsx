@@ -1,8 +1,6 @@
 import React from "react";
-import {
-    Collapse,
-    Typography,
-} from "antd";
+import styled from "styled-components";
+import { Collapse, Typography } from "antd";
 import { AddressData } from "../../AddressManager";
 import { ClickToCopyText } from "../ClickToCopyText";
 import "./AddressList.css";
@@ -14,10 +12,24 @@ interface Props {
     showLegacyAddr: boolean;
 }
 
+const EmptyText = styled(Typography.Paragraph)`
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em !important;
+    color: rgba(0, 0, 0, 0.6) !important;
+    > span {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.3) !important;
+    }
+`;
+
 export const AddressList = (props: Props) => {
     const { data, showEngAddr, showRoadAddr, showLegacyAddr } = props;
     if (!data || !data.length) {
-        return <Typography.Paragraph className="no-data-label" type="secondary">데이터가 없습니다.</Typography.Paragraph>;
+        return <EmptyText type="secondary">
+            검색 결과가 없습니다.<br />
+            <span>(검색어 예시: 강남대로, 자양동, 초성 가능)</span>
+        </EmptyText>;
     }
     return (
         <Collapse bordered={false} defaultActiveKey={[0]}>

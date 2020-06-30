@@ -3,12 +3,6 @@
     margin: 0 !important;
 }
 
-.no-data-label {
-    text-align: center;
-    margin-top: 2em;
-    margin-bottom: 2em !important;
-}
-
 .ant-collapse-content-box > div {
     display: flex;
     align-items: center;
