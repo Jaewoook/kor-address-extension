@@ -28,7 +28,7 @@ export const AddressList = (props: Props) => {
     if (!data || !data.length) {
         return <EmptyText type="secondary">
             검색 결과가 없습니다.<br />
-            <span>(검색어 예시: 강남대로, 자양동, 초성 가능)</span>
+            <span>(검색어 예시: 강남대로, 자양동, 초성 검색 가능)</span>
         </EmptyText>;
     }
     return (

@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import "antd/dist/antd.css";
 import "./App.css";
 import {
@@ -13,6 +14,15 @@ import { AddressData, AddressManager } from "./AddressManager";
 import { AddressList } from "./components/AddressList";
 import { getRuntime } from "./utils";
 import { SettingsManager, Settings } from "./SettingsManager";
+
+const Header = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: #f0f2f5;
+`;
 
 interface Props {
     settings: SettingsManager<Settings> | null;
@@ -100,36 +110,38 @@ export const App = (props: Props) => {
 
     return (
         <Layout>
-            <PageHeader
-                title="주소검색"
-                extra={[
-                    <Button
-                        key={1} type="link" disabled={updatingSettings}
-                        icon={showEngAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}
-                        onClick={handleSearchOptionClick("eng")}>
-                            영문주소
-                    </Button>,
-                    <Button key={2} type="link" disabled={updatingSettings}
-                        icon={showRoadAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}
-                        onClick={handleSearchOptionClick("road")}>
-                            도로명주소
-                    </Button>,
-                    <Button key={3} type="link" disabled={updatingSettings}
-                        icon={showLegacyAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}
-                        onClick={handleSearchOptionClick("legacy")}>
-                            지번주소
-                    </Button>,
-                ]} />
-            <Layout.Content style={{ padding: "10px" }}>
-                <Input.Search
-                    enterButton allowClear
-                    placeholder="검색할 주소 입력"
-                    value={searchValue}
-                    loading={showLoading}
-                    onChange={handleSearchValueChange}
-                    onSearch={handleSearchClick} />
-            </Layout.Content>
-            <Layout.Content>
+            <Header>
+                <PageHeader
+                    title="주소검색"
+                    extra={[
+                        <Button
+                            key={1} type="link" disabled={updatingSettings}
+                            icon={showEngAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}
+                            onClick={handleSearchOptionClick("eng")}>
+                                영문주소
+                        </Button>,
+                        <Button key={2} type="link" disabled={updatingSettings}
+                            icon={showRoadAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}
+                            onClick={handleSearchOptionClick("road")}>
+                                도로명주소
+                        </Button>,
+                        <Button key={3} type="link" disabled={updatingSettings}
+                            icon={showLegacyAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}
+                            onClick={handleSearchOptionClick("legacy")}>
+                                지번주소
+                        </Button>,
+                    ]} />
+                <Layout.Content style={{ padding: "10px" }}>
+                    <Input.Search
+                        enterButton allowClear
+                        placeholder="검색할 주소 입력"
+                        value={searchValue}
+                        loading={showLoading}
+                        onChange={handleSearchValueChange}
+                        onSearch={handleSearchClick} />
+                </Layout.Content>
+            </Header>
+            <Layout.Content style={{ marginTop: 124 }}>
                 <AddressList
                     data={addressData}
                     showEngAddr={showEngAddr}
