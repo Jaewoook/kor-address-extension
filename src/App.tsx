@@ -11,7 +11,12 @@ import {
     Spin,
     Typography,
 } from "antd";
-import { CheckCircleFilled, CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
+import {
+    CheckCircleFilled,
+    CheckCircleOutlined,
+    LoadingOutlined,
+    ReloadOutlined,
+} from "@ant-design/icons";
 import { AddressData, AddressManager } from "./AddressManager";
 import { AddressList } from "./components/AddressList";
 import { getRuntime } from "./utils";
@@ -24,6 +29,56 @@ const Header = styled.div`
     right: 0;
     z-index: 1;
     background-color: #f0f2f5;
+`;
+
+const ListTopWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    margin-top: 4px;
+
+    > .ant-typography {
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 12px;
+    }
+    > #clear-result {
+        margin-left: auto;
+        display: inherit;
+        align-items: inherit;
+        cursor: pointer;
+        > span {
+            color: rgba(0, 0, 0, 0.4);
+            font-size: 12px;
+        }
+        > .ant-typography {
+            margin-left: 4px;
+        }
+    }
+`;
+
+interface ListTopProps {
+    addressData: AddressData[];
+    onResetClick: () => void;
+}
+
+const ListTop = (props: ListTopProps) => {
+    return <ListTopWrapper>
+        {props.addressData.length ? (
+            <div id="clear-result" onClick={props.onResetClick}>
+                <ReloadOutlined />
+                <Typography.Text>초기화</Typography.Text>
+            </div>
+        ) : null}
+    </ListTopWrapper>;
+};
+
+const SearchWrapper = styled(Layout.Content)`
+    padding: 10px;
+    background: linear-gradient(to bottom, #f0f2f5 0%, #f0f2f5 40%, #fafafa 40%, #fafafa 100%);
+`;
+
+const Search = styled(Input.Search)`
+    box-shadow: 0px 8px 8px -8px rgba(0,0,0,0.1);
 `;
 
 const ListEnd = styled.div`
@@ -82,6 +137,12 @@ export const App = (props: Props) => {
             setShowLoading(false);
         });
     }, [address, searchValue, setAddressData, setShowLoading]);
+
+    const handleResetClick = React.useCallback(() => {
+        setSearchValue("");
+        handleSearchClick();
+    //  eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [setSearchValue]);
 
     const handleSearchOptionClick = React.useCallback((type: "eng" | "road" | "legacy") => async () => {
         if (updatingSettings) {
@@ -190,17 +251,18 @@ export const App = (props: Props) => {
         <Layout>
             <Header>
                 <PageHeader title="주소검색" extra={Options} />
-                <Layout.Content style={{ padding: "10px" }}>
-                    <Input.Search
+                <SearchWrapper>
+                    <Search
                         enterButton allowClear
                         placeholder="검색할 주소 입력"
                         value={searchValue}
                         loading={showLoading}
                         onChange={handleSearchValueChange}
                         onSearch={handleSearchClick} />
-                </Layout.Content>
+                </SearchWrapper>
             </Header>
-            <Layout.Content style={{ marginTop: 124 }}>
+            <Layout.Content style={{ marginTop: 124, backgroundColor: "#fafafa" }}>
+                <ListTop addressData={addressData} onResetClick={handleResetClick} />
                 <AddressList
                     data={addressData}
                     showEngAddr={showEngAddr}
