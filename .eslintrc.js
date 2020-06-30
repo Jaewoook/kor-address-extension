@@ -4,6 +4,7 @@ module.exports = {
         es6: true
     },
     extends: [
+        "react-app",
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/eslint-recommended"
@@ -23,7 +24,7 @@ module.exports = {
     },
     plugins: [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
     ],
     rules: {
         "comma-dangle": ["warn", "always-multiline"],
