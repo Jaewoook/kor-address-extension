@@ -62,7 +62,12 @@ export const App = (props: Props) => {
     }, [setSearchValue]);
 
     const handleSearchClick = React.useCallback(() => {
+        if (address.previousSearchKey?.keyword === searchValue) {
+            return;
+        }
+
         setShowLoading(true);
+        setAddressData([]);
 
         address.search({
             countPerPage: "20",
