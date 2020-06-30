@@ -69,7 +69,7 @@ export class AddressManager {
             const form = new FormData();
             form.append("confmKey", API_KEY);
             form.append("resultType", "json");
-            for (let key in searchKey) {
+            for (const key in searchKey) {
                 form.append(key, searchKey[key]);
             }
 
