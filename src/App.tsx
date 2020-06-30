@@ -210,7 +210,7 @@ export const App = (props: Props) => {
                     <Spinner />
                 ) : isEnd ? (
                     <ListEnd>
-                        <Typography.Text>✅ 모든 검색 결과를 불러왔습니다!</Typography.Text>
+                        <Typography.Text>✅ 모든 검색 결과를 확인했습니다!</Typography.Text>
                     </ListEnd>
                 ) : null}
             </Layout.Content>
