@@ -6,8 +6,9 @@ import {
     Input,
     Layout,
     PageHeader,
+    Spin,
 } from "antd";
-import { CheckCircleFilled, CheckCircleOutlined } from "@ant-design/icons";
+import { CheckCircleFilled, CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
 import { AddressData, AddressManager } from "./AddressManager";
 import { AddressList } from "./components/AddressList";
 import { getRuntime } from "./utils";
@@ -120,7 +121,6 @@ export const App = (props: Props) => {
                     </Button>,
                 ]} />
             <Layout.Content style={{ padding: "10px" }}>
-                {/* <h1>주소 검색</h1> */}
                 <Input.Search
                     enterButton allowClear
                     placeholder="검색할 주소 입력"
@@ -135,6 +135,9 @@ export const App = (props: Props) => {
                     showEngAddr={showEngAddr}
                     showRoadAddr={showRoadAddr}
                     showLegacyAddr={showLegacyAddr} />
+                {showLoading ? (
+                    <Spin style={{ width: "100%", marginBottom: "30px" }} indicator={<LoadingOutlined style={{ fontSize: 24 }} />} />
+                ) : null}
             </Layout.Content>
         </Layout>
     );
