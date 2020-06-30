@@ -29,7 +29,7 @@
     "eslint": "^6.6.0",
     "eslint-plugin-react": "^7.20.2",
     "fs-extra": "^9.0.1",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.5"
   },
   "dependencies": {
     "@ant-design/icons": "^4.1.0",
