@@ -32,7 +32,7 @@ export const AddressList = (props: Props) => {
         </EmptyText>;
     }
     return (
-        <Collapse bordered={false} defaultActiveKey={[0]}>
+        <Collapse className="address-list" bordered={false} defaultActiveKey={[0]}>
             {data.map((row, i) => (
                 <Collapse.Panel key={i} header={row.roadAddr}>
                     <div>
