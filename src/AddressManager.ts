@@ -15,10 +15,10 @@ export type AddressData = {
 };
 
 export type SearchKey = {
-    [key: string]: string;
     currentPage: string;
     countPerPage: string;
     keyword: string;
+    end: boolean;
 };
 
 type AddressResponse = {
@@ -58,7 +58,7 @@ export class AddressManager {
         }
     }
 
-    search(searchKey: SearchKey) {
+    search(searchKey: SearchKey, append?: boolean) {
         return new Promise<AddressData[]>((resolve, reject) => {
             if (this.previousSearchKey === searchKey) {
                 reject("Cancel search because same search key requested");
@@ -69,9 +69,9 @@ export class AddressManager {
             const form = new FormData();
             form.append("confmKey", API_KEY);
             form.append("resultType", "json");
-            for (const key in searchKey) {
-                form.append(key, searchKey[key]);
-            }
+            form.append("currentPage", searchKey.currentPage);
+            form.append("countPerPage", searchKey.countPerPage);
+            form.append("keyword", searchKey.keyword);
 
             axios.request<AddressResponse>({
                 method: "POST",
@@ -81,14 +81,25 @@ export class AddressManager {
                 transformResponse: (r: APIResponse) => r.results,
             }).then(async (res) => {
                 console.log(res.data.juso);
-                this.addressData = res.data.juso || [];
+                if (append) {
+                    //  prevent search next page
+                    if (!res.data.juso.length) {
+                        searchKey.end = true;
+                    } else {
+                        this.addressData = [...this.addressData, ...res.data.juso];
+                    }
+                } else {
+                    this.addressData = res.data.juso || [];
+                }
                 try {
                     await this.settingsManager?.updateSettings({
                         addressData: this.addressData,
                         prevSearchKey: searchKey,
-                    }).then((result) => console.log(result)).catch((err) => console.log("error! ", err));
+                    })
+                    .then((result) => console.log(result))
+                    .catch((err) => console.log("error! ", err));
                 } finally {
-                    resolve(res.data.juso);
+                    resolve(this.addressData);
                 }
             }).catch((err) => {
                 console.error(err);
