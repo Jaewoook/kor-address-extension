@@ -14,7 +14,7 @@
     "postpackage": "node scripts/CreateDistribution.js"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.117",
+    "@types/chrome": "^0.0.119",
     "@types/clipboard": "^2.0.1",
     "@types/firefox-webext-browser": "^78.0.0",
     "@types/fs-extra": "^9.0.1",
