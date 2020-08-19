@@ -7,6 +7,8 @@
   "license": "MIT",
   "scripts": {
     "build": "cross-env REACT_APP_ENV=production react-scripts build",
+    "prebuild-background": "rm -rf dist/background",
+    "build-background": "tsc --project background.tsconfig.json",
     "dev": "cross-env REACT_APP_ENV=development react-scripts start",
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "prepackage": "yarn build",
