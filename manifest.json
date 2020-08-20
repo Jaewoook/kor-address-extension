@@ -17,5 +17,9 @@
             "24": "icons/icon_24.png",
             "32": "icons/icon_32.png"
         }
+    },
+    "background": {
+        "scripts": ["background/analytics.js"],
+        "persistent": false
     }
 }

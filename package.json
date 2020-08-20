@@ -6,11 +6,14 @@
   "author": "Jaewook Ahn <ajw4586@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "cross-env REACT_APP_ENV=production react-scripts build",
-    "prebuild-background": "rm -rf dist/background",
+    "build-popup": "cross-env REACT_APP_ENV=production react-scripts build",
+    "prebuild-background": "rm -rf build/background",
     "build-background": "tsc --project background.tsconfig.json",
+    "build": "yarn build-popup && yarn build-background",
     "dev": "cross-env REACT_APP_ENV=development react-scripts start",
-    "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
+    "lint-popup": "eslint src --ext .js,.ts,.jsx,.tsx",
+    "lint-background": "eslint background --ext .js,.ts,.jsx,.tsx",
+    "lint": "yarn lint-popup && yarn lint-background",
     "prepackage": "yarn build",
     "package": "node scripts/CreatePackage.js",
     "postpackage": "node scripts/CreateDistribution.js"
