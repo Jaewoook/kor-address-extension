@@ -18,9 +18,5 @@
             "32": "icons/icon_32.png"
         }
     },
-    "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
-    "background": {
-        "scripts": ["background/analytics.js"],
-        "persistent": false
-    }
+    "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
 }
