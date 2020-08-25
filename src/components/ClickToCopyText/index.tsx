@@ -17,7 +17,7 @@ export const ClickToCopyText: React.FC<ClickToCopyTextProps> = ({ children, anal
     const handleCopyClick = React.useCallback(() => {
         setCopied(true);
         copy(children);
-        window.ga("send", "address", "copy", `${analytics} 복사`);
+        window.ga("send", "event", "address", "copy", `${analytics} 복사`);
     }, [setCopied, analytics, children]);
 
     const handleVisibleChange = React.useCallback((visible: boolean) => {
