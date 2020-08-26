@@ -22,6 +22,9 @@ export const getEnv = () => {
     return window.__ENV__.NODE_ENV;
 };
 
+export const isProduction = () => getEnv() === "production";
+export const isDevelopment = () => getEnv() === "development";
+
 export const getRuntime = (): Runtime => {
     try {
         if (typeof chrome == "undefined" && typeof browser == "undefined") {
