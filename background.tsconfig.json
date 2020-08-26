@@ -1,0 +1,12 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "module": "CommonJS",
+        "noEmit": false,
+        "outDir": "./build/background",
+        "isolatedModules": false
+    },
+    "include": [
+        "background/*"
+    ]
+}

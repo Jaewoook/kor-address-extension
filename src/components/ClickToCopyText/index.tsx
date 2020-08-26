@@ -8,15 +8,17 @@ import "./ClickToCopyText.css";
 
 interface ClickToCopyTextProps {
     children: string;
+    analytics?: "우편번호" | "도로명주소" | "지번주소" | "영문주소";
 }
 
-export const ClickToCopyText: React.FC<ClickToCopyTextProps> = ({ children }: ClickToCopyTextProps) => {
+export const ClickToCopyText: React.FC<ClickToCopyTextProps> = ({ children, analytics }: ClickToCopyTextProps) => {
     const [copied, setCopied] = React.useState(false);
 
     const handleCopyClick = React.useCallback(() => {
         setCopied(true);
         copy(children);
-    }, [setCopied, children]);
+        window.ga("send", "event", "address", "copy", `${analytics} 복사`);
+    }, [setCopied, analytics, children]);
 
     const handleVisibleChange = React.useCallback((visible: boolean) => {
         if (!visible) {

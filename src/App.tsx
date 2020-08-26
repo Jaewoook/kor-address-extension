@@ -124,6 +124,7 @@ export const App = (props: Props) => {
         setShowLoading(true);
         setAddressData([]);
 
+        window.ga("send", "event", "address", "search", searchValue);
         address.search({
             countPerPage: "20",
             currentPage: "1",
@@ -154,18 +155,21 @@ export const App = (props: Props) => {
             switch (type) {
                 case "eng":
                     setShowEngAddr(!showEngAddr);
+                    window.ga("send", "event", "option", !showEngAddr ? "on" : "off", "영문주소 표시");
                     await settings?.updateSettings({
                         searchResult: { showEng: !showEngAddr },
                     });
                     break;
                 case "road":
                     setShowRoadAddr(!showRoadAddr);
+                    window.ga("send", "event", "option", !showRoadAddr ? "on" : "off", "도로명주소 표시");
                     await settings?.updateSettings({
                         searchResult: { showRoad: !showRoadAddr },
                     });
                     break;
                 case "legacy":
                     setShowLegacyAddr(!showLegacyAddr);
+                    window.ga("send", "event", "option", !showLegacyAddr ? "on" : "off", "지번주소 표시");
                     await settings?.updateSettings({
                         searchResult: { showLegacy: !showLegacyAddr },
                     });
@@ -187,9 +191,12 @@ export const App = (props: Props) => {
         }
 
         setShowLoading(true);
+        const nextPage = (Number.parseInt(address.previousSearchKey?.currentPage!) + 1).toString();
+
+        window.ga("send", "event", "address", "search", "추가 데이터 로드", Number.parseInt(nextPage));
         address.search({
             ...address.previousSearchKey!,
-            currentPage: (Number.parseInt(address.previousSearchKey?.currentPage!) + 1).toString(),
+            currentPage: nextPage,
         }, true).then((data) => {
             setAddressData(data);
         }).catch((err) => {

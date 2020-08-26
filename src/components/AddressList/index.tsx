@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
 import React from "react";
 import styled from "styled-components";
 import { Collapse, Typography } from "antd";
 import { AddressData } from "../../AddressManager";
 import { ClickToCopyText } from "../ClickToCopyText";
+import { FeedbackPopover } from "../FeedbackPopover";
 import "./AddressList.css";
 
 interface Props {
@@ -28,7 +30,8 @@ export const AddressList = (props: Props) => {
     if (!data || !data.length) {
         return <EmptyText type="secondary">
             검색 결과가 없습니다.<br />
-            <span>(검색어 예시: 강남대로, 자양동, 초성 검색 가능)</span>
+            <span>(검색어 예시: 강남대로, 자양동, 초성 검색 가능)</span><br />
+            <FeedbackPopover />
         </EmptyText>;
     }
     return (
@@ -38,7 +41,7 @@ export const AddressList = (props: Props) => {
                     <div>
                         <Typography.Paragraph className="addr-label">우편번호:</Typography.Paragraph>
                         <div>
-                            <ClickToCopyText>
+                            <ClickToCopyText analytics="우편번호">
                                 {row.zipNo}
                             </ClickToCopyText>
                         </div>
@@ -46,7 +49,7 @@ export const AddressList = (props: Props) => {
                     {showRoadAddr ? <div>
                         <Typography.Paragraph className="addr-label">도로명주소:</Typography.Paragraph>
                         <div>
-                            <ClickToCopyText>
+                            <ClickToCopyText analytics="도로명주소">
                                 {row.roadAddr}
                             </ClickToCopyText>
                         </div>
@@ -54,7 +57,7 @@ export const AddressList = (props: Props) => {
                     {showLegacyAddr ? <div>
                         <Typography.Paragraph className="addr-label">지번주소:</Typography.Paragraph>
                         <div>
-                            <ClickToCopyText>
+                            <ClickToCopyText analytics="지번주소">
                                 {row.jibunAddr}
                             </ClickToCopyText>
                         </div>
@@ -62,7 +65,7 @@ export const AddressList = (props: Props) => {
                     {showEngAddr ? <div>
                         <Typography.Paragraph className="addr-label">영문주소:</Typography.Paragraph>
                         <div>
-                            <ClickToCopyText>
+                            <ClickToCopyText analytics="영문주소">
                                 {row.engAddr}
                             </ClickToCopyText>
                         </div>
