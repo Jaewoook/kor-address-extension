@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React from "react";
 import styled from "styled-components";
-import { Button, Collapse, Input, Popover, Typography } from "antd";
+import { Collapse, Typography } from "antd";
 import { AddressData } from "../../AddressManager";
 import { ClickToCopyText } from "../ClickToCopyText";
+import { FeedbackPopover } from "../FeedbackPopover";
 import "./AddressList.css";
 
 interface Props {
@@ -24,46 +25,13 @@ const EmptyText = styled(Typography.Paragraph)`
     }
 `;
 
-const PopoverTitleWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-`;
-
-const PopoverTitle = (props: { children: React.ReactNode; }) => {
-    return <PopoverTitleWrapper>{props.children}</PopoverTitleWrapper>;
-};
-
-const FeedbackSenderWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    > button.ant-btn {
-        margin-top: 8px;
-        width: 100%;
-    }
-`;
-
-const PopoverContentStyle = {
-    width: "270px",
-};
-
-const FeedbackSender = () => {
-    return <FeedbackSenderWrapper>
-        <Input.TextArea rows={3} />
-        <Button type="primary">보내기 🎉</Button>
-    </FeedbackSenderWrapper>;
-};
-
 export const AddressList = (props: Props) => {
     const { data, showEngAddr, showRoadAddr, showLegacyAddr } = props;
     if (!data || !data.length) {
         return <EmptyText type="secondary">
             검색 결과가 없습니다.<br />
             <span>(검색어 예시: 강남대로, 자양동, 초성 검색 가능)</span><br />
-            <Popover overlayStyle={PopoverContentStyle} placement="top" title={<PopoverTitle>피드백 보내기</PopoverTitle>} content={<FeedbackSender />}>
-                <Typography.Text keyboard>피드백 보내기</Typography.Text>
-            </Popover>
+            <FeedbackPopover />
         </EmptyText>;
     }
     return (
