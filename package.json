@@ -34,7 +34,7 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.1.0",
+    "@ant-design/icons": "^4.5.0",
     "@sentry/react": "^5.27.3",
     "antd": "^4.4.1",
     "axios": "^0.19.2",
