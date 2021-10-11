@@ -26,7 +26,7 @@ export const ClickToCopyText: React.FC<ClickToCopyTextProps> = ({ children, anal
         }
     }, [setCopied]);
     return (
-        <Tooltip title={!copied ? "클릭해서 복사하기" : "복사됨!"} onVisibleChange={handleVisibleChange}>
+        <Tooltip title={!copied ? "클릭해서 복사하기" : "복사완료!"} onVisibleChange={handleVisibleChange}>
             <Button className="text-click-to-copy" type="link" onClick={handleCopyClick}>{children}</Button>
         </Tooltip>
     );
