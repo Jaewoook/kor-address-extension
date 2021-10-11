@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { getRuntime } from "./utils";
 import { SettingsManager, Settings, DEFAULT_SETTINGS } from "./SettingsManager";
 
@@ -73,23 +73,22 @@ export class AddressManager {
             form.append("countPerPage", searchKey.countPerPage);
             form.append("keyword", searchKey.keyword);
 
-            axios.request<AddressResponse>({
+            axios.request<FormData, AxiosResponse<APIResponse>>({
                 method: "POST",
                 url: JUSO_API,
                 data: form,
                 responseType: "json",
-                transformResponse: (r: APIResponse) => r.results,
             }).then(async (res) => {
-                console.log(res.data.juso);
+                console.log(res.data);
                 if (append) {
                     //  prevent search next page
-                    if (!res.data.juso.length) {
+                    if (!res.data.results.juso.length) {
                         searchKey.end = true;
                     } else {
-                        this.addressData = [...this.addressData, ...res.data.juso];
+                        this.addressData = [...this.addressData, ...res.data.results.juso];
                     }
                 } else {
-                    this.addressData = res.data.juso || [];
+                    this.addressData = res.data.results.juso || [];
                 }
                 try {
                     await this.settingsManager?.updateSettings({
