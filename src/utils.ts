@@ -16,7 +16,6 @@ export const merge = (target: any, source: any) => {
 };
 
 type Runtime = "other" | "page" | "extension" | "unknown";
-type Environment = "development" | "production" | "text";
 
 export const getEnv = () => {
     return window.__ENV__.NODE_ENV;
