@@ -5,8 +5,6 @@ module.exports = {
     },
     extends: [
         "react-app",
-        "eslint:recommended",
-        "plugin:react/recommended",
         "plugin:@typescript-eslint/eslint-recommended"
     ],
     globals: {
@@ -22,10 +20,7 @@ module.exports = {
         sourceType: "module",
         project: "./tsconfig.json",
     },
-    plugins: [
-        "react",
-        "@typescript-eslint",
-    ],
+    plugins: ["@typescript-eslint"],
     rules: {
         "comma-dangle": ["warn", "always-multiline"],
         "quotes": ["error", "double", { allowTemplateLiterals: true }],
