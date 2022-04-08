@@ -1,7 +1,7 @@
 /*  eslint-disable jsx-a11y/accessible-emoji */
 import React from "react";
 import styled from "styled-components";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import "./App.css";
 import {
     Button,

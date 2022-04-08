@@ -35,7 +35,7 @@ export class SettingsManager<T> extends EventEmitter {
 
     settings: T | null = null;
     isUpdating: boolean = false;
-    updateQueue: Array<[T, (value?: T | PromiseLike<T>) => void]> = [];
+    updateQueue: Array<[T, (value: T | PromiseLike<T>) => void]> = [];
 
     constructor(defaultSettings: T) {
         super();
@@ -95,12 +95,12 @@ export class SettingsManager<T> extends EventEmitter {
         }
 
         this.isUpdating = true;
-        const request = this.updateQueue.shift();
-        console.log("Deep merge result", merge(this.settings, request![0]));
-        chrome.storage.local.set(merge(this.settings, request![0]), async () => {
+        const request = this.updateQueue.shift()!;
+        console.log("Deep merge result", merge(this.settings, request[0]));
+        chrome.storage.local.set(merge(this.settings, request[0]), async () => {
             this.settings = await this.loadSettings();
             this.isUpdating = false;
-            request![1](this.settings);
+            request[1](this.settings);
             console.log("Update succeeded");
             if (this.updateQueue.length) {
                 this.run();
