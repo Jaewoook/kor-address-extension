@@ -1,6 +1,6 @@
 import React from "react";
-import * as Sentry from "@sentry/react";
 import { render } from "react-dom";
+import * as Sentry from "@sentry/react";
 import { App } from "./App";
 import { getRuntime, isProduction } from "./utils";
 import { AddressManager } from "./AddressManager";
@@ -12,20 +12,14 @@ window.__ENV__ = {
 };
 
 if (isProduction()) {
-    window.ga("create", "UA-108816190-2", "auto");
-    window.ga("set", "checkProtocolTask", null);
-    window.ga("send", "pageview", "/");
     Sentry.init({ dsn: "https://6b96accd47ff467da8394a51da93d909@o415139.ingest.sentry.io/5305794" });
-} else {
-    console.info("Google Analytics disabled because runtime does not running in production.");
-    window.ga = function() {};
 }
 
-let settings = null;
-
-if (getRuntime() === "extension") {
-    settings = new SettingsManager<Settings>(DEFAULT_SETTINGS);
-}
+const settings = getRuntime() === "extension" ? new SettingsManager<Settings>(DEFAULT_SETTINGS) : null;
 const address = new AddressManager(settings);
 
-render(<App settings={settings} address={address} />, document.getElementById("root"));
+render((
+    <React.StrictMode>
+        <App settings={settings} address={address} />
+    </React.StrictMode>
+), document.getElementById("root"));
