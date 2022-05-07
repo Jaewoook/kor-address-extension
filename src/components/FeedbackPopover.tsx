@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React from "react";
+/**
+ * External modules
+ */
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { Button, Input, Popover, Typography } from "antd";
 import axios from "axios";
@@ -31,12 +34,12 @@ const PopoverContentStyle = {
 };
 
 const FeedbackForm = () => {
-    const [message, setMessage] = React.useState("");
-    const [sending, setSending] = React.useState(false);
-    const [sent, setSent] = React.useState(false);
+    const [message, setMessage] = useState("");
+    const [sending, setSending] = useState(false);
+    const [sent, setSent] = useState(false);
 
-    const handleSendClick = React.useCallback(async () => {
-        if (sent) {
+    const handleSendClick = useCallback(async () => {
+        if (sent || !message) {
             return;
         }
         setSending(true);
@@ -48,14 +51,15 @@ const FeedbackForm = () => {
         } finally {
             setSending(false);
         }
-    }, [message, sent, setSent, setSending]);
+    }, [message, sent]);
+
     return <FeedbackSenderWrapper>
         <Input.TextArea disabled={sent || sending}
             value={message}
             rows={3}
             placeholder="이곳에 피드백 내용을 입력해주세요.&#10;작성해주신 소중한 피드백이 더 좋은 주소검색을 만들어요!"
             onChange={(ev) => setMessage(ev.target.value)} />
-        <Button disabled={sent || sending} type="primary" onClick={handleSendClick}>
+        <Button disabled={sent || sending || !message} type="primary" onClick={handleSendClick}>
             {!sent ? "보내기 🎉" : "피드백 전달 완료! 💛"}
         </Button>
     </FeedbackSenderWrapper>;

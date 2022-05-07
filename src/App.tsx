@@ -1,8 +1,10 @@
 /*  eslint-disable jsx-a11y/accessible-emoji */
-import React from "react";
+/**
+ * External modules
+ */
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import "antd/dist/antd.css";
-import "./App.css";
 import {
     Button,
     Input,
@@ -17,10 +19,15 @@ import {
     LoadingOutlined,
     ReloadOutlined,
 } from "@ant-design/icons";
+
+/**
+ * Internal modules
+ */
+import "./App.css";
 import { AddressData, AddressManager } from "./AddressManager";
 import { AddressList } from "./components/AddressList";
-import { getRuntime } from "./utils";
 import { SettingsManager, Settings } from "./SettingsManager";
+import { getRuntime } from "./utils";
 
 const Header = styled.div`
     position: fixed;
@@ -92,7 +99,7 @@ const ListEnd = styled.div`
     }
 `;
 
-const Spinner: React.FC = () => (
+const Spinner = () => (
     <Spin style={{ width: "100%", marginTop: "15px", marginBottom: "30px" }} indicator={<LoadingOutlined style={{ fontSize: 24 }} />} />
 );
 
@@ -103,25 +110,25 @@ interface Props {
 
 export const App = (props: Props) => {
     const { settings, address } = props;
-    const [searchValue, setSearchValue] = React.useState("");
-    const [showLoading, setShowLoading] = React.useState(false);
-    const [isEnd, setIsEnd] = React.useState(false);
-    const [showEngAddr, setShowEngAddr] = React.useState(true);
-    const [showRoadAddr, setShowRoadAddr] = React.useState(true);
-    const [showLegacyAddr, setShowLegacyAddr] = React.useState(true);
-    const [addressData, setAddressData] = React.useState<AddressData[]>([]);
-    const [updatingSettings, setUpdatingSettings] = React.useState(false);
+    const [searchValue, setSearchValue] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [isEnd, setIsEnd] = useState(false);
+    const [showEngAddr, setShowEngAddr] = useState(true);
+    const [showRoadAddr, setShowRoadAddr] = useState(true);
+    const [showLegacyAddr, setShowLegacyAddr] = useState(true);
+    const [addressData, setAddressData] = useState<AddressData[]>([]);
+    const [updatingSettings, setUpdatingSettings] = useState(false);
 
-    const handleSearchValueChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSearchValueChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
     }, [setSearchValue]);
 
-    const handleSearchClick = React.useCallback(() => {
+    const handleSearchClick = useCallback(() => {
         if (address.previousSearchKey?.keyword === searchValue) {
             return;
         }
 
-        setShowLoading(true);
+        setLoading(true);
         setAddressData([]);
 
         window.ga("send", "event", "address", "search", searchValue);
@@ -135,17 +142,17 @@ export const App = (props: Props) => {
         }).catch((err) => {
             console.error(err);
         }).finally(() => {
-            setShowLoading(false);
+            setLoading(false);
         });
-    }, [address, searchValue, setAddressData, setShowLoading]);
+    }, [address, searchValue]);
 
-    const handleResetClick = React.useCallback(() => {
+    const handleResetClick = useCallback(() => {
         setSearchValue("");
         handleSearchClick();
     //  eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [setSearchValue]);
+    }, []);
 
-    const handleSearchOptionClick = React.useCallback((type: "eng" | "road" | "legacy") => async () => {
+    const handleSearchOptionClick = useCallback((type: "eng" | "road" | "legacy") => async () => {
         if (updatingSettings) {
             return;
         }
@@ -178,10 +185,10 @@ export const App = (props: Props) => {
         } finally {
             setUpdatingSettings(false);
         }
-    }, [settings, showEngAddr, showRoadAddr, showLegacyAddr, updatingSettings, setShowEngAddr, setShowRoadAddr, setShowLegacyAddr, setUpdatingSettings]);
+    }, [settings, showEngAddr, showRoadAddr, showLegacyAddr, updatingSettings]);
 
-    const loadNextAddress = React.useCallback(() => {
-        if (showLoading) {
+    const loadNextAddress = useCallback(() => {
+        if (loading) {
             return;
         }
         if (address.previousSearchKey?.end) {
@@ -190,7 +197,7 @@ export const App = (props: Props) => {
             return;
         }
 
-        setShowLoading(true);
+        setLoading(true);
         const nextPage = (Number.parseInt(address.previousSearchKey?.currentPage!) + 1).toString();
 
         window.ga("send", "event", "address", "search", "추가 데이터 로드", Number.parseInt(nextPage));
@@ -202,11 +209,11 @@ export const App = (props: Props) => {
         }).catch((err) => {
             console.error(err);
         }).finally(() => {
-            setShowLoading(false);
+            setLoading(false);
         });
-    }, [address, showLoading, setShowLoading]);
+    }, [address, loading]);
 
-    const Options = React.useMemo(() => [
+    const Options = useMemo(() => [
         <Button key={1} type="link" disabled={updatingSettings} onClick={handleSearchOptionClick("eng")}
             icon={showEngAddr ? <CheckCircleFilled /> : <CheckCircleOutlined />}>
                 영문주소
@@ -221,7 +228,7 @@ export const App = (props: Props) => {
         </Button>,
     ], [showEngAddr, showRoadAddr, showLegacyAddr, updatingSettings, handleSearchOptionClick]);
 
-    const handleScrollEvent = React.useCallback(() => {
+    const handleScrollEvent = useCallback(() => {
         const list = document.getElementsByClassName("address-list");
         const bottom = list[0]?.getBoundingClientRect().bottom ?? 0;
         if (bottom > 0 && bottom <= window.innerHeight) {
@@ -230,11 +237,11 @@ export const App = (props: Props) => {
         }
     }, [loadNextAddress]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (getRuntime() === "extension") {
             settings?.once("ready", () => {
                 console.log("Settings loaded", settings);
-                const searchResult = settings?.settings?.searchResult;
+                const searchResult = settings.settings?.searchResult;
                 setShowEngAddr(searchResult?.showEng ?? false);
                 setShowRoadAddr(searchResult?.showRoad ?? true);
                 setShowLegacyAddr(searchResult?.showLegacy ?? true);
@@ -247,7 +254,7 @@ export const App = (props: Props) => {
         }
     }, [settings]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         document.addEventListener("scroll", handleScrollEvent);
         return () => {
             document.removeEventListener("scroll", handleScrollEvent);
@@ -263,7 +270,7 @@ export const App = (props: Props) => {
                         enterButton allowClear
                         placeholder="검색할 주소 입력"
                         value={searchValue}
-                        loading={showLoading}
+                        loading={loading}
                         onChange={handleSearchValueChange}
                         onSearch={handleSearchClick} />
                 </SearchWrapper>
@@ -275,7 +282,7 @@ export const App = (props: Props) => {
                     showEngAddr={showEngAddr}
                     showRoadAddr={showRoadAddr}
                     showLegacyAddr={showLegacyAddr} />
-                {showLoading ? (
+                {loading ? (
                     <Spinner />
                 ) : isEnd ? (
                     <ListEnd>
