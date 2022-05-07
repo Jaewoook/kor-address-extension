@@ -34,8 +34,6 @@ export const DEFAULT_SETTINGS: Settings = {
 export class SettingsManager<T> extends EventEmitter {
 
     settings: T | null = null;
-    isUpdating: boolean = false;
-    updateQueue: Array<[T, (value?: T | PromiseLike<T>) => void]> = [];
 
     constructor(defaultSettings: T) {
         super();
@@ -44,8 +42,8 @@ export class SettingsManager<T> extends EventEmitter {
                 this.settings = await this.loadSettings();
             } catch (err) {
                 console.error(err);
-                chrome.storage.local.set(defaultSettings);
                 this.settings = defaultSettings;
+                await chrome.storage.local.set(defaultSettings);
             } finally {
                 this.emit("ready");
             }
@@ -53,58 +51,24 @@ export class SettingsManager<T> extends EventEmitter {
     }
 
     get(key: keyof T) {
-        if (!this.settings) {
-            return null;
+        return this.settings?.[key];
+    }
+
+    async loadSettings() {
+        const settings = await chrome.storage.local.get(null);
+        if (settings) {
+            return settings as T;
+        } else {
+            throw new Error("Settings not exists.");
         }
-        return this.settings[key];
     }
 
-    loadSettings() {
-        return new Promise<T>((resolve, reject) => {
-            chrome.storage.local.get(null, (settings) => {
-                if (settings) {
-                    resolve(settings as T);
-                } else {
-                    reject("Settings not exists.");
-                }
-            });
-        });
-    }
-
-    updateSettings(settings: T) {
-        return new Promise<T>((resolve, reject) => {
-            if (getRuntime() === "extension") {
-                this.updateQueue.push([settings, resolve]);
-                this.run();
-            } else {
-                reject("It works on extension only.");
-            }
-        });
-    }
-
-    run() {
-        console.log("Update settings requested");
-        if (this.updateQueue.length === 0) {
-            console.warn("SettingsManager", "There's no item in settings queue!");
-            return;
+    async updateSettings(settings: T) {
+        if (getRuntime() === "extension") {
+            await chrome.storage.local.set(merge(this.settings, settings));
+        } else {
+            throw new Error("It works on extension only.");
         }
-
-        if (this.isUpdating) {
-            console.log("settings currently updating...");
-            return;
-        }
-
-        this.isUpdating = true;
-        const request = this.updateQueue.shift();
-        console.log("Deep merge result", merge(this.settings, request![0]));
-        chrome.storage.local.set(merge(this.settings, request![0]), async () => {
-            this.settings = await this.loadSettings();
-            this.isUpdating = false;
-            request![1](this.settings);
-            console.log("Update succeeded");
-            if (this.updateQueue.length) {
-                this.run();
-            }
-        });
     }
+
 }
