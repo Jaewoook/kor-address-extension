@@ -1,10 +1,17 @@
+/**
+ * External modules
+ */
 import React from "react";
 import * as Sentry from "@sentry/react";
 import { render } from "react-dom";
+
+/**
+ * Internal modules
+ */
 import { App } from "./App";
-import { getRuntime, isProduction } from "./utils";
 import { AddressManager } from "./AddressManager";
 import { SettingsManager, Settings, DEFAULT_SETTINGS } from "./SettingsManager";
+import { getRuntime, isProduction } from "./utils";
 
 //  inject NODE_ENV variable into window object
 window.__ENV__ = {

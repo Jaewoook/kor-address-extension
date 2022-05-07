@@ -1,11 +1,18 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
+/**
+ * External modules
+ */
 import React from "react";
 import styled from "styled-components";
 import { Collapse, Typography } from "antd";
+
+/**
+ * Internal modules
+ */
+import "./AddressList.css";
 import { AddressData } from "../../AddressManager";
 import { ClickToCopyText } from "../ClickToCopyText";
 import { FeedbackPopover } from "../FeedbackPopover";
-import "./AddressList.css";
 
 interface Props {
     data: AddressData[];
@@ -27,6 +34,7 @@ const EmptyText = styled(Typography.Paragraph)`
 
 export const AddressList = (props: Props) => {
     const { data, showEngAddr, showRoadAddr, showLegacyAddr } = props;
+
     if (!data || !data.length) {
         return <EmptyText type="secondary">
             검색 결과가 없습니다.<br />
@@ -34,6 +42,7 @@ export const AddressList = (props: Props) => {
             <FeedbackPopover />
         </EmptyText>;
     }
+
     return (
         <Collapse className="address-list" bordered={false} defaultActiveKey={[0]}>
             {data.map((row, i) => (
