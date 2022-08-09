@@ -50,33 +50,25 @@ export const AddressList = (props: Props) => {
                     <div>
                         <Typography.Paragraph className="addr-label">우편번호:</Typography.Paragraph>
                         <div>
-                            <ClickToCopyText analytics="우편번호">
-                                {row.zipNo}
-                            </ClickToCopyText>
+                            <ClickToCopyText>{row.zipNo}</ClickToCopyText>
                         </div>
                     </div>
                     {showRoadAddr ? <div>
                         <Typography.Paragraph className="addr-label">도로명주소:</Typography.Paragraph>
                         <div>
-                            <ClickToCopyText analytics="도로명주소">
-                                {row.roadAddr}
-                            </ClickToCopyText>
+                            <ClickToCopyText>{row.roadAddr}</ClickToCopyText>
                         </div>
                     </div> : null}
                     {showLegacyAddr ? <div>
                         <Typography.Paragraph className="addr-label">지번주소:</Typography.Paragraph>
                         <div>
-                            <ClickToCopyText analytics="지번주소">
-                                {row.jibunAddr}
-                            </ClickToCopyText>
+                            <ClickToCopyText>{row.jibunAddr}</ClickToCopyText>
                         </div>
                     </div> : null}
                     {showEngAddr ? <div>
                         <Typography.Paragraph className="addr-label">영문주소:</Typography.Paragraph>
                         <div>
-                            <ClickToCopyText analytics="영문주소">
-                                {row.engAddr}
-                            </ClickToCopyText>
+                            <ClickToCopyText>{row.engAddr}</ClickToCopyText>
                         </div>
                     </div> : null}
                 </Collapse.Panel>
