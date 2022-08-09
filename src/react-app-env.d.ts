@@ -4,4 +4,5 @@ interface Window {
         NODE_ENV: string;
     };
     gtag: Function;
+    dataLayer: Array;
 }
