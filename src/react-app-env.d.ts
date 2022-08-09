@@ -3,5 +3,5 @@ interface Window {
     __ENV__: {
         NODE_ENV: string;
     };
-    ga: any;
+    gtag: Function;
 }

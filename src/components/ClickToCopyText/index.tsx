@@ -15,18 +15,16 @@ import "./ClickToCopyText.css";
 
 interface ClickToCopyTextProps {
     children: string;
-    analytics?: "우편번호" | "도로명주소" | "지번주소" | "영문주소";
 }
 
 export const ClickToCopyText = (props: ClickToCopyTextProps) => {
-    const { children, analytics } = props;
+    const { children } = props;
     const [copied, setCopied] = useState(false);
 
     const handleCopyClick = useCallback(() => {
         setCopied(true);
         copy(children);
-        window.ga("send", "event", "address", "copy", `${analytics} 복사`);
-    }, [analytics, children]);
+    }, [children]);
 
     const handleVisibleChange = useCallback((visible: boolean) => {
         if (!visible) {
