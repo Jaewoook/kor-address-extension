@@ -1,20 +1,22 @@
-import { EventEmitter } from "events";
-import { getRuntime, merge } from "./utils";
+/**
+ * Internal modules
+ */
 import { AddressData, SearchKey } from "./AddressManager";
+import { isExtension, merge } from "./utils";
 
 export const SETTINGS_KEY_SEARCH_RESULT = "searchResult";
 export const SETTINGS_KEY_CACHED_DATA = "addressData";
 export const SETTINGS_KEY_PREVIOUS_SEARCH_KEY = "prevSearchKey";
 
-export type Settings = {
-    searchResult?: {
-        showEng?: boolean;
-        showRoad?: boolean;
-        showLegacy?: boolean;
-    };
-    addressData?: AddressData[];
-    prevSearchKey?: SearchKey;
-};
+export type Settings = Partial<{
+    searchResult: Partial<{
+        showEng: boolean;
+        showRoad: boolean;
+        showLegacy: boolean;
+    }>;
+    addressData: AddressData[];
+    prevSearchKey: SearchKey;
+}>;
 
 export const DEFAULT_SETTINGS: Settings = {
     searchResult: {
@@ -31,12 +33,11 @@ export const DEFAULT_SETTINGS: Settings = {
     },
 };
 
-export class SettingsManager<T> extends EventEmitter {
+export class SettingsManager<T> {
 
     settings: T | null = null;
 
     constructor(defaultSettings: T) {
-        super();
         (async () => {
             try {
                 this.settings = await this.loadSettings();
@@ -44,8 +45,6 @@ export class SettingsManager<T> extends EventEmitter {
                 console.error(err);
                 this.settings = defaultSettings;
                 await chrome.storage.local.set(defaultSettings);
-            } finally {
-                this.emit("ready");
             }
         })();
     }
@@ -64,7 +63,7 @@ export class SettingsManager<T> extends EventEmitter {
     }
 
     async updateSettings(settings: T) {
-        if (getRuntime() === "extension") {
+        if (isExtension()) {
             await chrome.storage.local.set(merge(this.settings, settings));
         } else {
             throw new Error("It works on extension only.");
