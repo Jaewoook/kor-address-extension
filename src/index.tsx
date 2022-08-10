@@ -11,7 +11,7 @@ import { render } from "react-dom";
 import { App } from "./App";
 import { AddressManager } from "./AddressManager";
 import { SettingsManager, Settings, DEFAULT_SETTINGS } from "./SettingsManager";
-import { getRuntime, isProduction } from "./utils";
+import { isExtension, isProduction } from "./utils";
 
 //  inject NODE_ENV variable into window object
 window.__ENV__ = {
@@ -36,7 +36,7 @@ if (isProduction()) {
 
 let settings = null;
 
-if (getRuntime() === "extension") {
+if (isExtension()) {
     settings = new SettingsManager<Settings>(DEFAULT_SETTINGS);
 }
 const address = new AddressManager(settings);

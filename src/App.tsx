@@ -28,7 +28,7 @@ import "./App.css";
 import { AddressList, Header, Content, Footer } from "./components";
 import { AddressData, AddressManager } from "./AddressManager";
 import { SettingsManager, Settings } from "./SettingsManager";
-import { getRuntime } from "./utils";
+import { isExtension } from "./utils";
 
 const ListTopWrapper = styled.div`
     display: flex;
@@ -236,19 +236,19 @@ export const App = (props: Props) => {
     }, [loadNextAddress]);
 
     useEffect(() => {
-        if (getRuntime() === "extension") {
-            settings?.once("ready", () => {
-                console.log("Settings loaded", settings);
-                const searchResult = settings.settings?.searchResult;
-                setShowEngAddr(searchResult?.showEng ?? false);
-                setShowRoadAddr(searchResult?.showRoad ?? true);
-                setShowLegacyAddr(searchResult?.showLegacy ?? true);
+        if (!isExtension()) {
+            return;
+        }
 
-                if (settings.settings?.addressData?.length) {
-                    setAddressData(settings.settings.addressData);
-                    setSearchValue(settings.settings.prevSearchKey?.keyword ?? "");
-                }
-            });
+        console.log("Settings loaded", settings);
+        const searchResult = settings?.settings?.searchResult;
+        setShowEngAddr(searchResult?.showEng ?? false);
+        setShowRoadAddr(searchResult?.showRoad ?? true);
+        setShowLegacyAddr(searchResult?.showLegacy ?? true);
+
+        if (settings?.settings?.addressData?.length) {
+            setAddressData(settings.settings.addressData);
+            setSearchValue(settings.settings.prevSearchKey?.keyword ?? "");
         }
     }, [settings]);
 
