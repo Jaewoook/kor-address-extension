@@ -147,7 +147,7 @@ export const App = (props: Props) => {
     }, []);
 
     const handlePrivacyClick = () => {
-        window.open("https://github.com/Jaewoook/kor-address-extension/master/privacy.html");
+        window.open("https://raw.githack.com/Jaewoook/kor-address-extension/master/privacy.html");
     };
 
     const handleGitHubClick = () => {
