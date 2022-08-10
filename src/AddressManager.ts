@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { getRuntime } from "./utils";
+import { isExtension } from "./utils";
 import { SettingsManager, Settings, DEFAULT_SETTINGS } from "./SettingsManager";
 
 const JUSO_API = "http://www.juso.go.kr/addrlink/addrLinkApi.do";
@@ -45,16 +45,14 @@ export class AddressManager {
     constructor(settingsManager: SettingsManager<Settings> | null) {
         this.settingsManager = settingsManager;
 
-        if (this.settingsManager && getRuntime() === "extension") {
-            this.settingsManager.once("ready", () => {
-                const settings = this.settingsManager?.settings;
-                if (!settings) {
-                    console.warn("AddressManager", "No settings found!");
-                    return;
-                }
-                this.addressData = settings.addressData || [];
-                this.previousSearchKey = settings.prevSearchKey || DEFAULT_SETTINGS.prevSearchKey as SearchKey;
-            });
+        if (this.settingsManager && isExtension()) {
+            const settings = this.settingsManager?.settings;
+            if (!settings) {
+                console.warn("AddressManager", "No settings found!");
+                return;
+            }
+            this.addressData = settings.addressData || [];
+            this.previousSearchKey = settings.prevSearchKey || DEFAULT_SETTINGS.prevSearchKey as SearchKey;
         }
     }
 
