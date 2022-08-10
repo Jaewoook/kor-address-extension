@@ -1,6 +1,6 @@
 ![logo](/icons/icon_128.png)
 
-# kor-address-extension
+# 주소검색 확장 프로그램
 
 ![CircleCI](https://img.shields.io/circleci/build/github/Jaewoook/kor-address-extension?style=flat-square)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Jaewoook/kor-address-extension/pulls)
