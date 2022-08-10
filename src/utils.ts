@@ -40,3 +40,5 @@ export const getRuntime = (): Runtime => {
     }
     return "unknown";
 };
+
+export const isExtension = () => getRuntime() === "extension";
