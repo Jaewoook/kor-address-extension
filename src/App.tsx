@@ -9,12 +9,14 @@ import {
     Input,
     Layout,
     PageHeader,
+    Space,
     Spin,
     Typography,
 } from "antd";
 import {
     CheckCircleFilled,
     CheckCircleOutlined,
+    GithubFilled,
     LoadingOutlined,
     ReloadOutlined,
 } from "@ant-design/icons";
@@ -23,19 +25,10 @@ import {
  * Internal modules
  */
 import "./App.css";
+import { AddressList, Header, Content, Footer } from "./components";
 import { AddressData, AddressManager } from "./AddressManager";
-import { AddressList } from "./components/AddressList";
 import { SettingsManager, Settings } from "./SettingsManager";
 import { getRuntime } from "./utils";
-
-const Header = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    background-color: #f0f2f5;
-`;
 
 const ListTopWrapper = styled.div`
     display: flex;
@@ -152,6 +145,14 @@ export const App = (props: Props) => {
         handleSearchClick();
     //  eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const handlePrivacyClick = () => {
+        window.open("https://github.com/Jaewoook/kor-address-extension/master/privacy.html");
+    };
+
+    const handleGitHubClick = () => {
+        window.open("https://github.com/Jaewoook/kor-address-extension");
+    };
 
     const handleSearchOptionClick = useCallback((type: "eng" | "road" | "legacy") => async () => {
         if (updatingSettings) {
@@ -272,7 +273,7 @@ export const App = (props: Props) => {
                         onSearch={handleSearchClick} />
                 </SearchWrapper>
             </Header>
-            <Layout.Content style={{ marginTop: 124, backgroundColor: "#fafafa" }}>
+            <Content>
                 <ListTop addressData={addressData} onResetClick={handleResetClick} />
                 <AddressList
                     data={addressData}
@@ -286,7 +287,13 @@ export const App = (props: Props) => {
                         <Typography.Text>✅ 모든 검색 결과를 확인했습니다!</Typography.Text>
                     </ListEnd>
                 ) : null}
-            </Layout.Content>
+            </Content>
+            <Footer>
+                <Space size="middle">
+                    <Typography.Text onClick={handlePrivacyClick}>개인정보 처리방침</Typography.Text>
+                    <GithubFilled onClick={handleGitHubClick} />
+                </Space>
+            </Footer>
         </Layout>
     );
 };
