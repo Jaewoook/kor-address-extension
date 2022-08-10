@@ -22,7 +22,7 @@
 
 ### Google Chrome
 
-[![download](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_340x96.png)](https://chrome.google.com/webstore/detail/%EC%A3%BC%EC%86%8C%EA%B2%80%EC%83%89/kiamcbcponnlbnanbbfnfdjhioebpiah)
+- [다운로드](https://chrome.google.com/webstore/detail/%EC%A3%BC%EC%86%8C%EA%B2%80%EC%83%89/kiamcbcponnlbnanbbfnfdjhioebpiah)
 
 ### Firefox
 
@@ -38,38 +38,34 @@
 
 > NOTE: 브라우저는 WebExtension API를 지원해야 합니다. 기본적으로 WebExtension spec을 준수하지만 안정적인 동작을 보장하지는 않습니다.
 
-## 구현 예정 기능
-
-- 검색 결과에 따라 동적으로 팝업 높이 조정
-
 ## 수동으로 설치하기
 
-### 공통
+### 준비하기
 
-먼저, 이 저장소를 클론하고 의존성 설치를 합니다.
+먼저, 이 저장소를 다운로드 하고 의존성 설치를 합니다.
 
-```sh
+```bash
 git clone https://github.com/Jaewoook/kor-address-extension
 cd kor-address-extension && yarn
 ```
 
-그리고, 패키지 스크립트를 실행합니다. (자동으로 빌드 후 패키지 과정 실행)
+그리고, 패키지 스크립트를 실행합니다.
 
-```sh
-yarn package
+```bash
+yarn build && yarn package
 ```
 
 ### Google Chrome 및 NAVER Whale 브라우저
 
 1. <chrome://extensions> 페이지에 접속합니다. (Whale은 <whale://extensions> 통해서도 접속 가능)
 2. 개발자 모드가 활성화되어 있지 않다면, 활성화합니다.
-3. **Load unpacked 버튼**을 클릭해 프로젝트 루트의 **dist 폴더**를 추가합니다.
+3. `Load unpacked` 버튼을 클릭해 프로젝트 루트의 **dist 폴더**를 추가합니다.
 
 ### Firefox 브라우저
 
 1. <about:debugging> 페이지에 접속합니다.
-2. **This Firefox** 메뉴 선택을 합니다.
-3. **Load Temporary Add-on... 버튼**을 클릭해 프로젝트 루트의 **dist.zip 파일**을 추가합니다.
+2. This Firefox 메뉴 선택을 합니다.
+3. `Load Temporary Add-on...` 버튼을 클릭해 프로젝트 루트의 **dist.zip 파일**을 추가합니다.
 
 ## 제작자
 
