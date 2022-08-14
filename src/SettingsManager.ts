@@ -38,15 +38,13 @@ export class SettingsManager<T> {
     settings: T | null = null;
 
     constructor(defaultSettings: T) {
-        (async () => {
-            try {
-                this.settings = await this.loadSettings();
-            } catch (err) {
-                console.error(err);
-                this.settings = defaultSettings;
-                await chrome.storage.local.set(defaultSettings);
-            }
-        })();
+        this.loadSettings().then((settings) => {
+            this.settings = settings;
+        }).catch((err) => {
+            console.error(err);
+            this.settings = defaultSettings;
+            chrome.storage.local.set(defaultSettings);
+        });
     }
 
     get(key: keyof T) {
@@ -54,6 +52,10 @@ export class SettingsManager<T> {
     }
 
     async loadSettings() {
+        if (!isExtension()) {
+            return null;
+        }
+
         const settings = await chrome.storage.local.get(null);
         if (settings) {
             return settings as T;
