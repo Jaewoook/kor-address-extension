@@ -2,7 +2,7 @@
 /**
  * External modules
  */
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import {
     Button,
@@ -109,6 +109,7 @@ export const App = (props: Props) => {
     const [showLegacyAddr, setShowLegacyAddr] = useState(true);
     const [addressData, setAddressData] = useState<AddressData[]>([]);
     const [updatingSettings, setUpdatingSettings] = useState(false);
+    const contentRef = useRef<HTMLElement>(null);
 
     const handleSearchValueChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
@@ -226,9 +227,12 @@ export const App = (props: Props) => {
     ], [showEngAddr, showRoadAddr, showLegacyAddr, updatingSettings, handleSearchOptionClick]);
 
     const handleScrollEvent = useCallback(() => {
-        const list = document.getElementsByClassName("address-list");
-        const bottom = list[0]?.getBoundingClientRect().bottom ?? 0;
-        if (bottom > 0 && bottom <= window.innerHeight) {
+        const scrollContainer = document.getElementById("content");
+        if (!scrollContainer) {
+            return;
+        }
+
+        if (scrollContainer.scrollHeight - scrollContainer.scrollTop === scrollContainer.clientHeight) {
             console.log("scroll occurred");
             loadNextAddress();
         }
@@ -252,11 +256,12 @@ export const App = (props: Props) => {
     }, [settings]);
 
     useEffect(() => {
-        document.addEventListener("scroll", handleScrollEvent);
+        const scrollContainer = contentRef.current;
+        scrollContainer?.addEventListener("scroll", handleScrollEvent);
         return () => {
-            document.removeEventListener("scroll", handleScrollEvent);
+            scrollContainer?.removeEventListener("scroll", handleScrollEvent);
         };
-    }, [handleScrollEvent]);
+    }, [contentRef, handleScrollEvent]);
 
     return (
         <Layout>
@@ -272,7 +277,7 @@ export const App = (props: Props) => {
                         onSearch={handleSearchClick} />
                 </SearchWrapper>
             </Header>
-            <Content>
+            <Content id="content" ref={contentRef}>
                 <ListTop addressData={addressData} onResetClick={handleResetClick} />
                 <AddressList
                     data={addressData}
