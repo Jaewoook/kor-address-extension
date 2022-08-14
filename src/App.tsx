@@ -13,6 +13,7 @@ import {
     Typography,
 } from "antd";
 import {
+    CheckCircleTwoTone,
     CheckCircleFilled,
     CheckCircleOutlined,
     GithubFilled,
@@ -289,7 +290,9 @@ export const App = (props: Props) => {
                     <Spinner />
                 ) : isEnd ? (
                     <ListEnd>
-                        <Typography.Text>✅ 모든 검색 결과를 확인했습니다!</Typography.Text>
+                        <Typography.Text>
+                            <CheckCircleTwoTone twoToneColor="#3CB043" /> 모든 검색 결과를 확인했습니다!
+                        </Typography.Text>
                     </ListEnd>
                 ) : null}
             </Content>
