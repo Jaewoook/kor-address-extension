@@ -20,23 +20,17 @@
 
 ## 지원 브라우저
 
-### Google Chrome
+| 브라우저 | 상태 | |
+|---------------|:------------------:|------------------------|
+| Google Chrome | :heavy_check_mark: | [크롬 웹 스토어에서 다운로드](https://chrome.google.com/webstore/detail/%EC%A3%BC%EC%86%8C%EA%B2%80%EC%83%89/kiamcbcponnlbnanbbfnfdjhioebpiah) |
+| NAVER Whale | :heavy_check_mark: | [웨일 스토어에서 다운로드](https://store.whale.naver.com/detail/pidjpaocfolbbaminggjijheckcdfcdj) |
+| Mozilla Firefox | :warning: | ~~[Firefox Add-ons에서 다운로드](https://addons.mozilla.org/ko/firefox/addon/kor-address-extension/)~~ |
 
-- [다운로드](https://chrome.google.com/webstore/detail/%EC%A3%BC%EC%86%8C%EA%B2%80%EC%83%89/kiamcbcponnlbnanbbfnfdjhioebpiah)
-
-### Firefox
-
-- [다운로드](https://addons.mozilla.org/ko/firefox/addon/kor-address-extension/)
-
-### NAVER Whale
-
-- [다운로드](https://store.whale.naver.com/detail/pidjpaocfolbbaminggjijheckcdfcdj)
-
-### (비공식) 그 외 브라우저
+#### (비공식) 그 외 브라우저
 
 아래 **"수동으로 설치하기"** 의 공통 섹션과 브라우저별 확장 프로그램 설치 방법 참조
 
-> NOTE: 브라우저는 WebExtension API를 지원해야 합니다. 기본적으로 WebExtension spec을 준수하지만 안정적인 동작을 보장하지는 않습니다.
+> NOTE: 브라우저는 WebExtension API를 지원해야 합니다. 주소검색 프로젝트는 WebExtension spec을 준수하지만 안정적인 동작을 보장하지는 않습니다.
 
 ## 수동으로 설치하기
 
