@@ -7,7 +7,6 @@ import styled from "styled-components";
 import {
     Button,
     Input,
-    Layout,
     PageHeader,
     Space,
     Spin,
@@ -25,7 +24,7 @@ import {
  * Internal modules
  */
 import "./App.css";
-import { AddressList, Header, Content, Footer } from "./components";
+import { AddressList, Content, Footer, Header, Layout } from "./components";
 import { AddressData, AddressManager } from "./AddressManager";
 import { SettingsManager, Settings } from "./SettingsManager";
 import { isExtension } from "./utils";

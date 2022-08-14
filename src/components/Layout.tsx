@@ -2,7 +2,14 @@
  * External modules
  */
 import styled from "styled-components";
-import { Layout } from "antd";
+import { Layout as _Layout } from "antd";
+
+export const Layout = styled(_Layout)`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+`;
 
 export const Header = styled.div`
     position: fixed;
@@ -13,12 +20,14 @@ export const Header = styled.div`
     background-color: #f0f2f5;
 `;
 
-export const Content = styled(Layout.Content)`
+export const Content = styled(_Layout.Content)`
+    flex: 1;
     margin-top: 124px;
     background-color: #fafafa;
+    overflow: scroll;
 `;
 
-export const Footer = styled(Layout.Footer)`
+export const Footer = styled(_Layout.Footer)`
     display: flex;
     padding: 0 0 16px 0;
     justify-content: center;
