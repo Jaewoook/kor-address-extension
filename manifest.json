@@ -1,5 +1,5 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "주소검색",
   "version": "1.1.0",
   "description": "대한민국 주소검색 확장 프로그램",
@@ -10,7 +10,7 @@
     "128": "icons/icon_128.png"
   },
   "permissions": ["storage"],
-  "action": {
+  "browser_action": {
     "default_popup": "index.html",
     "default_icon": {
       "16": "icons/icon_16.png",
