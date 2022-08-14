@@ -46,13 +46,14 @@ export class AddressManager {
         this.settingsManager = settingsManager;
 
         if (this.settingsManager && isExtension()) {
-            const settings = this.settingsManager?.settings;
-            if (!settings) {
-                console.warn("AddressManager", "No settings found!");
-                return;
-            }
-            this.addressData = settings.addressData || [];
-            this.previousSearchKey = settings.prevSearchKey || DEFAULT_SETTINGS.prevSearchKey as SearchKey;
+            this.settingsManager.loadSettings().then((settings) => {
+                if (!settings) {
+                    console.warn("AddressManager", "No settings found!");
+                    return;
+                }
+                this.addressData = settings.addressData || [];
+                this.previousSearchKey = settings.prevSearchKey || DEFAULT_SETTINGS.prevSearchKey as SearchKey;
+            });
         }
     }
 
