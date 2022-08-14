@@ -38,36 +38,39 @@ export class SettingsManager<T> {
     settings: T | null = null;
 
     constructor(defaultSettings: T) {
-        (async () => {
-            try {
-                this.settings = await this.loadSettings();
-            } catch (err) {
-                console.error(err);
-                this.settings = defaultSettings;
-                await chrome.storage.local.set(defaultSettings);
-            }
-        })();
+        this.loadSettings().then((settings) => {
+            this.settings = settings;
+        }).catch((err) => {
+            console.error(err);
+            this.settings = defaultSettings;
+            chrome.storage.local.set(defaultSettings);
+        });
     }
 
     get(key: keyof T) {
         return this.settings?.[key];
     }
 
-    async loadSettings() {
-        const settings = await chrome.storage.local.get(null);
-        if (settings) {
-            return settings as T;
-        } else {
-            throw new Error("Settings not exists.");
-        }
+    loadSettings() {
+        return new Promise<T>((resolve, reject) => {
+            chrome.storage.local.get(null, ((settings) => {
+                if (settings) {
+                    resolve(settings as T);
+                } else {
+                    reject(new Error("Settings not exists."));
+                }
+            }));
+        });
     }
 
-    async updateSettings(settings: T) {
-        if (isExtension()) {
-            await chrome.storage.local.set(merge(this.settings, settings));
-        } else {
-            throw new Error("It works on extension only.");
-        }
+    updateSettings(settings: T) {
+        return new Promise<void>((resolve, reject) => {
+            if (isExtension()) {
+                chrome.storage.local.set(merge(this.settings, settings), () => resolve());
+            } else {
+                reject(new Error("It works on extension only."));
+            }
+        });
     }
 
 }
