@@ -142,6 +142,7 @@ export const App = (props: Props) => {
 
     const handleResetClick = useCallback(() => {
         setSearchValue("");
+        setIsEnd(false);
         handleSearchClick();
     //  eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
