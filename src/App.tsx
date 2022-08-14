@@ -1,4 +1,3 @@
-/*  eslint-disable jsx-a11y/accessible-emoji */
 /**
  * External modules
  */
@@ -88,6 +87,9 @@ const ListEnd = styled.div`
     padding: 24px 0;
     > .ant-typography {
         color: rgba(0, 0, 0, 0.4);
+    }
+    & .anticon {
+        margin-right: 6px;
     }
 `;
 
@@ -291,7 +293,7 @@ export const App = (props: Props) => {
                 ) : isEnd ? (
                     <ListEnd>
                         <Typography.Text>
-                            <CheckCircleTwoTone twoToneColor="#3CB043" /> 모든 검색 결과를 확인했습니다!
+                            <CheckCircleTwoTone twoToneColor="#3CB043" />모든 검색 결과를 확인했습니다!
                         </Typography.Text>
                     </ListEnd>
                 ) : null}
