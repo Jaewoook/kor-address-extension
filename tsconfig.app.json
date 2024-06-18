@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "useDefineForClassFields": true,
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ES2020"],
+    "module": "ESNext",
+    "target": "ES2020",
+    "noEmit": true,
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"]
+}
