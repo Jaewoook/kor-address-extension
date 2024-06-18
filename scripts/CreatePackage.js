@@ -11,13 +11,19 @@ const iconDisPath = path.join(__dirname, "../icons");
 
 //  cleanup the dist folder
 if (fs.existsSync(distDirPath)) {
-    console.log(chalk.yellow("warning"), "An existing dist directory found. Cleaning it up...");
-    fs.removeSync(distDirPath);
+  console.log(
+    chalk.yellow("warning"),
+    "An existing dist directory found. Cleaning it up..."
+  );
+  fs.removeSync(distDirPath);
 }
 //  create dist directory which includes icons directory
 fs.mkdirpSync(distIconsDirPath);
 
-fs.copyFileSync(path.join(__dirname, "../manifest.json"), path.join(distDirPath, "/manifest.json"));
+fs.copyFileSync(
+  path.join(__dirname, "../manifest.json"),
+  path.join(distDirPath, "/manifest.json")
+);
 fs.copySync(buildDirPath, distDirPath);
 fs.copySync(iconDisPath, distIconsDirPath);
 
