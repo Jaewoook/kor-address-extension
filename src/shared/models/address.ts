@@ -22,7 +22,7 @@ type AddressResponseBody = {
     errorCode: string;
     errorMessage: string;
   };
-  juso: AddressData[];
+  juso: AddressData[] | null;
 };
 
 export type AddressSearchAPIResponse = {
