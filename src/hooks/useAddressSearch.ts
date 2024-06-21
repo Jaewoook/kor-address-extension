@@ -1,11 +1,11 @@
 import axios from "axios";
 import type { AxiosResponse } from "axios";
 import { useCallback } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 import type { AddressSearchAPIResponse, SearchKey } from "@/shared/models/address";
 import { addressListState } from "@/states/address";
-import { prevSearchKeyState, searchLoadingState } from "@/states/search";
+import { prevSearchKeyState, searchKeywordState, searchLoadingState } from "@/states/search";
 
 const JUSO_API = "http://www.juso.go.kr/addrlink/addrLinkApi.do";
 const API_KEY = "U01TX0FVVEgyMDIwMDUyMTEzNTUwOTEwOTc4NDI=";
@@ -14,6 +14,7 @@ export const useAddressSearch = () => {
   const [prevSearchKey, setPrevSearchKey] = useRecoilState(prevSearchKeyState);
   const [addressList, setAddressList] = useRecoilState(addressListState);
   const [searching, setSearching] = useRecoilState(searchLoadingState);
+  const setSearchKeyword = useSetRecoilState(searchKeywordState);
 
   const performSearch = useCallback(async (searchKey: SearchKey) => {
     if (prevSearchKey === searchKey) {
@@ -53,16 +54,16 @@ export const useAddressSearch = () => {
   }, [performSearch, searching, setSearching, setAddressList]);
 
   const searchNextPage = useCallback(async () => {
-    if (searching || !prevSearchKey) {
+    if (searching || !prevSearchKey || prevSearchKey.end) {
       return;
     }
     const searchKey = {
       ...prevSearchKey,
-      currentPage: prevSearchKey.currentPage + 1,
+      currentPage: (Number.parseInt(prevSearchKey.currentPage) + 1).toString(),
     };
     setSearching(true);
     const searchResult = await performSearch(searchKey);
-    if (!searchResult?.juso.length) {
+    if (!searchResult?.juso?.length) {
       setPrevSearchKey({
         ...searchKey,
         end: true,
@@ -79,7 +80,8 @@ export const useAddressSearch = () => {
   const resetSearch = useCallback(() => {
     setPrevSearchKey(null);
     setAddressList([]);
-  }, [setPrevSearchKey, setAddressList]);
+    setSearchKeyword("");
+  }, [setPrevSearchKey, setAddressList, setSearchKeyword]);
 
   return {
     addressList,
