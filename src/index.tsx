@@ -11,7 +11,7 @@ import ReactDOM from "react-dom/client";
 import { App } from "./App";
 import { AddressManager } from "./AddressManager";
 import { SettingsManager, Settings, DEFAULT_SETTINGS } from "./SettingsManager";
-import { isExtension, isProduction } from "./utils";
+import { isExtension, isProduction } from "./shared/utils";
 
 window.dataLayer = window.dataLayer || [];
 if (isProduction()) {
