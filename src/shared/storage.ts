@@ -34,20 +34,56 @@ export const DEFAULT_SETTINGS: Settings = {
   },
 };
 
-export const getAllStorageData = () => {
-  if (!isExtension() || !browser) {
-    console.info("This runtime does not running on extension");
-    return null;
+const get = (key?: string) => {
+  if (isExtension() && browser) {
+    return browser.storage.local.get(key);
   }
-  return browser.storage.local.get();
+
+  if (key) {
+    return { key: localStorage.getItem(key) };
+  }
+
+  return Array.from({ length: localStorage.length })
+    .map((_, i) => localStorage.key(i))
+    .filter((key): key is string => key !== "null")
+    .reduce<Record<string, any>>((acc, storageKey) => {
+      const raw = localStorage.getItem(storageKey);
+      acc[storageKey] = raw ? JSON.parse(raw) : raw;
+      return acc;
+    }, {});
 };
 
-export const getSearchResultSettings = () => {
-  if (!isExtension() || !browser) {
-    console.info("This runtime does not running on extension");
-    return null;
+const set = (items: Record<string, any>) => {
+  if (isExtension() && browser) {
+    return browser.storage.local.set(items);
   }
-  return browser.storage.local.get("searchResult");
+
+  return Object.entries(items).forEach(([key, value]) => {
+    if (typeof value !== "string") {
+      value = JSON.stringify(value);
+    }
+    localStorage.setItem(key, value);
+  });
+};
+
+export const getAllStorageData = () => get();
+
+export const getSearchResultOptions = async (): Promise<SearchResultOptions | null> => {
+  const searchResultSettings = await get("searchResult");
+  return searchResultSettings?.searchResult ?? null;
+};
+
+export const getRecentAddressList = async (): Promise<AddressData[] | null> => {
+  const recentAddressList = await get("addressData");
+  return recentAddressList?.addressData ?? null;
+};
+
+export const setSearchResultOptions = async (searchResultOptions: SearchResultOptions) => {
+  set({ searchResult: searchResultOptions });
+};
+
+export const setRecentAddressList = async (addressList: AddressData[]) => {
+  set({ addressData: addressList });
 };
 
 export const validateSettingsData = (settingsData: unknown, expected: Record<string, any> = DEFAULT_SETTINGS): boolean => {
