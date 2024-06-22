@@ -1,8 +1,14 @@
 import { atom } from "recoil";
 
-import { getSearchResultSettings, validateSettingsData, DEFAULT_SETTINGS } from "@/shared/storage";
+import {
+  DEFAULT_SETTINGS,
+  getSearchResultOptions,
+  setSearchResultOptions,
+  validateSettingsData,
+} from "@/shared/storage";
+import type { DisplayOptions } from "@/shared/models/settings";
 
-export const addressDisplayOptionsState = atom({
+export const addressDisplayOptionsState = atom<DisplayOptions>({
   key: "display-options",
   default: {
     engAddrShown: true,
@@ -11,17 +17,25 @@ export const addressDisplayOptionsState = atom({
   },
   effects: [({ trigger, setSelf, onSet }) => {
     if (trigger === "get") {
-      getSearchResultSettings()?.then((settings) => {
-        if (!validateSettingsData(settings, DEFAULT_SETTINGS.searchResult)) {
+      getSearchResultOptions()?.then((options) => {
+        if (!options || !validateSettingsData(options, DEFAULT_SETTINGS.searchResult)) {
           return;
         }
 
         setSelf({
-          engAddrShown: settings.showEng,
-          roadAddrShown: settings.showRoad,
-          streetNumAddrShown: settings.showLegacy,
+          engAddrShown: options.showEng,
+          roadAddrShown: options.showRoad,
+          streetNumAddrShown: options.showLegacy,
         });
       });
     }
+
+    onSet((newOptions) => {
+      setSearchResultOptions({
+        showEng: newOptions.engAddrShown,
+        showRoad: newOptions.roadAddrShown,
+        showLegacy: newOptions.streetNumAddrShown,
+      });
+    });
   }],
 });

@@ -4,7 +4,9 @@ import { isExtension } from "./utils";
 
 let browser: Browser | null = null;
 if (isExtension()) {
-  browser = await import("webextension-polyfill");
+  import("webextension-polyfill").then((module) => {
+    browser = module.default;
+  });
 }
 
 type SearchResultOptions = {
