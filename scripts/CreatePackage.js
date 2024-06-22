@@ -1,6 +1,9 @@
-const fs = require("fs-extra");
-const path = require("path");
-const chalk = require("chalk");
+import fs from "fs-extra";
+import path from "path";
+import url from "url";
+import chalk from "chalk";
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 const distDirPath = path.join(__dirname, "../dist");
 const distIconsDirPath = path.join(distDirPath, "/icons");
