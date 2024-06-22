@@ -3,6 +3,7 @@ body {
   font-family: Noto Sans KR, sans-serif;
   min-width: 500px;
   height: 475px;
+  margin: 0;
 }
 
 #root {

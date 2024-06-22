@@ -1,4 +1,4 @@
-import { Layout as _Layout } from "antd";
+import { ConfigProvider, Layout as _Layout, ThemeConfig } from "antd";
 import { RecoilRoot } from "recoil";
 import styled from "styled-components";
 
@@ -12,14 +12,24 @@ export const Layout = styled(_Layout)`
   overflow: hidden;
 `;
 
+const theme: ThemeConfig = {
+  components: {
+    Collapse: {
+      contentPadding: "0 16px",
+    },
+  },
+};
+
 export const App = () => {
   return (
     <RecoilRoot>
-      <Layout>
-        <Header />
-        <Content />
-        <Footer />
-      </Layout>
+      <ConfigProvider theme={theme}>
+        <Layout>
+          <Header />
+          <Content />
+          <Footer />
+        </Layout>
+      </ConfigProvider>
     </RecoilRoot>
   );
 };
