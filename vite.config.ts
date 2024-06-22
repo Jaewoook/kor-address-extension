@@ -8,6 +8,9 @@ export default defineConfig({
   server: {
     port: 11200,
   },
+  build: {
+    outDir: "build",
+  },
   resolve: {
     alias: [{ find: "@", replacement: path.join(__dirname, "src") }],
   },

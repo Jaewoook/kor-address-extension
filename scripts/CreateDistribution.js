@@ -1,7 +1,10 @@
-const path = require("path");
-const fs = require("fs-extra");
-const archiver = require("archiver");
-const chalk = require("chalk");
+import path from "path";
+import fs from "fs-extra";
+import url from "url";
+import archiver from "archiver";
+import chalk from "chalk";
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 const distPath = path.join(__dirname, "../dist.zip");
 const distDirPath = path.join(__dirname, "../dist/");
