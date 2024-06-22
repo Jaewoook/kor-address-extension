@@ -8,7 +8,7 @@ import {
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
-import { AddressList } from "../AddressList";
+import { AddressList } from "../ui/AddressList";
 import { useAddressSearch } from "@/hooks/useAddressSearch";
 import { useSettings } from "@/hooks/useSettings";
 import { addressListState } from "@/states/address";
@@ -130,9 +130,9 @@ export const Content = () => {
       <ListTop addressData={addressList} onResetClick={handleResetClick} />
       <AddressList
         data={addressList}
-        showEngAddr={addressDisplayOptions.engAddrShown}
-        showRoadAddr={addressDisplayOptions.roadAddrShown}
-        showLegacyAddr={addressDisplayOptions.streetNumAddrShown}
+        engAddrShown={addressDisplayOptions.engAddrShown}
+        roadAddrShown={addressDisplayOptions.roadAddrShown}
+        streetNumAddrShown={addressDisplayOptions.streetNumAddrShown}
       />
       {searching ? (
         <Spinner />

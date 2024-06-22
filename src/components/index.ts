@@ -1,3 +1,2 @@
-export { AddressList } from "./AddressList";
-export { ClickToCopyText } from "./ClickToCopyText";
-export * from "./Layout";
+export { AddressList } from "./ui/AddressList";
+export { ClickToCopyText } from "./ui/ClickToCopyText";
