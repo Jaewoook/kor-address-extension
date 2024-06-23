@@ -12,7 +12,7 @@ import styled from "styled-components";
 // import "./AddressList.css";
 import type { AddressData } from "@/shared/models/address";
 import { ClickToCopyText } from "../ClickToCopyText";
-import { FeedbackPopover } from "../../FeedbackPopover";
+import { FeedbackPopover } from "../FeedbackPopover";
 import type { DisplayOptions } from "@/shared/models/settings";
 
 interface Props extends DisplayOptions {
