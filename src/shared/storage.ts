@@ -1,13 +1,5 @@
-import type { Browser } from "webextension-polyfill";
 import type { AddressData, SearchKey } from "./models/address";
-import { isExtension } from "./utils";
-
-let browser: Browser | null = null;
-if (isExtension()) {
-  import("webextension-polyfill").then((module) => {
-    browser = module.default;
-  });
-}
+import { isExtension, getExtensionAPI } from "./utils";
 
 type SearchResultOptions = {
   showEng: boolean;
@@ -37,12 +29,14 @@ export const DEFAULT_SETTINGS: Settings = {
 };
 
 const get = (key?: string) => {
-  if (isExtension() && browser) {
-    return browser.storage.local.get(key);
+  const extAPI = getExtensionAPI();
+  if (isExtension() && extAPI) {
+    return extAPI.storage.local.get(key);
   }
 
   if (key) {
-    return { key: localStorage.getItem(key) };
+    const raw = localStorage.getItem(key);
+    return { [key]: raw ? JSON.parse(raw) : null };
   }
 
   return Array.from({ length: localStorage.length })
@@ -56,8 +50,9 @@ const get = (key?: string) => {
 };
 
 const set = (items: Record<string, any>) => {
-  if (isExtension() && browser) {
-    return browser.storage.local.set(items);
+  const extAPI = getExtensionAPI();
+  if (isExtension() && extAPI) {
+    return extAPI.storage.local.set(items);
   }
 
   return Object.entries(items).forEach(([key, value]) => {
@@ -77,6 +72,7 @@ export const getSearchResultOptions = async (): Promise<SearchResultOptions | nu
 
 export const getRecentAddressList = async (): Promise<AddressData[] | null> => {
   const recentAddressList = await get("addressData");
+  console.log("recent address list", recentAddressList);
   return recentAddressList?.addressData ?? null;
 };
 
@@ -88,7 +84,10 @@ export const setRecentAddressList = async (addressList: AddressData[]) => {
   set({ addressData: addressList });
 };
 
-export const validateSettingsData = (settingsData: unknown, expected: Record<string, any> = DEFAULT_SETTINGS): boolean => {
+export const validateSettingsData = (
+  settingsData: unknown,
+  expected: Record<string, any> = DEFAULT_SETTINGS,
+): boolean => {
   if (typeof settingsData !== "object" || settingsData === null) {
     return false;
   }

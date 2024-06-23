@@ -39,3 +39,16 @@ export const getRuntime = (): Runtime => {
 };
 
 export const isExtension = () => getRuntime() === "extension";
+
+export const getExtensionAPI = () => {
+  if (!isExtension()) {
+    return null;
+  }
+  if (typeof chrome === "object") {
+    return chrome;
+  }
+  if (typeof browser === "object") {
+    return browser;
+  }
+  return null;
+};
