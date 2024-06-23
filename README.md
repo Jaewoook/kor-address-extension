@@ -16,31 +16,30 @@
 
 ## 데모
 
+주소검색 확장 프로그램의 사용 데모입니다.
+
 ![Demo GIF](/images/demo.gif)
 
 ## 지원 브라우저
 
-### Google Chrome
+자신의 브라우저에 확장 프로그램 스토어에서 바로 다운로드하세요!
 
-- [다운로드](https://chrome.google.com/webstore/detail/%EC%A3%BC%EC%86%8C%EA%B2%80%EC%83%89/kiamcbcponnlbnanbbfnfdjhioebpiah)
+| 브라우저 | 상태 | 다운로드 |
+|--------|:---:|-------|
+| Google Chrome | :heavy_check_mark: | [크롬 웹 스토어에서 다운로드](https://chrome.google.com/webstore/detail/%EC%A3%BC%EC%86%8C%EA%B2%80%EC%83%89/kiamcbcponnlbnanbbfnfdjhioebpiah) |
+| NAVER Whale | :heavy_check_mark: | [웨일 스토어에서 다운로드](https://store.whale.naver.com/detail/pidjpaocfolbbaminggjijheckcdfcdj) |
+| Mozilla Firefox | :warning: | ~~[Firefox Add-ons에서 다운로드](https://addons.mozilla.org/ko/firefox/addon/kor-address-extension/)~~ |
 
-### Firefox
+### 기타 브라우저
 
-- [다운로드](https://addons.mozilla.org/ko/firefox/addon/kor-address-extension/)
+스토어에서 아래 **수동으로 설치하기**의 공통 섹션과 브라우저별 확장 프로그램 설치 방법 참조
 
-### NAVER Whale
+> [!IMPORTANT]
+> 브라우저는 WebExtension API를 지원해야 합니다. 주소검색 프로젝트는 WebExtension spec을 준수하지만 안정적인 동작을 보장하지는 않습니다.
 
-- [다운로드](https://store.whale.naver.com/detail/pidjpaocfolbbaminggjijheckcdfcdj)
+## 직접 빌드하기
 
-### (비공식) 그 외 브라우저
-
-아래 **"수동으로 설치하기"** 의 공통 섹션과 브라우저별 확장 프로그램 설치 방법 참조
-
-> NOTE: 브라우저는 WebExtension API를 지원해야 합니다. 기본적으로 WebExtension spec을 준수하지만 안정적인 동작을 보장하지는 않습니다.
-
-## 수동으로 설치하기
-
-### 준비하기
+프로젝트 소스 코드를 로컬 환경에 다운로드 받고, 직접 빌드하여 사용할 수 있습니다.
 
 먼저, 이 저장소를 다운로드 하고 의존성 설치를 합니다.
 
@@ -69,8 +68,8 @@ yarn build && yarn package
 
 ## 제작자
 
-- Jaewook Ahn <ajw4586@gmail.com>
+[Jaewook Ahn](https://github.com/Jaewoook)
 
 ## 저작권
 
-MIT ([LICENSE](https://github.com/Jaewoook/kor-address-extension/blob/master/LICENSE) 파일 참고)
+이 프로젝트는 [MIT 라이선스](./LICENSE)를 따릅니다.
