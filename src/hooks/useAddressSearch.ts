@@ -16,42 +16,47 @@ export const useAddressSearch = () => {
   const [searching, setSearching] = useRecoilState(searchLoadingState);
   const setSearchKeyword = useSetRecoilState(searchKeywordState);
 
-  const performSearch = useCallback(async (searchKey: SearchKey) => {
-    if (prevSearchKey === searchKey) {
-      throw new Error("Cancel search due to same searchKey requested");
-    }
+  const performSearch = useCallback(
+    async (searchKey: SearchKey) => {
+      if (prevSearchKey === searchKey) {
+        throw new Error("Cancel search due to same searchKey requested");
+      }
 
-    const form = new FormData();
-    form.append("confmKey", API_KEY);
-    form.append("resultType", "json");
-    form.append("currentPage", searchKey.currentPage);
-    form.append("countPerPage", searchKey.countPerPage);
-    form.append("keyword", searchKey.keyword);
+      const form = new FormData();
+      form.append("confmKey", API_KEY);
+      form.append("resultType", "json");
+      form.append("currentPage", searchKey.currentPage);
+      form.append("countPerPage", searchKey.countPerPage);
+      form.append("keyword", searchKey.keyword);
 
-    try {
-      const res = await axios.post<
-        FormData,
-        AxiosResponse<AddressSearchAPIResponse>
-      >(JUSO_API, form);
+      const res = await axios.post<FormData, AxiosResponse<AddressSearchAPIResponse>>(JUSO_API, form);
 
       setPrevSearchKey(searchKey);
 
       return res.data.results;
-    } catch (err) {
-      console.log(err);
-    }
-  }, [prevSearchKey, setPrevSearchKey]);
+    },
+    [prevSearchKey, setPrevSearchKey],
+  );
 
-  const searchAddress = useCallback(async (searchKey: SearchKey) => {
-    if (searching) {
-      return;
-    }
+  const searchAddress = useCallback(
+    async (searchKey: SearchKey) => {
+      if (searching || prevSearchKey?.keyword === searchKey.keyword) {
+        return;
+      }
 
-    setSearching(true);
-    const searchResult = await performSearch(searchKey);
-    setSearching(false);
-    setAddressList(searchResult?.juso || []);
-  }, [performSearch, searching, setSearching, setAddressList]);
+      setSearching(true);
+      try {
+        const searchResult = await performSearch(searchKey);
+        setAddressList(searchResult?.juso || []);
+      } catch (err) {
+        console.error(err);
+        setAddressList([]);
+      } finally {
+        setSearching(false);
+      }
+    },
+    [performSearch, searching, prevSearchKey, setSearching, setAddressList],
+  );
 
   const searchNextPage = useCallback(async () => {
     if (searching || !prevSearchKey || prevSearchKey.end) {
@@ -62,19 +67,20 @@ export const useAddressSearch = () => {
       currentPage: (Number.parseInt(prevSearchKey.currentPage) + 1).toString(),
     };
     setSearching(true);
-    const searchResult = await performSearch(searchKey);
-    if (!searchResult?.juso?.length) {
-      setPrevSearchKey({
-        ...searchKey,
-        end: true,
-      });
+    try {
+      const searchResult = await performSearch(searchKey);
+      if (!searchResult?.juso?.length) {
+        setPrevSearchKey({
+          ...searchKey,
+          end: true,
+        });
+      }
+      setAddressList((prevAddressList) => [...prevAddressList, ...(searchResult?.juso ?? [])]);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSearching(false);
     }
-
-    setSearching(false);
-    setAddressList((prevAddressList) => ([
-      ...prevAddressList,
-      ...(searchResult?.juso ?? []),
-    ]));
   }, [performSearch, searching, setSearching, prevSearchKey, setPrevSearchKey, setAddressList]);
 
   const resetSearch = useCallback(() => {
