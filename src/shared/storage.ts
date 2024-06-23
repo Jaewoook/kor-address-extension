@@ -72,8 +72,12 @@ export const getSearchResultOptions = async (): Promise<SearchResultOptions | nu
 
 export const getRecentAddressList = async (): Promise<AddressData[] | null> => {
   const recentAddressList = await get("addressData");
-  console.log("recent address list", recentAddressList);
   return recentAddressList?.addressData ?? null;
+};
+
+export const getPrevSearchKey = async (): Promise<SearchKey | null> => {
+  const prevSearchKey = await get("prevSearchKey");
+  return prevSearchKey?.prevSearchKey ?? null;
 };
 
 export const setSearchResultOptions = async (searchResultOptions: SearchResultOptions) => {
@@ -82,6 +86,10 @@ export const setSearchResultOptions = async (searchResultOptions: SearchResultOp
 
 export const setRecentAddressList = async (addressList: AddressData[]) => {
   set({ addressData: addressList });
+};
+
+export const setPrevSearchKey = async (prevSearchKey: SearchKey | null) => {
+  set({ prevSearchKey });
 };
 
 export const validateSettingsData = (
