@@ -33,6 +33,8 @@ export const ClickToCopyText = (props: Props) => {
     <Tooltip
       title={!copied ? "클릭해서 복사하기" : "복사완료!"}
       color={copied ? "green" : "#000"}
+      mouseEnterDelay={0}
+      mouseLeaveDelay={0}
       onOpenChange={handleOpenChange}
     >
       <Text type="link" onClick={handleCopyClick}>

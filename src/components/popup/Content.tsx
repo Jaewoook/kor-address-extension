@@ -1,10 +1,6 @@
 import { Layout, Spin, Typography } from "antd";
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import {
-  AiOutlineCheckCircle,
-  AiOutlineLoading,
-  AiOutlineReload,
-} from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineLoading, AiOutlineReload } from "react-icons/ai";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
@@ -19,7 +15,6 @@ const CHECK_COLOR = "#3CB043";
 
 const Wrapper = styled(Layout.Content)`
   flex: 1;
-  margin-top: 124px;
   background-color: #fafafa;
   overflow: scroll;
 `;
@@ -108,10 +103,7 @@ export const Content = () => {
       return;
     }
 
-    if (
-      scrollContainer.scrollHeight - scrollContainer.scrollTop ===
-      scrollContainer.clientHeight
-    ) {
+    if (scrollContainer.scrollHeight - scrollContainer.scrollTop === scrollContainer.clientHeight) {
       console.log("scroll occurred");
       searchNextPage();
     }
@@ -139,9 +131,7 @@ export const Content = () => {
       ) : isEnd ? (
         <ListEnd>
           <AiOutlineCheckCircle color={CHECK_COLOR} />
-          <Typography.Paragraph>
-            모든 검색 결과를 확인했습니다!
-          </Typography.Paragraph>
+          <Typography.Paragraph>모든 검색 결과를 확인했습니다!</Typography.Paragraph>
         </ListEnd>
       ) : null}
     </Wrapper>
