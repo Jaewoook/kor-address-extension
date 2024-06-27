@@ -13,11 +13,7 @@
     "baseUrl": ".",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
-    "paths": {
-      "@/*": ["src/*"]
-    },
     "strict": true,
-    "noFallthroughCasesInSwitch": true,
-  },
-  "include": ["src"]
+    "noFallthroughCasesInSwitch": true
+  }
 }

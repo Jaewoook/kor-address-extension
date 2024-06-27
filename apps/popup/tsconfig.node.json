@@ -1,0 +1,7 @@
+{
+  "extends": "@repo/tsconfig/node.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["vite.config.ts"]
+}
