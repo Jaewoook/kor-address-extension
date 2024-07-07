@@ -2,10 +2,9 @@
   "name": "kor-address-extension",
   "private": true,
   "version": "1.2.0",
-  "main": "dist/index.js",
   "type": "module",
   "repository": "git@github.com:Jaewoook/kor-address-extension.git",
-  "author": "Jaewook Ahn <ajw4586@gmail.com>",
+  "author": "Jaewook Ahn <dev.jaewook@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "turbo build",
@@ -16,6 +15,9 @@
     "postpackage": "node scripts/CreateDistribution.js"
   },
   "devDependencies": {
+    "archiver": "^5.0.0",
+    "chalk": "^4.1.0",
+    "fs-extra": "^10.1.0",
     "turbo": "^2.0.5"
   },
   "workspaces": [
