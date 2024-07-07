@@ -1,6 +1,8 @@
 /**
  * External modules
  */
+import type { AddressData } from "@repo/shared/models/address";
+import type { DisplayOptions } from "@repo/shared/models/settings";
 import { Collapse, Typography } from "antd";
 import type { CollapseProps } from "antd";
 import { useMemo } from "react";
@@ -10,10 +12,8 @@ import styled from "styled-components";
  * Internal modules
  */
 // import "./AddressList.css";
-import type { AddressData } from "@/shared/models/address";
 import { ClickToCopyText } from "../ClickToCopyText";
 import { FeedbackPopover } from "../FeedbackPopover";
-import type { DisplayOptions } from "@/shared/models/settings";
 
 interface Props extends DisplayOptions {
   data: AddressData[];

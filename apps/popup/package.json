@@ -20,11 +20,11 @@
     "styled-components": "^6.1.11"
   },
   "devDependencies": {
+    "@repo/shared": "*",
     "@repo/tsconfig": "*",
     "@types/chrome": "^0.0.268",
     "@types/clipboard": "^2.0.1",
     "@types/firefox-webext-browser": "^120.0.4",
-    "@types/fs-extra": "^11.0.4",
     "@types/node": "^18.6.5",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

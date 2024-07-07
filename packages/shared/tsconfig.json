@@ -1,0 +1,4 @@
+{
+  "extends": "@repo//tsconfig/vite.json",
+  "include": ["*.ts", "models"]
+}

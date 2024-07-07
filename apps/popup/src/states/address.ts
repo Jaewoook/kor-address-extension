@@ -1,7 +1,6 @@
+import { getRecentAddressList, setRecentAddressList } from "@repo/shared/storage";
+import type { AddressData } from "@repo/shared/models/address";
 import { atom } from "recoil";
-
-import { getRecentAddressList, setRecentAddressList } from "@/shared/storage";
-import type { AddressData } from "@/shared/models/address";
 
 export const addressListState = atom<AddressData[]>({
   key: "address-list",

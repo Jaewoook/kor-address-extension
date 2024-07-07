@@ -1,7 +1,7 @@
+import { DEFAULT_SETTINGS, getPrevSearchKey, setPrevSearchKey, validateSettingsData } from "@repo/shared/storage";
+import type { SearchKey } from "@repo/shared/models/address";
 import { atom } from "recoil";
 
-import { DEFAULT_SETTINGS, getPrevSearchKey, setPrevSearchKey, validateSettingsData } from "@/shared/storage";
-import type { SearchKey } from "@/shared/models/address";
 
 export const searchKeywordState = atom({
   key: "search-keyword",
