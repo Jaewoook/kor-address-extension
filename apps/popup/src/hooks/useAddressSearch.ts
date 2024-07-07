@@ -1,9 +1,9 @@
+import type { AddressSearchAPIResponse, SearchKey } from "@repo/shared/models/address";
 import axios from "axios";
 import type { AxiosResponse } from "axios";
 import { useCallback } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
-import type { AddressSearchAPIResponse, SearchKey } from "@/shared/models/address";
 import { addressListState } from "@/states/address";
 import { prevSearchKeyState, searchKeywordState, searchLoadingState } from "@/states/search";
 

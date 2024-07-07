@@ -1,12 +1,12 @@
-import { atom } from "recoil";
-
 import {
   DEFAULT_SETTINGS,
   getSearchResultOptions,
   setSearchResultOptions,
   validateSettingsData,
-} from "@/shared/storage";
-import type { DisplayOptions } from "@/shared/models/settings";
+} from "@repo/shared/storage";
+import type { DisplayOptions } from "@repo/shared/models/settings";
+import { atom } from "recoil";
+
 
 export const addressDisplayOptionsState = atom<DisplayOptions>({
   key: "display-options",

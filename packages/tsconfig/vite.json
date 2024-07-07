@@ -10,14 +10,9 @@
     "target": "ES2020",
     "noEmit": true,
     "moduleResolution": "Bundler",
-    "baseUrl": ".",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
-    "paths": {
-      "@/*": ["src/*"]
-    },
     "strict": true,
-    "noFallthroughCasesInSwitch": true,
-  },
-  "include": ["src"]
+    "noFallthroughCasesInSwitch": true
+  }
 }

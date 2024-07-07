@@ -1,6 +1,6 @@
-![logo](/icons/icon_128.png)
-
-# 주소검색 확장 프로그램
+<div align="center">
+  <img alt="kor-address-extension logo" src="/images/icon_128.png" />
+<h1>주소검색 확장 프로그램</h1>
 
 ![CircleCI](https://img.shields.io/circleci/build/github/Jaewoook/kor-address-extension?style=flat-square)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Jaewoook/kor-address-extension/pulls)
@@ -8,6 +8,8 @@
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/v/kiamcbcponnlbnanbbfnfdjhioebpiah?style=flat-square)
 ![Mozilla Add-on](https://img.shields.io/amo/v/kor-address-extension?style=flat-square)
 ![whale store](https://img.shields.io/github/package-json/v/Jaewoook/kor-address-extension?label=whale%20store&style=flat-square)
+
+</div>
 
 ## 프로젝트 소개
 
@@ -22,13 +24,13 @@
 
 ## 지원 브라우저
 
-자신의 브라우저에 확장 프로그램 스토어에서 바로 다운로드하세요!
+사용하는 브라우저의 스토어에서 바로 다운로드하세요!
 
 | 브라우저 | 상태 | 다운로드 |
 |--------|:---:|-------|
-| Google Chrome | :heavy_check_mark: | [크롬 웹 스토어에서 다운로드](https://chrome.google.com/webstore/detail/%EC%A3%BC%EC%86%8C%EA%B2%80%EC%83%89/kiamcbcponnlbnanbbfnfdjhioebpiah) |
-| NAVER Whale | :heavy_check_mark: | [웨일 스토어에서 다운로드](https://store.whale.naver.com/detail/pidjpaocfolbbaminggjijheckcdfcdj) |
-| Mozilla Firefox | :warning: | ~~[Firefox Add-ons에서 다운로드](https://addons.mozilla.org/ko/firefox/addon/kor-address-extension/)~~ |
+| Google Chrome | :heavy_check_mark: | [크롬 웹 스토어로 이동](https://chrome.google.com/webstore/detail/%EC%A3%BC%EC%86%8C%EA%B2%80%EC%83%89/kiamcbcponnlbnanbbfnfdjhioebpiah) |
+| NAVER Whale | :heavy_check_mark: | [웨일 스토어로 이동](https://store.whale.naver.com/detail/pidjpaocfolbbaminggjijheckcdfcdj) |
+| Mozilla Firefox | :warning: | ~~[Firefox Add-ons으로 이동](https://addons.mozilla.org/ko/firefox/addon/kor-address-extension/)~~ |
 
 ### 기타 브라우저
 

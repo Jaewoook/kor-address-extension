@@ -1,3 +1,4 @@
+import type { AddressData } from "@repo/shared/models/address";
 import { Layout, Spin, Typography } from "antd";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { AiOutlineCheckCircle, AiOutlineLoading, AiOutlineReload } from "react-icons/ai";
@@ -9,7 +10,6 @@ import { useAddressSearch } from "@/hooks/useAddressSearch";
 import { useSettings } from "@/hooks/useSettings";
 import { addressListState } from "@/states/address";
 import { prevSearchKeyState, searchLoadingState } from "@/states/search";
-import type { AddressData } from "@/shared/models/address";
 
 const CHECK_COLOR = "#3CB043";
 

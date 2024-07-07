@@ -5,29 +5,19 @@ import chalk from "chalk";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-const distDirPath = path.join(__dirname, "../dist");
-const distIconsDirPath = path.join(distDirPath, "/icons");
-const buildDirPath = path.join(__dirname, "../build");
-const iconDisPath = path.join(__dirname, "../icons");
-
-// console.log(distDirPath, distIconsDirPath, buildDirPath, iconDisPath);
+const POPUP_PACKAGE_PATH = path.join(__dirname, "../apps/popup");
+const POPUP_DIST_PATH = path.join(POPUP_PACKAGE_PATH, "dist");
+const EXTENSION_OUTPUT_PATH = path.join(__dirname, "../dist");
 
 //  cleanup the dist folder
-if (fs.existsSync(distDirPath)) {
+if (fs.existsSync(EXTENSION_OUTPUT_PATH)) {
   console.log(
-    chalk.yellow("warning"),
-    "An existing dist directory found. Cleaning it up..."
+    chalk.yellow("warning:"),
+    "Extension output directory is not empty. Cleaning it up..."
   );
-  fs.removeSync(distDirPath);
+  fs.removeSync(EXTENSION_OUTPUT_PATH);
 }
-//  create dist directory which includes icons directory
-fs.mkdirpSync(distIconsDirPath);
 
-fs.copyFileSync(
-  path.join(__dirname, "../manifest.json"),
-  path.join(distDirPath, "/manifest.json")
-);
-fs.copySync(buildDirPath, distDirPath);
-fs.copySync(iconDisPath, distIconsDirPath);
+fs.copySync(POPUP_DIST_PATH, EXTENSION_OUTPUT_PATH);
 
-console.log(chalk.green("success"), "unpacked package created!");
+console.log(chalk.green("success:"), "Unpacked extension package created!");
