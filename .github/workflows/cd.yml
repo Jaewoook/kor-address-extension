@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: action/setup-node@v3
         with:
-          node-version: ".tool-version"
+          node-version: ".tool-versions"
           cache: "yarn"
       - run: yarn install --frozen-lockfile
       - run: yarn build
