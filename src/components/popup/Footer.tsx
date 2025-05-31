@@ -20,7 +20,7 @@ export const Wrapper = styled(Layout.Footer)`
 export const Footer = () => {
   const handlePrivacyClick = () => {
     window.open(
-      "https://raw.githack.com/Jaewoook/kor-address-extension/master/privacy.html",
+      "https://raw.githack.com/Jaewoook/kor-address-extension/main/privacy.html",
     );
   };
 
