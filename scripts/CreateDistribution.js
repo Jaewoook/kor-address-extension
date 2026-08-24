@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs-extra";
 import url from "url";
-import archiver from "archiver";
+import { ZipArchive } from "archiver";
 import chalk from "chalk";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
@@ -26,7 +26,7 @@ if (fs.existsSync(distPath)) {
 }
 
 const output = fs.createWriteStream(distPath);
-const archive = archiver("zip");
+const archive = new ZipArchive();
 
 output.on("close", () => {
   console.log(chalk.green("success"), "dist.zip created!");
