@@ -23,9 +23,12 @@ export const isProduction = () => import.meta.env.PROD;
 
 export const getRuntime = (): Runtime => {
   try {
-    if (typeof chrome === "undefined" && typeof browser === "undefined") {
+    const hasChrome = typeof chrome !== "undefined";
+    const hasBrowser = typeof browser !== "undefined";
+
+    if (!hasChrome && !hasBrowser) {
       return "other";
-    } else if (chrome?.runtime?.id || browser?.runtime?.id) {
+    } else if ((hasChrome && chrome.runtime?.id) || (hasBrowser && browser.runtime?.id)) {
       return "extension";
     } else {
       return "page";
