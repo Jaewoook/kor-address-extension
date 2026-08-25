@@ -8,6 +8,7 @@
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/v/kiamcbcponnlbnanbbfnfdjhioebpiah?style=flat-square)
 ![Mozilla Add-on](https://img.shields.io/amo/v/kor-address-extension?style=flat-square)
 ![whale store](https://img.shields.io/github/package-json/v/Jaewoook/kor-address-extension?label=whale%20store&style=flat-square)
+![Test Coverage](https://img.shields.io/badge/coverage-73.91%25-yellowgreen?style=flat-square)
 
 ## 프로젝트 소개
 
@@ -41,6 +42,14 @@
 
 프로젝트 소스 코드를 로컬 환경에 다운로드 받고, 직접 빌드하여 사용할 수 있습니다.
 
+이 프로젝트는 [asdf](https://asdf-vm.com/)의 `.tool-versions` 파일로 Node.js 버전을 관리합니다 (`package.json`의 `engines.node` 필드와 동일하게 **Node.js 24 이상**을 요구합니다). asdf를 사용 중이라면 저장소 루트에서 아래 명령으로 알맞은 버전을 설치할 수 있습니다.
+
+```bash
+asdf install
+```
+
+asdf를 사용하지 않는다면 [nvm](https://github.com/nvm-sh/nvm) 등 다른 버전 관리 도구로 `.tool-versions`에 명시된 버전을 맞춰주세요.
+
 먼저, 이 저장소를 다운로드 하고 의존성 설치를 합니다.
 
 ```bash
@@ -65,6 +74,25 @@ yarn build && yarn package
 1. <about:debugging> 페이지에 접속합니다.
 2. This Firefox 메뉴 선택을 합니다.
 3. `Load Temporary Add-on...` 버튼을 클릭해 프로젝트 루트의 **dist.zip 파일**을 추가합니다.
+
+## 테스트
+
+[Vitest](https://vitest.dev/)와 [React Testing Library](https://testing-library.com/react)로 작성된 테스트를 실행합니다.
+
+```bash
+yarn test          # 테스트 1회 실행
+yarn test:watch    # watch 모드
+yarn test:coverage # 커버리지 리포트 생성
+```
+
+현재 커버리지 (`yarn test:coverage` 기준):
+
+| Statements | Branches | Functions | Lines |
+|:---:|:---:|:---:|:---:|
+| 73.91% | 64.74% | 73.61% | 73.5% |
+
+> [!NOTE]
+> 위 수치는 마지막으로 `yarn test:coverage`를 실행한 시점의 스냅샷입니다. CI에서 자동으로 갱신되지 않으므로, 테스트를 추가하거나 대규모로 변경한 뒤에는 다시 실행해 값을 갱신해주세요.
 
 ## 제작자
 
