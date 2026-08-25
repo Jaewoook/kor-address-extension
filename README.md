@@ -41,6 +41,14 @@
 
 프로젝트 소스 코드를 로컬 환경에 다운로드 받고, 직접 빌드하여 사용할 수 있습니다.
 
+이 프로젝트는 [asdf](https://asdf-vm.com/)의 `.tool-versions` 파일로 Node.js 버전을 관리합니다 (`package.json`의 `engines.node` 필드와 동일하게 **Node.js 24 이상**을 요구합니다). asdf를 사용 중이라면 저장소 루트에서 아래 명령으로 알맞은 버전을 설치할 수 있습니다.
+
+```bash
+asdf install
+```
+
+asdf를 사용하지 않는다면 [nvm](https://github.com/nvm-sh/nvm) 등 다른 버전 관리 도구로 `.tool-versions`에 명시된 버전을 맞춰주세요.
+
 먼저, 이 저장소를 다운로드 하고 의존성 설치를 합니다.
 
 ```bash
