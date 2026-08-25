@@ -10,3 +10,4 @@ dist/
 dist.zip
 *.zip
 *.tsbuildinfo
+coverage/
