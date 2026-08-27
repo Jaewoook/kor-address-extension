@@ -14,10 +14,12 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@popup/*": ["apps/popup/*"],
+      "@options/*": ["apps/options/*"],
+      "@shared/*": ["shared/*"]
     },
     "strict": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "tests"]
+  "include": ["apps", "shared", "tests", "vite-env.d.ts"]
 }

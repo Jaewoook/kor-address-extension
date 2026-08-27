@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import type { AddressData } from "@/shared/models/address";
-import { AddressList } from "@/components/ui/AddressList";
+import type { AddressData } from "@shared/models/address";
+import { AddressList } from "@shared/components/AddressList";
 
 const address: AddressData = {
   roadAddr: "서울특별시 서초구 강남대로 323",

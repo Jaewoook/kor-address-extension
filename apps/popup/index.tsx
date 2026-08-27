@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/react";
 import ReactDOM from "react-dom/client";
 
 import { App } from "./App";
-import { isProduction } from "./shared/utils";
+import { isProduction } from "@shared/utils";
 
 if (isProduction()) {
   Sentry.init({

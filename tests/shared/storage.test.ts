@@ -10,7 +10,7 @@ import {
   setRecentAddressList,
   setSearchResultOptions,
   validateSettingsData,
-} from "@/shared/storage";
+} from "@shared/storage";
 
 // These tests run outside an extension context (no chrome/browser global),
 // exercising the localStorage fallback path.

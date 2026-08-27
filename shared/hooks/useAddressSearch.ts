@@ -2,9 +2,9 @@ import axios from "axios";
 import type { AxiosResponse } from "axios";
 import { useCallback } from "react";
 
-import type { AddressSearchAPIResponse, SearchKey } from "@/shared/models/address";
-import { useAddressStore } from "@/states/address";
-import { useSearchStore } from "@/states/search";
+import type { AddressSearchAPIResponse, SearchKey } from "@shared/models/address";
+import { useAddressStore } from "@shared/states/address";
+import { useSearchStore } from "@shared/states/search";
 
 const JUSO_API = "http://www.juso.go.kr/addrlink/addrLinkApi.do";
 const API_KEY = "U01TX0FVVEgyMDIwMDUyMTEzNTUwOTEwOTc4NDI=";

@@ -1,8 +1,8 @@
 import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { useSettings } from "@/hooks/useSettings";
-import { useSettingsStore } from "@/states/settings";
+import { useSettings } from "@shared/hooks/useSettings";
+import { useSettingsStore } from "@shared/states/settings";
 
 describe("useSettings", () => {
   beforeEach(() => {

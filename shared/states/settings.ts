@@ -5,8 +5,8 @@ import {
   getSearchResultOptions,
   setSearchResultOptions,
   validateSettingsData,
-} from "@/shared/storage";
-import type { DisplayOptions } from "@/shared/models/settings";
+} from "@shared/storage";
+import type { DisplayOptions } from "@shared/models/settings";
 
 interface SettingsStore {
   addressDisplayOptions: DisplayOptions;

@@ -3,8 +3,8 @@ import { useCallback, useMemo } from "react";
 import { AiFillCheckCircle, AiOutlineCheckCircle } from "react-icons/ai";
 import styled from "styled-components";
 
-import { useAddressSearch } from "@/hooks/useAddressSearch";
-import { useSettings } from "@/hooks/useSettings";
+import { useAddressSearch } from "@shared/hooks/useAddressSearch";
+import { useSettings } from "@shared/hooks/useSettings";
 
 const OptionsWrapper = styled.div`
   display: flex;

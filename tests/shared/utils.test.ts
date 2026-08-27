@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { getExtensionAPI, getRuntime, isExtension, isProduction, merge } from "@/shared/utils";
+import { getExtensionAPI, getRuntime, isExtension, isProduction, merge } from "@shared/utils";
 
 describe("merge", () => {
   it("overwrites primitive values on target with source values", () => {

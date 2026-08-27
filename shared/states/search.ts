@@ -5,8 +5,8 @@ import {
   getPrevSearchKey,
   setPrevSearchKey as persistPrevSearchKey,
   validateSettingsData,
-} from "@/shared/storage";
-import type { SearchKey } from "@/shared/models/address";
+} from "@shared/storage";
+import type { SearchKey } from "@shared/models/address";
 
 interface SearchStore {
   searchKeyword: string;
