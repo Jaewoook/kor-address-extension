@@ -10,6 +10,11 @@ export default defineConfig({
   },
   build: {
     outDir: "build",
+    // This is a single-view extension popup loaded from local files, not a
+    // network-served multi-page app - there's no route to code-split around,
+    // so the default 500kB warning is a false positive here. Current output
+    // is ~900kB; this leaves headroom before warning on genuine bloat.
+    chunkSizeWarningLimit: 1000,
   },
   resolve: {
     alias: [{ find: "@", replacement: path.join(import.meta.dirname, "src") }],
