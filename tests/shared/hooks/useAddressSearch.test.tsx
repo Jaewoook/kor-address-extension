@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AddressData, SearchKey } from "@shared/models/address";
 import { useAddressSearch } from "@shared/hooks/useAddressSearch";
 import { useAddressStore } from "@shared/states/address";
+import { useSearchHistoryStore } from "@shared/states/history";
 import { useSearchStore } from "@shared/states/search";
 
 vi.mock("axios");
@@ -48,6 +49,7 @@ describe("useAddressSearch", () => {
     localStorage.clear();
     useAddressStore.setState({ addressList: [] });
     useSearchStore.setState({ searchKeyword: "", searching: false, prevSearchKey: null });
+    useSearchHistoryStore.setState({ history: [], searchHistoryLimit: { enabled: true, value: 50 } });
   });
 
   it("searchAddress populates addressList from the API response", async () => {
@@ -125,5 +127,32 @@ describe("useAddressSearch", () => {
     });
 
     expect(result.current.addressList).toEqual([]);
+  });
+
+  it("adds the keyword to search history on a successful new search", async () => {
+    mockedPost.mockResolvedValueOnce(makeApiResponse([makeAddress()]));
+    const { result } = renderHook(() => useAddressSearch());
+
+    await act(async () => {
+      await result.current.searchAddress(makeSearchKey({ keyword: "강남대로" }));
+    });
+
+    expect(useSearchHistoryStore.getState().history).toEqual(["강남대로"]);
+  });
+
+  it("does not add a keyword to history on searchNextPage", async () => {
+    mockedPost
+      .mockResolvedValueOnce(makeApiResponse([makeAddress({ zipNo: "111" })]))
+      .mockResolvedValueOnce(makeApiResponse([]));
+    const { result } = renderHook(() => useAddressSearch());
+
+    await act(async () => {
+      await result.current.searchAddress(makeSearchKey({ keyword: "강남대로" }));
+    });
+    await act(async () => {
+      await result.current.searchNextPage();
+    });
+
+    expect(useSearchHistoryStore.getState().history).toEqual(["강남대로"]);
   });
 });
