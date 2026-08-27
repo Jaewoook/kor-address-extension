@@ -83,6 +83,7 @@ yarn build && yarn package
 yarn test          # 테스트 1회 실행
 yarn test:watch    # watch 모드
 yarn test:coverage # 커버리지 리포트 생성
+yarn test:ui       # 브라우저 기반 UI로 테스트 실행 및 결과 확인 (@vitest/ui)
 ```
 
 현재 커버리지 (`yarn test:coverage` 기준):
