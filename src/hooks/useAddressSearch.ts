@@ -91,6 +91,8 @@ export const useAddressSearch = () => {
 
   return {
     addressList,
+    prevSearchKey,
+    searching,
     searchAddress,
     searchNextPage,
     resetSearch,
