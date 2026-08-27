@@ -52,7 +52,9 @@ export const useAddressSearch = () => {
       try {
         const searchResult = await performSearch(searchKey);
         setAddressList(searchResult?.juso || []);
-        useSearchHistoryStore.getState().addKeyword(searchKey.keyword);
+        if (searchKey.keyword.trim() && searchResult?.common.errorCode === "0") {
+          useSearchHistoryStore.getState().addKeyword(searchKey.keyword);
+        }
       } catch (err) {
         console.error(err);
         setAddressList([]);
