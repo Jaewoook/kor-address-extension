@@ -14,6 +14,7 @@ export const useAddressSearch = () => {
   const setPrevSearchKey = useSearchStore((state) => state.setPrevSearchKey);
   const searching = useSearchStore((state) => state.searching);
   const setSearching = useSearchStore((state) => state.setSearching);
+  const searchKeyword = useSearchStore((state) => state.searchKeyword);
   const setSearchKeyword = useSearchStore((state) => state.setSearchKeyword);
   const addressList = useAddressStore((state) => state.addressList);
   const setAddressList = useAddressStore((state) => state.setAddressList);
@@ -95,6 +96,8 @@ export const useAddressSearch = () => {
     addressList,
     prevSearchKey,
     searching,
+    searchKeyword,
+    setSearchKeyword,
     searchAddress,
     searchNextPage,
     resetSearch,

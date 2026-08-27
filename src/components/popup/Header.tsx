@@ -5,7 +5,6 @@ import styled from "styled-components";
 
 import { useAddressSearch } from "@/hooks/useAddressSearch";
 import { useSettings } from "@/hooks/useSettings";
-import { useSearchStore } from "@/states/search";
 
 const OptionsWrapper = styled.div`
   display: flex;
@@ -57,10 +56,7 @@ const DISPLAY_OPTIONS = [
 ] as const;
 
 export const Header = () => {
-  const searchKeyword = useSearchStore((state) => state.searchKeyword);
-  const setSearchKeyword = useSearchStore((state) => state.setSearchKeyword);
-  const searching = useSearchStore((state) => state.searching);
-  const { searchAddress } = useAddressSearch();
+  const { searchKeyword, setSearchKeyword, searching, searchAddress } = useAddressSearch();
   const { addressDisplayOptions, toggleDisplayOption } = useSettings();
 
   const displayOptions = useMemo(
