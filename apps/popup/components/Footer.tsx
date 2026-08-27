@@ -1,6 +1,8 @@
 import { Layout, Space, Typography } from "antd";
-import { AiFillGithub } from "react-icons/ai";
+import { AiFillGithub, AiFillSetting } from "react-icons/ai";
 import styled from "styled-components";
+
+import { getExtensionAPI } from "@shared/utils";
 
 export const Wrapper = styled(Layout.Footer)`
     display: flex;
@@ -28,6 +30,10 @@ export const Footer = () => {
     window.open("https://github.com/Jaewoook/kor-address-extension");
   };
 
+  const handleSettingsClick = () => {
+    getExtensionAPI()?.runtime.openOptionsPage();
+  };
+
   return (
     <Wrapper>
       <Space size="middle">
@@ -35,6 +41,7 @@ export const Footer = () => {
           개인정보 처리방침
         </Typography.Text>
         <AiFillGithub onClick={handleGitHubClick} />
+        <AiFillSetting aria-label="설정" role="button" onClick={handleSettingsClick} />
       </Space>
     </Wrapper>
   );
