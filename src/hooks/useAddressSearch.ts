@@ -1,20 +1,22 @@
 import axios from "axios";
 import type { AxiosResponse } from "axios";
 import { useCallback } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
 
 import type { AddressSearchAPIResponse, SearchKey } from "@/shared/models/address";
-import { addressListState } from "@/states/address";
-import { prevSearchKeyState, searchKeywordState, searchLoadingState } from "@/states/search";
+import { useAddressStore } from "@/states/address";
+import { useSearchStore } from "@/states/search";
 
 const JUSO_API = "http://www.juso.go.kr/addrlink/addrLinkApi.do";
 const API_KEY = "U01TX0FVVEgyMDIwMDUyMTEzNTUwOTEwOTc4NDI=";
 
 export const useAddressSearch = () => {
-  const [prevSearchKey, setPrevSearchKey] = useRecoilState(prevSearchKeyState);
-  const [addressList, setAddressList] = useRecoilState(addressListState);
-  const [searching, setSearching] = useRecoilState(searchLoadingState);
-  const setSearchKeyword = useSetRecoilState(searchKeywordState);
+  const prevSearchKey = useSearchStore((state) => state.prevSearchKey);
+  const setPrevSearchKey = useSearchStore((state) => state.setPrevSearchKey);
+  const searching = useSearchStore((state) => state.searching);
+  const setSearching = useSearchStore((state) => state.setSearching);
+  const setSearchKeyword = useSearchStore((state) => state.setSearchKeyword);
+  const addressList = useAddressStore((state) => state.addressList);
+  const setAddressList = useAddressStore((state) => state.setAddressList);
 
   const performSearch = useCallback(
     async (searchKey: SearchKey) => {

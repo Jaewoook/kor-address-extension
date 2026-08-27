@@ -1,9 +1,12 @@
 import { ConfigProvider, Layout as _Layout, ThemeConfig } from "antd";
-import { RecoilRoot } from "recoil";
+import { useEffect } from "react";
 import styled from "styled-components";
 
 import "./App.css";
 import { Content, Footer, Header } from "./components/popup";
+import { useAddressStore } from "./states/address";
+import { useSearchStore } from "./states/search";
+import { useSettingsStore } from "./states/settings";
 
 export const Layout = styled(_Layout)`
   display: flex;
@@ -21,15 +24,19 @@ const theme: ThemeConfig = {
 };
 
 export const App = () => {
+  useEffect(() => {
+    useAddressStore.getState().hydrate();
+    useSearchStore.getState().hydrate();
+    useSettingsStore.getState().hydrate();
+  }, []);
+
   return (
-    <RecoilRoot>
-      <ConfigProvider theme={theme}>
-        <Layout>
-          <Header />
-          <Content />
-          <Footer />
-        </Layout>
-      </ConfigProvider>
-    </RecoilRoot>
+    <ConfigProvider theme={theme}>
+      <Layout>
+        <Header />
+        <Content />
+        <Footer />
+      </Layout>
+    </ConfigProvider>
   );
 };
