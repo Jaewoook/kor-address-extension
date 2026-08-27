@@ -1,13 +1,10 @@
 import { Button, Input, Layout } from "antd";
 import { useCallback, useMemo } from "react";
 import { AiFillCheckCircle, AiOutlineCheckCircle } from "react-icons/ai";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import { useAddressSearch } from "@/hooks/useAddressSearch";
 import { useSettings } from "@/hooks/useSettings";
-import { searchKeywordState, searchLoadingState } from "@/states/search";
-import { addressDisplayOptionsState } from "@/states/settings";
 
 const OptionsWrapper = styled.div`
   display: flex;
@@ -59,11 +56,8 @@ const DISPLAY_OPTIONS = [
 ] as const;
 
 export const Header = () => {
-  const addressDisplayOptions = useRecoilValue(addressDisplayOptionsState);
-  const [searchKeyword, setSearchKeyword] = useRecoilState(searchKeywordState);
-  const searching = useRecoilValue(searchLoadingState);
-  const { searchAddress } = useAddressSearch();
-  const { toggleDisplayOption } = useSettings();
+  const { searchKeyword, setSearchKeyword, searching, searchAddress } = useAddressSearch();
+  const { addressDisplayOptions, toggleDisplayOption } = useSettings();
 
   const displayOptions = useMemo(
     () =>

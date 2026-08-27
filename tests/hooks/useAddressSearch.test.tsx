@@ -1,16 +1,14 @@
 import { act, renderHook } from "@testing-library/react";
 import axios from "axios";
-import type { PropsWithChildren } from "react";
-import { RecoilRoot } from "recoil";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { AddressData, SearchKey } from "@/shared/models/address";
 import { useAddressSearch } from "@/hooks/useAddressSearch";
+import { useAddressStore } from "@/states/address";
+import { useSearchStore } from "@/states/search";
 
 vi.mock("axios");
 const mockedPost = vi.mocked(axios.post);
-
-const wrapper = ({ children }: PropsWithChildren) => <RecoilRoot>{children}</RecoilRoot>;
 
 const makeSearchKey = (overrides: Partial<SearchKey> = {}): SearchKey => ({
   currentPage: "1",
@@ -48,11 +46,13 @@ describe("useAddressSearch", () => {
   beforeEach(() => {
     mockedPost.mockReset();
     localStorage.clear();
+    useAddressStore.setState({ addressList: [] });
+    useSearchStore.setState({ searchKeyword: "", searching: false, prevSearchKey: null });
   });
 
   it("searchAddress populates addressList from the API response", async () => {
     mockedPost.mockResolvedValueOnce(makeApiResponse([makeAddress()]));
-    const { result } = renderHook(() => useAddressSearch(), { wrapper });
+    const { result } = renderHook(() => useAddressSearch());
 
     await act(async () => {
       await result.current.searchAddress(makeSearchKey());
@@ -65,7 +65,7 @@ describe("useAddressSearch", () => {
 
   it("searchAddress clears addressList when the API call fails", async () => {
     mockedPost.mockRejectedValueOnce(new Error("network error"));
-    const { result } = renderHook(() => useAddressSearch(), { wrapper });
+    const { result } = renderHook(() => useAddressSearch());
 
     await act(async () => {
       await result.current.searchAddress(makeSearchKey());
@@ -76,7 +76,7 @@ describe("useAddressSearch", () => {
 
   it("ignores a repeat search with the same keyword", async () => {
     mockedPost.mockResolvedValue(makeApiResponse([]));
-    const { result } = renderHook(() => useAddressSearch(), { wrapper });
+    const { result } = renderHook(() => useAddressSearch());
 
     await act(async () => {
       await result.current.searchAddress(makeSearchKey());
@@ -92,7 +92,7 @@ describe("useAddressSearch", () => {
     mockedPost
       .mockResolvedValueOnce(makeApiResponse([makeAddress({ zipNo: "111" })]))
       .mockResolvedValueOnce(makeApiResponse([]));
-    const { result } = renderHook(() => useAddressSearch(), { wrapper });
+    const { result } = renderHook(() => useAddressSearch());
 
     await act(async () => {
       await result.current.searchAddress(makeSearchKey());
@@ -113,7 +113,7 @@ describe("useAddressSearch", () => {
 
   it("resetSearch clears the address list", async () => {
     mockedPost.mockResolvedValueOnce(makeApiResponse([makeAddress()]));
-    const { result } = renderHook(() => useAddressSearch(), { wrapper });
+    const { result } = renderHook(() => useAddressSearch());
 
     await act(async () => {
       await result.current.searchAddress(makeSearchKey());
