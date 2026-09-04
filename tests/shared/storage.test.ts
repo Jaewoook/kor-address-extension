@@ -5,9 +5,13 @@ import {
   getAllStorageData,
   getPrevSearchKey,
   getRecentAddressList,
+  getSearchHistory,
+  getSearchHistoryLimit,
   getSearchResultOptions,
   setPrevSearchKey,
   setRecentAddressList,
+  setSearchHistory,
+  setSearchHistoryLimit,
   setSearchResultOptions,
   validateSettingsData,
 } from "@shared/storage";
@@ -54,6 +58,21 @@ describe("storage (localStorage fallback)", () => {
     await setSearchResultOptions({ showEng: true, showRoad: true, showLegacy: true });
     const all = await getAllStorageData();
     expect(all.searchResult).toEqual({ showEng: true, showRoad: true, showLegacy: true });
+  });
+
+  it("returns null for search history that has not been stored yet", async () => {
+    expect(await getSearchHistory()).toBeNull();
+    expect(await getSearchHistoryLimit()).toBeNull();
+  });
+
+  it("round-trips the search history list through localStorage", async () => {
+    await setSearchHistory(["강남대로", "자양동"]);
+    expect(await getSearchHistory()).toEqual(["강남대로", "자양동"]);
+  });
+
+  it("round-trips the search history limit through localStorage", async () => {
+    await setSearchHistoryLimit({ enabled: false, value: 50 });
+    expect(await getSearchHistoryLimit()).toEqual({ enabled: false, value: 50 });
   });
 });
 

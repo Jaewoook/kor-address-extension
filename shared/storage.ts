@@ -1,4 +1,5 @@
 import type { AddressData, SearchKey } from "./models/address";
+import type { SearchHistoryLimit } from "./models/history";
 import { isExtension, getExtensionAPI } from "./utils";
 
 type SearchResultOptions = {
@@ -11,6 +12,8 @@ export type Settings = Partial<{
   searchResult: Partial<SearchResultOptions>;
   addressData: AddressData[];
   prevSearchKey: SearchKey;
+  searchHistory: string[];
+  searchHistoryLimit: SearchHistoryLimit;
 }>;
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -25,6 +28,11 @@ export const DEFAULT_SETTINGS: Settings = {
     currentPage: "1",
     keyword: "",
     end: false,
+  },
+  searchHistory: [],
+  searchHistoryLimit: {
+    enabled: true,
+    value: 50,
   },
 };
 
@@ -90,6 +98,24 @@ export const setRecentAddressList = async (addressList: AddressData[]) => {
 
 export const setPrevSearchKey = async (prevSearchKey: SearchKey | null) => {
   set({ prevSearchKey });
+};
+
+export const getSearchHistory = async (): Promise<string[] | null> => {
+  const searchHistory = await get("searchHistory");
+  return searchHistory?.searchHistory ?? null;
+};
+
+export const setSearchHistory = async (history: string[]) => {
+  set({ searchHistory: history });
+};
+
+export const getSearchHistoryLimit = async (): Promise<SearchHistoryLimit | null> => {
+  const searchHistoryLimit = await get("searchHistoryLimit");
+  return searchHistoryLimit?.searchHistoryLimit ?? null;
+};
+
+export const setSearchHistoryLimit = async (limit: SearchHistoryLimit) => {
+  set({ searchHistoryLimit: limit });
 };
 
 export const validateSettingsData = (

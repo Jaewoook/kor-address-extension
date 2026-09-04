@@ -4,6 +4,7 @@ import { useCallback } from "react";
 
 import type { AddressSearchAPIResponse, SearchKey } from "@shared/models/address";
 import { useAddressStore } from "@shared/states/address";
+import { useSearchHistoryStore } from "@shared/states/history";
 import { useSearchStore } from "@shared/states/search";
 
 const JUSO_API = "http://www.juso.go.kr/addrlink/addrLinkApi.do";
@@ -51,6 +52,7 @@ export const useAddressSearch = () => {
       try {
         const searchResult = await performSearch(searchKey);
         setAddressList(searchResult?.juso || []);
+        useSearchHistoryStore.getState().addKeyword(searchKey.keyword);
       } catch (err) {
         console.error(err);
         setAddressList([]);

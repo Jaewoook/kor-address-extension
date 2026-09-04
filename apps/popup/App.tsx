@@ -5,6 +5,7 @@ import styled from "styled-components";
 import "./App.css";
 import { Content, Footer, Header } from "./components";
 import { useAddressStore } from "@shared/states/address";
+import { useSearchHistoryStore } from "@shared/states/history";
 import { useSearchStore } from "@shared/states/search";
 import { useSettingsStore } from "@shared/states/settings";
 
@@ -28,6 +29,7 @@ export const App = () => {
     useAddressStore.getState().hydrate();
     useSearchStore.getState().hydrate();
     useSettingsStore.getState().hydrate();
+    useSearchHistoryStore.getState().hydrate();
   }, []);
 
   return (
