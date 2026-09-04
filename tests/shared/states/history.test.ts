@@ -51,6 +51,40 @@ describe("useSearchHistoryStore", () => {
     expect(useSearchHistoryStore.getState().searchHistoryLimit).toEqual({ enabled: true, value: 10 });
   });
 
+  it("setSearchHistoryLimit truncates history immediately when enabled with a lower cap", () => {
+    const { addKeyword, setSearchHistoryLimit } = useSearchHistoryStore.getState();
+    addKeyword("a");
+    addKeyword("b");
+    addKeyword("c");
+    addKeyword("d");
+    expect(useSearchHistoryStore.getState().history).toEqual(["d", "c", "b", "a"]);
+
+    setSearchHistoryLimit({ enabled: true, value: 2 });
+
+    expect(useSearchHistoryStore.getState().history).toEqual(["d", "c"]);
+  });
+
+  it("setSearchHistoryLimit leaves history untouched when the cap is not exceeded", () => {
+    const { addKeyword, setSearchHistoryLimit } = useSearchHistoryStore.getState();
+    addKeyword("a");
+    addKeyword("b");
+
+    setSearchHistoryLimit({ enabled: true, value: 10 });
+
+    expect(useSearchHistoryStore.getState().history).toEqual(["b", "a"]);
+  });
+
+  it("setSearchHistoryLimit does not truncate history when disabling (unlimited)", () => {
+    const { addKeyword, setSearchHistoryLimit } = useSearchHistoryStore.getState();
+    addKeyword("a");
+    addKeyword("b");
+    addKeyword("c");
+
+    setSearchHistoryLimit({ enabled: false, value: 1 });
+
+    expect(useSearchHistoryStore.getState().history).toEqual(["c", "b", "a"]);
+  });
+
   it("clearHistory empties the list", () => {
     const { addKeyword, clearHistory } = useSearchHistoryStore.getState();
     addKeyword("강남대로");

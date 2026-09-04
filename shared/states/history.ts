@@ -35,8 +35,15 @@ export const useSearchHistoryStore = create<SearchHistoryStore>((set, get) => ({
   setSearchHistoryLimit: (update) => {
     const searchHistoryLimit =
       typeof update === "function" ? update(get().searchHistoryLimit) : update;
-    set({ searchHistoryLimit });
+    // unlimited means don't touch it
+    const history = searchHistoryLimit.enabled
+      ? get().history.slice(0, searchHistoryLimit.value)
+      : get().history;
+    set({ searchHistoryLimit, history });
     persistSearchHistoryLimit(searchHistoryLimit);
+    if (searchHistoryLimit.enabled) {
+      persistSearchHistory(history);
+    }
   },
   clearHistory: () => {
     set({ history: [] });

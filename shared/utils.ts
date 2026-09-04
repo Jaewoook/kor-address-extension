@@ -55,3 +55,8 @@ export const getExtensionAPI = () => {
   }
   return null;
 };
+
+export const getVersion = (): string => {
+  const extAPI = getExtensionAPI();
+  return extAPI?.runtime.getManifest().version ?? "Unknown version";
+};
