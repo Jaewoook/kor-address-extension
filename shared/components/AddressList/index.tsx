@@ -1,17 +1,11 @@
-/**
- * External modules
- */
 import { Collapse, Typography } from "antd";
 import type { CollapseProps } from "antd";
 import { useMemo } from "react";
 import styled from "styled-components";
 
-/**
- * Internal modules
- */
-import type { AddressData } from "@shared/models/address";
 import { ClickToCopyText } from "../ClickToCopyText";
 import { FeedbackPopover } from "../FeedbackPopover";
+import type { AddressData } from "@shared/models/address";
 import type { DisplayOptions } from "@shared/models/settings";
 
 interface Props extends DisplayOptions {

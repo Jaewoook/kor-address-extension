@@ -1,6 +1,3 @@
-/**
- * External modules
- */
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { Button, Input, Popover, Typography } from "antd";

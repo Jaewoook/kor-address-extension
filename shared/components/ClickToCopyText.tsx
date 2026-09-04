@@ -1,13 +1,14 @@
-/**
- * External modules
- */
 import { useCallback, useState } from "react";
 import styled from "styled-components";
 import { Button, Tooltip } from "antd";
 import copy from "copy-to-clipboard";
 
 const Text = styled(Button)`
-  color: rgba(0, 0, 0, 0.65);
+  color: rgba(0, 0, 0, 0.65) !important;
+
+  :hover {
+    color: #1677ff;
+  }
 `;
 
 interface Props {
