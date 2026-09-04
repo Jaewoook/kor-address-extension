@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { ProjectInfo } from "./components/ProjectInfo";
 import { PrivacyPolicySection } from "./components/PrivacyPolicySection";
 import { SearchHistorySection } from "./components/SearchHistorySection";
-import { VersionInfo } from "./components/VersionInfo";
 import { useSearchHistoryStore } from "@shared/states/history";
 
 const Page = styled(Layout.Content)`
@@ -27,7 +26,6 @@ export const App = () => {
         <ProjectInfo />
         <SearchHistorySection />
         <PrivacyPolicySection />
-        <VersionInfo />
       </Page>
     </ConfigProvider>
   );
