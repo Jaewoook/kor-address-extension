@@ -31,6 +31,12 @@ export const Footer = () => {
   };
 
   const handleSettingsClick = () => {
+    // dev-only
+    if (getExtensionAPI() === null) {
+      window.open("/options");
+      return;
+    }
+
     getExtensionAPI()?.runtime.openOptionsPage();
   };
 
