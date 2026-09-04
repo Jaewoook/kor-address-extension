@@ -19,7 +19,8 @@
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "package": "node scripts/CreatePackage.js",
-    "postpackage": "node scripts/CreateDistribution.js"
+    "postpackage": "node scripts/CreateDistribution.js",
+    "generate:privacy": "node scripts/GeneratePrivacyHtml.js"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
