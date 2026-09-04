@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import styled from "styled-components";
 
 import "./App.css";
-import { Content, Footer, Header } from "./components/popup";
-import { useAddressStore } from "./states/address";
-import { useSearchStore } from "./states/search";
-import { useSettingsStore } from "./states/settings";
+import { Content, Footer, Header } from "./components";
+import { useAddressStore } from "@shared/states/address";
+import { useSearchStore } from "@shared/states/search";
+import { useSettingsStore } from "@shared/states/settings";
 
 export const Layout = styled(_Layout)`
   display: flex;

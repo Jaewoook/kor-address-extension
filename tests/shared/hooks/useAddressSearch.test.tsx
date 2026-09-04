@@ -2,10 +2,10 @@ import { act, renderHook } from "@testing-library/react";
 import axios from "axios";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import type { AddressData, SearchKey } from "@/shared/models/address";
-import { useAddressSearch } from "@/hooks/useAddressSearch";
-import { useAddressStore } from "@/states/address";
-import { useSearchStore } from "@/states/search";
+import type { AddressData, SearchKey } from "@shared/models/address";
+import { useAddressSearch } from "@shared/hooks/useAddressSearch";
+import { useAddressStore } from "@shared/states/address";
+import { useSearchStore } from "@shared/states/search";
 
 vi.mock("axios");
 const mockedPost = vi.mocked(axios.post);

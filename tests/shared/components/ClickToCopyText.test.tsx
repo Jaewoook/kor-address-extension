@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import { ClickToCopyText } from "@/components/ui/ClickToCopyText";
+import { ClickToCopyText } from "@shared/components/ClickToCopyText";
 
 const { mockCopy } = vi.hoisted(() => ({ mockCopy: vi.fn() }));
 vi.mock("copy-to-clipboard", () => ({ default: mockCopy }));

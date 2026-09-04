@@ -17,7 +17,11 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
   },
   resolve: {
-    alias: [{ find: "@", replacement: path.join(import.meta.dirname, "src") }],
+    alias: [
+      { find: "@popup", replacement: path.join(import.meta.dirname, "apps/popup") },
+      { find: "@options", replacement: path.join(import.meta.dirname, "apps/options") },
+      { find: "@shared", replacement: path.join(import.meta.dirname, "shared") },
+    ],
   },
   test: {
     environment: "jsdom",
@@ -25,7 +29,7 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "text-summary", "lcov", "html"],
-      include: ["src/**/*.{ts,tsx}"],
+      include: ["apps/**/*.{ts,tsx}", "shared/**/*.{ts,tsx}"],
     },
   },
 });

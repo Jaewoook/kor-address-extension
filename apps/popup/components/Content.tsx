@@ -3,10 +3,10 @@ import { useCallback, useEffect, useMemo, useRef } from "react";
 import { AiOutlineCheckCircle, AiOutlineLoading, AiOutlineReload } from "react-icons/ai";
 import styled from "styled-components";
 
-import { AddressList } from "../ui/AddressList";
-import { useAddressSearch } from "@/hooks/useAddressSearch";
-import { useSettings } from "@/hooks/useSettings";
-import type { AddressData } from "@/shared/models/address";
+import { AddressList } from "@shared/components/AddressList";
+import { useAddressSearch } from "@shared/hooks/useAddressSearch";
+import { useSettings } from "@shared/hooks/useSettings";
+import type { AddressData } from "@shared/models/address";
 
 const CHECK_COLOR = "#3CB043";
 

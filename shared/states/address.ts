@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
-import { getRecentAddressList, setRecentAddressList } from "@/shared/storage";
-import type { AddressData } from "@/shared/models/address";
+import { getRecentAddressList, setRecentAddressList } from "@shared/storage";
+import type { AddressData } from "@shared/models/address";
 
 interface AddressStore {
   addressList: AddressData[];

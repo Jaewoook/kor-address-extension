@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { Content } from "@/components/popup/Content";
-import { useAddressStore } from "@/states/address";
-import { useSearchStore } from "@/states/search";
-import { useSettingsStore } from "@/states/settings";
+import { Content } from "@popup/components/Content";
+import { useAddressStore } from "@shared/states/address";
+import { useSearchStore } from "@shared/states/search";
+import { useSettingsStore } from "@shared/states/settings";
 
 // Smoke test: verifies the hooks/store wiring (useAddressSearch, useSettings,
 // and their backing Zustand stores) renders without crashing.

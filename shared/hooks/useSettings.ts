@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { useSettingsStore } from "@/states/settings";
+import { useSettingsStore } from "@shared/states/settings";
 
 export const useSettings = () => {
   const addressDisplayOptions = useSettingsStore((state) => state.addressDisplayOptions);
