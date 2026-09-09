@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { getExtensionAPI, getRuntime, isExtension, isProduction, merge } from "@shared/utils";
+import { getExtensionAPI, getRuntime, getVersion, isExtension, isProduction, merge } from "@shared/utils";
 
 describe("merge", () => {
   it("overwrites primitive values on target with source values", () => {
@@ -59,6 +59,23 @@ describe("getRuntime / isExtension / getExtensionAPI", () => {
     vi.stubGlobal("browser", { runtime: {} });
     expect(getRuntime()).toBe("page");
     expect(isExtension()).toBe(false);
+  });
+});
+
+describe("getVersion", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("returns the manifest version when running as an extension", () => {
+    vi.stubGlobal("chrome", {
+      runtime: { id: "test-extension-id", getManifest: () => ({ version: "1.2.3" }) },
+    });
+    expect(getVersion()).toBe("1.2.3");
+  });
+
+  it("returns a fallback when not running as an extension", () => {
+    expect(getVersion()).toBe("Unknown version");
   });
 });
 

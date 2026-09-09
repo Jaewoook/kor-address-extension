@@ -28,14 +28,14 @@ const makeAddress = (overrides: Partial<AddressData> = {}): AddressData => ({
   ...overrides,
 });
 
-const makeApiResponse = (juso: AddressData[] | null) => ({
+const makeApiResponse = (juso: AddressData[] | null, errorCode = "0") => ({
   data: {
     results: {
       common: {
         totalCount: String(juso?.length ?? 0),
         currentPage: 1,
         countPerPage: 20,
-        errorCode: "0",
+        errorCode,
         errorMessage: "",
       },
       juso,
@@ -154,5 +154,27 @@ describe("useAddressSearch", () => {
     });
 
     expect(useSearchHistoryStore.getState().history).toEqual(["강남대로"]);
+  });
+
+  it("does not add a keyword to history when the API reports a non-zero errorCode", async () => {
+    mockedPost.mockResolvedValueOnce(makeApiResponse(null, "E0001"));
+    const { result } = renderHook(() => useAddressSearch());
+
+    await act(async () => {
+      await result.current.searchAddress(makeSearchKey({ keyword: "강남대로" }));
+    });
+
+    expect(useSearchHistoryStore.getState().history).toEqual([]);
+  });
+
+  it("does not add an empty or whitespace-only keyword to history", async () => {
+    mockedPost.mockResolvedValueOnce(makeApiResponse([]));
+    const { result } = renderHook(() => useAddressSearch());
+
+    await act(async () => {
+      await result.current.searchAddress(makeSearchKey({ keyword: "   " }));
+    });
+
+    expect(useSearchHistoryStore.getState().history).toEqual([]);
   });
 });

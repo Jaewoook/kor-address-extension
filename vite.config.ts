@@ -15,6 +15,12 @@ export default defineConfig({
     // so the default 500kB warning is a false positive here. Current output
     // is ~900kB; this leaves headroom before warning on genuine bloat.
     chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      input: {
+        main: path.resolve(import.meta.dirname, "index.html"),
+        options: path.resolve(import.meta.dirname, "options.html"),
+      },
+    },
   },
   resolve: {
     alias: [
