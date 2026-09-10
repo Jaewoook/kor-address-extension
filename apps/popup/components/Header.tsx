@@ -5,6 +5,9 @@ import styled from "styled-components";
 
 import { useAddressSearch } from "@shared/hooks/useAddressSearch";
 import { useSettings } from "@shared/hooks/useSettings";
+import * as SharedColors from "@shared/constants/colors";
+import * as SharedValues from "@shared/constants/values";
+import * as PopupStrings from "../constants/strings";
 
 const OptionsWrapper = styled.div`
   display: flex;
@@ -23,33 +26,33 @@ const SearchWrapper = styled(Layout.Content)`
   padding: 10px;
   background: linear-gradient(
     to bottom,
-    #f0f2f5 0%,
-    #f0f2f5 40%,
-    #fafafa 40%,
-    #fafafa 100%
+    ${SharedColors.COLOR_BACKGROUND_GRADIENT} 0%,
+    ${SharedColors.COLOR_BACKGROUND_GRADIENT} 40%,
+    ${SharedColors.COLOR_BACKGROUND_LIGHT} 40%,
+    ${SharedColors.COLOR_BACKGROUND_LIGHT} 100%
   );
 `;
 
 const Search = styled(Input.Search)`
-  box-shadow: 0px 8px 8px -8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 8px 8px -8px ${SharedColors.COLOR_SHADOW};
 `;
 
 const DISPLAY_OPTIONS = [
   {
     key: "engAddrShown",
-    name: "영문주소",
+    name: PopupStrings.DISPLAY_OPTION_ENG_ADDR_LABEL,
     enabled: <AiFillCheckCircle />,
     disabled: <AiOutlineCheckCircle />,
   },
   {
     key: "roadAddrShown",
-    name: "도로명주소",
+    name: PopupStrings.DISPLAY_OPTION_ROAD_ADDR_LABEL,
     enabled: <AiFillCheckCircle />,
     disabled: <AiOutlineCheckCircle />,
   },
   {
     key: "streetNumAddrShown",
-    name: "지번주소",
+    name: PopupStrings.DISPLAY_OPTION_STREET_NUM_ADDR_LABEL,
     enabled: <AiFillCheckCircle />,
     disabled: <AiOutlineCheckCircle />,
   },
@@ -93,7 +96,7 @@ export const Header = () => {
     // });
 
     const addressResult = await searchAddress({
-      countPerPage: "20",
+      countPerPage: SharedValues.SEARCH_RESULTS_PER_PAGE,
       currentPage: "1",
       keyword: searchKeyword,
       end: false,
@@ -105,14 +108,14 @@ export const Header = () => {
   return (
     <header>
       <OptionsWrapper>
-        <h1>주소검색</h1>
+        <h1>{PopupStrings.HEADER_TITLE}</h1>
         <div>{displayOptions}</div>
       </OptionsWrapper>
       <SearchWrapper>
         <Search
           enterButton
           allowClear
-          placeholder="검색할 주소 입력"
+          placeholder={PopupStrings.SEARCH_INPUT_PLACEHOLDER}
           value={searchKeyword}
           loading={searching}
           onChange={handleSearchKeywordChange}

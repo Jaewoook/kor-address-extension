@@ -1,10 +1,26 @@
 import { defineConfig } from "vitest/config";
 import path from "path";
 import react from "@vitejs/plugin-react";
+import type { Plugin } from "vite";
+
+const REQUIRED_ENV_VARS = ["VITE_SENTRY_DSN", "VITE_JUSO_API_KEY"] as const;
+
+// Only runs for `vite dev` - configureServer never fires for build/preview.
+const warnOnMissingEnv = (): Plugin => ({
+  name: "warn-on-missing-env",
+  configureServer(server) {
+    const missing = REQUIRED_ENV_VARS.filter((key) => !server.config.env[key]);
+    if (missing.length > 0) {
+      server.config.logger.warn(
+        `\n⚠️  Missing .env value(s): ${missing.join(", ")} — copy .env.example to .env and fill them in.\n`,
+      );
+    }
+  },
+});
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), warnOnMissingEnv()],
   server: {
     port: 11200,
   },

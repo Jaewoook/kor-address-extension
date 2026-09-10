@@ -57,6 +57,12 @@ git clone https://github.com/Jaewoook/kor-address-extension
 cd kor-address-extension && yarn
 ```
 
+`.env.example`을 복사해 `.env` 파일을 만들고, 필요한 값(Sentry DSN, 주소 검색 API 키 등)을 채워 넣습니다.
+
+```bash
+cp .env.example .env
+```
+
 그리고, 패키지 스크립트를 실행합니다.
 
 ```bash

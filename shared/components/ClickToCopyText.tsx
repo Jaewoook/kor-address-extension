@@ -3,11 +3,15 @@ import styled from "styled-components";
 import { Button, Tooltip } from "antd";
 import copy from "copy-to-clipboard";
 
+import * as SharedColors from "@shared/constants/colors";
+import * as SharedValues from "@shared/constants/values";
+import * as SharedStrings from "@shared/constants/strings";
+
 const Text = styled(Button)`
-  color: rgba(0, 0, 0, 0.65) !important;
+  color: ${SharedColors.COLOR_TEXT_TERTIARY} !important;
 
   :hover {
-    color: #1677ff;
+    color: ${SharedColors.COLOR_LINK};
   }
 `;
 
@@ -26,14 +30,14 @@ export const ClickToCopyText = (props: Props) => {
 
   const handleOpenChange = useCallback((open: boolean) => {
     if (!open) {
-      setTimeout(() => setCopied(false), 100);
+      setTimeout(() => setCopied(false), SharedValues.COPY_FEEDBACK_RESET_DELAY_MS);
     }
   }, []);
 
   return (
     <Tooltip
-      title={!copied ? "클릭해서 복사하기" : "복사완료!"}
-      color={copied ? "green" : "#000"}
+      title={!copied ? SharedStrings.COPY_TOOLTIP_IDLE : SharedStrings.COPY_TOOLTIP_DONE}
+      color={copied ? SharedColors.COLOR_SUCCESS_TOOLTIP : SharedColors.COLOR_BLACK}
       mouseEnterDelay={0}
       mouseLeaveDelay={0}
       onOpenChange={handleOpenChange}
