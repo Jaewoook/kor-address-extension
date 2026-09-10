@@ -7,6 +7,8 @@ import { ClickToCopyText } from "../ClickToCopyText";
 import { FeedbackPopover } from "../FeedbackPopover";
 import type { AddressData } from "@shared/models/address";
 import type { DisplayOptions } from "@shared/models/settings";
+import * as SharedColors from "@shared/constants/colors";
+import * as SharedStrings from "@shared/constants/strings";
 
 interface Props extends DisplayOptions {
   data: AddressData[];
@@ -16,10 +18,10 @@ const EmptyText = styled(Typography.Paragraph)`
   text-align: center;
   margin-top: 2em;
   margin-bottom: 2em !important;
-  color: rgba(0, 0, 0, 0.6) !important;
+  color: ${SharedColors.COLOR_TEXT_SECONDARY} !important;
   > span {
     font-size: 12px;
-    color: rgba(0, 0, 0, 0.3) !important;
+    color: ${SharedColors.COLOR_TEXT_FAINT} !important;
   }
 `;
 
@@ -70,10 +72,16 @@ const AddressItem = ({
 }: AddressItemProps) => {
   return (
     <AddressItemWrapper>
-      <Row keyLabel="우편번호: " value={address.zipNo} />
-      {roadAddrShown ? <Row keyLabel="도로명주소: " value={address.roadAddr} /> : null}
-      {streetNumAddrShown ? <Row keyLabel="지번주소: " value={address.jibunAddr} /> : null}
-      {engAddrShown ? <Row keyLabel="영문주소: " value={address.engAddr} /> : null}
+      <Row keyLabel={SharedStrings.ADDRESS_LABEL_ZIP_NO} value={address.zipNo} />
+      {roadAddrShown ? (
+        <Row keyLabel={SharedStrings.ADDRESS_LABEL_ROAD_ADDR} value={address.roadAddr} />
+      ) : null}
+      {streetNumAddrShown ? (
+        <Row keyLabel={SharedStrings.ADDRESS_LABEL_JIBUN_ADDR} value={address.jibunAddr} />
+      ) : null}
+      {engAddrShown ? (
+        <Row keyLabel={SharedStrings.ADDRESS_LABEL_ENG_ADDR} value={address.engAddr} />
+      ) : null}
     </AddressItemWrapper>
   );
 };
@@ -100,9 +108,9 @@ export const AddressList = (props: Props) => {
   if (!data || !data.length) {
     return (
       <EmptyText type="secondary">
-        검색 결과가 없습니다.
+        {SharedStrings.ADDRESS_EMPTY_TEXT}
         <br />
-        <span>(검색어 예시: 강남대로, 자양동, 초성 검색 가능)</span>
+        <span>{SharedStrings.ADDRESS_EMPTY_EXAMPLE}</span>
         <br />
         <FeedbackPopover />
       </EmptyText>

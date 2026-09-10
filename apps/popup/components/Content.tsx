@@ -7,12 +7,12 @@ import { AddressList } from "@shared/components/AddressList";
 import { useAddressSearch } from "@shared/hooks/useAddressSearch";
 import { useSettings } from "@shared/hooks/useSettings";
 import type { AddressData } from "@shared/models/address";
-
-const CHECK_COLOR = "#3CB043";
+import * as SharedColors from "@shared/constants/colors";
+import * as PopupStrings from "../constants/strings";
 
 const Wrapper = styled(Layout.Content)`
   flex: 1;
-  background-color: #fafafa;
+  background-color: ${SharedColors.COLOR_BACKGROUND_LIGHT};
   overflow: scroll;
 `;
 
@@ -23,7 +23,7 @@ const ListTopWrapper = styled.div`
   margin-top: 4px;
 
   & > .ant-typography {
-    color: rgba(0, 0, 0, 0.4);
+    color: ${SharedColors.COLOR_TEXT_MUTED};
     font-size: 12px;
   }
   & > #clear-result {
@@ -32,7 +32,7 @@ const ListTopWrapper = styled.div`
     align-items: inherit;
     cursor: pointer;
     > span {
-      color: rgba(0, 0, 0, 0.4);
+      color: ${SharedColors.COLOR_TEXT_MUTED};
       font-size: 12px;
     }
     > .ant-typography {
@@ -52,7 +52,7 @@ const ListTop = (props: ListTopProps) => {
       {props.addressData.length ? (
         <div id="clear-result" onClick={props.onResetClick}>
           <AiOutlineReload />
-          <Typography.Text>초기화</Typography.Text>
+          <Typography.Text>{PopupStrings.RESET_LABEL}</Typography.Text>
         </div>
       ) : null}
     </ListTopWrapper>
@@ -66,7 +66,7 @@ const ListEnd = styled.div`
   align-items: center;
   padding: 24px 0;
   & > .ant-typography {
-    color: rgba(0, 0, 0, 0.4);
+    color: ${SharedColors.COLOR_TEXT_MUTED};
     margin: 0;
   }
   & svg {
@@ -124,8 +124,8 @@ export const Content = () => {
         <Spinner />
       ) : isEnd ? (
         <ListEnd>
-          <AiOutlineCheckCircle color={CHECK_COLOR} />
-          <Typography.Paragraph>모든 검색 결과를 확인했습니다!</Typography.Paragraph>
+          <AiOutlineCheckCircle color={SharedColors.COLOR_SUCCESS} />
+          <Typography.Paragraph>{PopupStrings.ALL_RESULTS_CHECKED_LABEL}</Typography.Paragraph>
         </ListEnd>
       ) : null}
     </Wrapper>

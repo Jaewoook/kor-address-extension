@@ -8,7 +8,7 @@ import { useSearchHistoryStore } from "@shared/states/history";
 import { useSearchStore } from "@shared/states/search";
 
 const JUSO_API = "http://www.juso.go.kr/addrlink/addrLinkApi.do";
-const API_KEY = "U01TX0FVVEgyMDIwMDUyMTEzNTUwOTEwOTc4NDI=";
+const API_KEY = import.meta.env.VITE_JUSO_API_KEY;
 
 export const useAddressSearch = () => {
   const prevSearchKey = useSearchStore((state) => state.prevSearchKey);

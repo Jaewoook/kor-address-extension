@@ -1,6 +1,7 @@
 import type { AddressData, SearchKey } from "./models/address";
 import type { SearchHistoryLimit } from "./models/history";
 import { isExtension, getExtensionAPI } from "./utils";
+import * as SharedValues from "./constants/values";
 
 type SearchResultOptions = {
   showEng: boolean;
@@ -24,7 +25,7 @@ export const DEFAULT_SETTINGS: Settings = {
   },
   addressData: [],
   prevSearchKey: {
-    countPerPage: "20",
+    countPerPage: SharedValues.SEARCH_RESULTS_PER_PAGE,
     currentPage: "1",
     keyword: "",
     end: false,
@@ -32,7 +33,7 @@ export const DEFAULT_SETTINGS: Settings = {
   searchHistory: [],
   searchHistoryLimit: {
     enabled: true,
-    value: 50,
+    value: SharedValues.DEFAULT_SEARCH_HISTORY_LIMIT,
   },
 };
 

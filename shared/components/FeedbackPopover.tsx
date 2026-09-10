@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Button, Input, Popover, Typography } from "antd";
 import axios from "axios";
 
+import * as SharedStrings from "@shared/constants/strings";
+
 const EMAIL_API = "https://api.jaewook.me/email/addr-extension-feedback";
 
 const PopoverTitleWrapper = styled.div`
@@ -55,11 +57,11 @@ const FeedbackForm = () => {
         disabled={sent || sending}
         value={message}
         rows={3}
-        placeholder="이곳에 피드백 내용을 입력해주세요.&#10;작성해주신 소중한 피드백이 더 좋은 주소검색을 만들어요!"
+        placeholder={SharedStrings.FEEDBACK_PLACEHOLDER}
         onChange={(ev) => setMessage(ev.target.value)}
       />
       <Button disabled={sent || sending || !message} type="primary" onClick={handleSendClick}>
-        {!sent ? "보내기 🎉" : "피드백 전달 완료! 💛"}
+        {!sent ? SharedStrings.FEEDBACK_SEND_LABEL : SharedStrings.FEEDBACK_SENT_LABEL}
       </Button>
     </FeedbackSenderWrapper>
   );
@@ -70,10 +72,10 @@ export const FeedbackPopover = () => {
     <Popover
       placement="top"
       overlayStyle={PopoverContentStyle}
-      title={<PopoverTitle>피드백 보내기</PopoverTitle>}
+      title={<PopoverTitle>{SharedStrings.FEEDBACK_TRIGGER_LABEL}</PopoverTitle>}
       content={<FeedbackForm />}
     >
-      <Typography.Text keyboard>피드백 보내기</Typography.Text>
+      <Typography.Text keyboard>{SharedStrings.FEEDBACK_TRIGGER_LABEL}</Typography.Text>
     </Popover>
   );
 };

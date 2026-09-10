@@ -7,6 +7,7 @@ import {
   setSearchHistoryLimit as persistSearchHistoryLimit,
 } from "@shared/storage";
 import type { SearchHistoryLimit } from "@shared/models/history";
+import * as SharedValues from "@shared/constants/values";
 
 interface SearchHistoryStore {
   history: string[];
@@ -21,7 +22,7 @@ interface SearchHistoryStore {
 
 export const useSearchHistoryStore = create<SearchHistoryStore>((set, get) => ({
   history: [],
-  searchHistoryLimit: { enabled: true, value: 50 },
+  searchHistoryLimit: { enabled: true, value: SharedValues.DEFAULT_SEARCH_HISTORY_LIMIT },
   addKeyword: (keyword) => {
     const { history, searchHistoryLimit } = get();
     const deduped = history.filter((entry) => entry !== keyword);

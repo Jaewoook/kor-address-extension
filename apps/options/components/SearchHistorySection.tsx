@@ -2,6 +2,8 @@ import { Button, Checkbox, InputNumber, Typography } from "antd";
 import styled from "styled-components";
 
 import { useSearchHistoryStore } from "@shared/states/history";
+import * as SharedColors from "@shared/constants/colors";
+import * as OptionsStrings from "../constants/strings";
 
 const Section = styled.section`
   margin-bottom: 32px;
@@ -18,12 +20,12 @@ const HistoryList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  border: 1px solid #d9d9d9;
+  border: 1px solid ${SharedColors.COLOR_BORDER};
   border-radius: 6px;
 
   li {
     padding: 8px 12px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid ${SharedColors.COLOR_BORDER_SECONDARY};
 
     &:last-child {
       border-bottom: none;
@@ -39,7 +41,7 @@ export const SearchHistorySection = () => {
 
   return (
     <Section>
-      <Typography.Title level={3}>검색 기록</Typography.Title>
+      <Typography.Title level={3}>{OptionsStrings.SEARCH_HISTORY_TITLE}</Typography.Title>
       <LimitRow>
         <InputNumber
           min={1}
@@ -55,12 +57,12 @@ export const SearchHistorySection = () => {
             setSearchHistoryLimit((prev) => ({ ...prev, enabled: !e.target.checked }))
           }
         >
-          무제한
+          {OptionsStrings.UNLIMITED_LABEL}
         </Checkbox>
-        <Button onClick={clearHistory}>전체 삭제</Button>
+        <Button onClick={clearHistory}>{OptionsStrings.CLEAR_ALL_LABEL}</Button>
       </LimitRow>
       {history.length === 0 ? (
-        <Typography.Text type="secondary">검색 기록이 없습니다.</Typography.Text>
+        <Typography.Text type="secondary">{OptionsStrings.SEARCH_HISTORY_EMPTY_LABEL}</Typography.Text>
       ) : (
         <HistoryList>
           {history.map((keyword) => (

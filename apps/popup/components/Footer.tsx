@@ -3,16 +3,19 @@ import { AiFillGithub, AiFillSetting } from "react-icons/ai";
 import styled from "styled-components";
 
 import { getExtensionAPI } from "@shared/utils";
+import * as SharedColors from "@shared/constants/colors";
+import * as SharedUrls from "@shared/constants/urls";
+import * as PopupStrings from "../constants/strings";
 
 export const Wrapper = styled(Layout.Footer)`
     display: flex;
     padding: 0 0 16px 0;
     justify-content: center;
     align-items: center;
-    background-color: #fafafa;
+    background-color: ${SharedColors.COLOR_BACKGROUND_LIGHT};
 
     & * {
-        color: rgba(0, 0, 0, 0.3) !important;
+        color: ${SharedColors.COLOR_TEXT_FAINT} !important;
     }
     & > div > * {
         cursor: pointer;
@@ -21,13 +24,11 @@ export const Wrapper = styled(Layout.Footer)`
 
 export const Footer = () => {
   const handlePrivacyClick = () => {
-    window.open(
-      "https://raw.githack.com/Jaewoook/kor-address-extension/main/privacy.html",
-    );
+    window.open(SharedUrls.PRIVACY_POLICY_URL);
   };
 
   const handleGitHubClick = () => {
-    window.open("https://github.com/Jaewoook/kor-address-extension");
+    window.open(SharedUrls.GITHUB_REPO_URL);
   };
 
   const handleSettingsClick = () => {
@@ -44,10 +45,14 @@ export const Footer = () => {
     <Wrapper>
       <Space size="middle">
         <Typography.Text onClick={handlePrivacyClick}>
-          개인정보 처리방침
+          {PopupStrings.PRIVACY_POLICY_LABEL}
         </Typography.Text>
         <AiFillGithub onClick={handleGitHubClick} />
-        <AiFillSetting aria-label="설정" role="button" onClick={handleSettingsClick} />
+        <AiFillSetting
+          aria-label={PopupStrings.SETTINGS_ARIA_LABEL}
+          role="button"
+          onClick={handleSettingsClick}
+        />
       </Space>
     </Wrapper>
   );
