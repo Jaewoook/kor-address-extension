@@ -1,0 +1,15 @@
+node_modules/
+build/
+dist/
+dist.zip
+coverage/
+*.log
+
+# Generated from shared/privacyPolicyContent.js - contains invalid HTML
+# (e.g. </br> on a void element) that Prettier can't parse. The generator
+# round-trip depends on this file staying byte-identical, so it must never
+# be reformatted; edit shared/privacyPolicyContent.js instead.
+privacy.html
+
+# Vendored third-party script (Google gtag), not project code style.
+public/gtag.js
