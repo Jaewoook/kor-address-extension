@@ -1,4 +1,6 @@
 :root {
+  color-scheme: light;
+  --color-bg-page: #ffffff;
   --color-bg-light: #fafafa;
   --color-bg-gradient: #f0f2f5;
   --color-border: #d9d9d9;
@@ -15,6 +17,8 @@
 }
 
 [data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg-page: #141414;
   --color-bg-light: #1f1f1f;
   --color-bg-gradient: #141414;
   --color-border: #424242;
@@ -28,4 +32,8 @@
   --color-text-tertiary: rgba(255, 255, 255, 0.85);
   --color-text-primary: rgba(255, 255, 255, 0.85);
   --color-shadow: rgba(0, 0, 0, 0.4);
+}
+
+html, body {
+  background: var(--color-bg-page);
 }
