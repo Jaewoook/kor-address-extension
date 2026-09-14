@@ -6,6 +6,7 @@ import "@shared/theme.css";
 import { ProjectInfo } from "./components/ProjectInfo";
 import { PrivacyPolicySection } from "./components/PrivacyPolicySection";
 import { SearchHistorySection } from "./components/SearchHistorySection";
+import { ThemeSection } from "./components/ThemeSection";
 import { useSearchHistoryStore } from "@shared/states/history";
 import { useThemeStore } from "@shared/states/theme";
 import { useResolvedTheme } from "@shared/hooks/useResolvedTheme";
@@ -34,6 +35,7 @@ export const App = () => {
     <ConfigProvider theme={theme}>
       <Page>
         <ProjectInfo />
+        <ThemeSection />
         <SearchHistorySection />
         <PrivacyPolicySection />
       </Page>
