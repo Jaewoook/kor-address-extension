@@ -89,4 +89,18 @@ describe("useResolvedTheme", () => {
 
     expect(document.documentElement.dataset.theme).toBe("dark");
   });
+
+  it("re-resolves via matchMedia when mode transitions into \"system\"", () => {
+    stubMatchMedia(true);
+    useThemeStore.setState({ mode: "light" });
+
+    const { result } = renderHook(() => useResolvedTheme());
+    expect(result.current).toBe("light");
+
+    act(() => {
+      useThemeStore.setState({ mode: "system" });
+    });
+
+    expect(result.current).toBe("dark");
+  });
 });
