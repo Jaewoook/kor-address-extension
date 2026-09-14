@@ -8,11 +8,13 @@ import {
   getSearchHistory,
   getSearchHistoryLimit,
   getSearchResultOptions,
+  getThemeMode,
   setPrevSearchKey,
   setRecentAddressList,
   setSearchHistory,
   setSearchHistoryLimit,
   setSearchResultOptions,
+  setThemeMode,
   validateSettingsData,
 } from "@shared/storage";
 
@@ -73,6 +75,15 @@ describe("storage (localStorage fallback)", () => {
   it("round-trips the search history limit through localStorage", async () => {
     await setSearchHistoryLimit({ enabled: false, value: 50 });
     expect(await getSearchHistoryLimit()).toEqual({ enabled: false, value: 50 });
+  });
+
+  it("returns null for theme mode that has not been stored yet", async () => {
+    expect(await getThemeMode()).toBeNull();
+  });
+
+  it("round-trips the theme mode through localStorage", async () => {
+    await setThemeMode("dark");
+    expect(await getThemeMode()).toBe("dark");
   });
 });
 
