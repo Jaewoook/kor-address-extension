@@ -1,6 +1,13 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { getExtensionAPI, getRuntime, getVersion, isExtension, isProduction, merge } from "@shared/utils";
+import {
+  getExtensionAPI,
+  getRuntime,
+  getVersion,
+  isExtension,
+  isProduction,
+  merge,
+} from "@shared/utils";
 
 describe("merge", () => {
   it("overwrites primitive values on target with source values", () => {
@@ -33,20 +40,20 @@ describe("getRuntime / isExtension / getExtensionAPI", () => {
     vi.unstubAllGlobals();
   });
 
-  it("returns \"other\" when neither chrome nor browser globals exist", () => {
+  it('returns "other" when neither chrome nor browser globals exist', () => {
     expect(getRuntime()).toBe("other");
     expect(isExtension()).toBe(false);
     expect(getExtensionAPI()).toBeNull();
   });
 
-  it("returns \"extension\" when chrome.runtime.id is present", () => {
+  it('returns "extension" when chrome.runtime.id is present', () => {
     vi.stubGlobal("chrome", { runtime: { id: "test-extension-id" } });
     expect(getRuntime()).toBe("extension");
     expect(isExtension()).toBe(true);
     expect(getExtensionAPI()).toBe(globalThis.chrome);
   });
 
-  it("returns \"page\" when chrome exists without browser (e.g. a plain Chrome tab)", () => {
+  it('returns "page" when chrome exists without browser (e.g. a plain Chrome tab)', () => {
     // Chrome defines a `window.chrome` global on ordinary (non-extension) pages
     // too, but never a `browser` global (that's Firefox-only).
     vi.stubGlobal("chrome", { runtime: {} });
@@ -54,7 +61,7 @@ describe("getRuntime / isExtension / getExtensionAPI", () => {
     expect(isExtension()).toBe(false);
   });
 
-  it("returns \"page\" when both chrome and browser exist without a runtime id (e.g. Firefox)", () => {
+  it('returns "page" when both chrome and browser exist without a runtime id (e.g. Firefox)', () => {
     vi.stubGlobal("chrome", { runtime: {} });
     vi.stubGlobal("browser", { runtime: {} });
     expect(getRuntime()).toBe("page");

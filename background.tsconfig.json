@@ -6,7 +6,5 @@
     "outDir": "./build/background",
     "isolatedModules": false
   },
-  "include": [
-    "background/*"
-  ]
+  "include": ["background/*"]
 }

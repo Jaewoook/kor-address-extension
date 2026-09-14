@@ -25,11 +25,11 @@
 
 자신의 브라우저에 확장 프로그램 스토어에서 바로 다운로드하세요!
 
-| 브라우저 | 상태 | 다운로드 |
-|--------|:---:|-------|
-| Google Chrome | :heavy_check_mark: | [크롬 웹 스토어에서 다운로드](https://chrome.google.com/webstore/detail/%EC%A3%BC%EC%86%8C%EA%B2%80%EC%83%89/kiamcbcponnlbnanbbfnfdjhioebpiah) |
-| NAVER Whale | :heavy_check_mark: | [웨일 스토어에서 다운로드](https://store.whale.naver.com/detail/pidjpaocfolbbaminggjijheckcdfcdj) |
-| Mozilla Firefox | :warning: | ~~[Firefox Add-ons에서 다운로드](https://addons.mozilla.org/ko/firefox/addon/kor-address-extension/)~~ |
+| 브라우저        |        상태        | 다운로드                                                                                                                                       |
+| --------------- | :----------------: | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Google Chrome   | :heavy_check_mark: | [크롬 웹 스토어에서 다운로드](https://chrome.google.com/webstore/detail/%EC%A3%BC%EC%86%8C%EA%B2%80%EC%83%89/kiamcbcponnlbnanbbfnfdjhioebpiah) |
+| NAVER Whale     | :heavy_check_mark: | [웨일 스토어에서 다운로드](https://store.whale.naver.com/detail/pidjpaocfolbbaminggjijheckcdfcdj)                                              |
+| Mozilla Firefox |     :warning:      | ~~[Firefox Add-ons에서 다운로드](https://addons.mozilla.org/ko/firefox/addon/kor-address-extension/)~~                                         |
 
 ### 기타 브라우저
 
@@ -95,8 +95,8 @@ yarn test:ui       # 브라우저 기반 UI로 테스트 실행 및 결과 확�
 현재 커버리지 (`yarn test:coverage` 기준):
 
 | Statements | Branches | Functions | Lines |
-|:---:|:---:|:---:|:---:|
-| 73.91% | 64.74% | 73.61% | 73.5% |
+| :--------: | :------: | :-------: | :---: |
+|   73.91%   |  64.74%  |  73.61%   | 73.5% |
 
 > [!NOTE]
 > 위 수치는 마지막으로 `yarn test:coverage`를 실행한 시점의 스냅샷입니다. CI에서 자동으로 갱신되지 않으므로, 테스트를 추가하거나 대규모로 변경한 뒤에는 다시 실행해 값을 갱신해주세요.

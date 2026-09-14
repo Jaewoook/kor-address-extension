@@ -8,18 +8,18 @@ import * as SharedUrls from "@shared/constants/urls";
 import * as PopupStrings from "../constants/strings";
 
 export const Wrapper = styled(Layout.Footer)`
-    display: flex;
-    padding: 0 0 16px 0;
-    justify-content: center;
-    align-items: center;
-    background-color: ${SharedColors.COLOR_BACKGROUND_LIGHT};
+  display: flex;
+  padding: 0 0 16px 0;
+  justify-content: center;
+  align-items: center;
+  background-color: ${SharedColors.COLOR_BACKGROUND_LIGHT};
 
-    & * {
-        color: ${SharedColors.COLOR_TEXT_FAINT} !important;
-    }
-    & > div > * {
-        cursor: pointer;
-    }
+  & * {
+    color: ${SharedColors.COLOR_TEXT_FAINT} !important;
+  }
+  & > div > * {
+    cursor: pointer;
+  }
 `;
 
 export const Footer = () => {
