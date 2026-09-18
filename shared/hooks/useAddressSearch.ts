@@ -51,7 +51,13 @@ export const useAddressSearch = () => {
 
   const searchAddress = useCallback(
     async (searchKey: SearchKey) => {
-      if (searching || isSameSearchKey(prevSearchKey, searchKey)) {
+      if (searching) {
+        console.warn("Search skipped: a search is already in progress");
+        return;
+      }
+
+      if (isSameSearchKey(prevSearchKey, searchKey)) {
+        console.warn("Search skipped: identical to the previous search");
         return;
       }
 
