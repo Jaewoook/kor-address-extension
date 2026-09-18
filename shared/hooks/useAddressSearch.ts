@@ -22,10 +22,6 @@ export const useAddressSearch = () => {
 
   const performSearch = useCallback(
     async (searchKey: SearchKey) => {
-      if (prevSearchKey === searchKey) {
-        throw new Error("Cancel search due to same searchKey requested");
-      }
-
       const form = new FormData();
       form.append("confmKey", API_KEY);
       form.append("resultType", "json");
@@ -42,7 +38,7 @@ export const useAddressSearch = () => {
 
       return res.data.results;
     },
-    [prevSearchKey, setPrevSearchKey],
+    [setPrevSearchKey],
   );
 
   const searchAddress = useCallback(

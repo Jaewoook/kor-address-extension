@@ -1,22 +1,3 @@
-/**
- * Merge a `source` object to a `target` recursively
- */
-export const merge = (target: any, source: any) => {
-  // Iterate through `source` properties and if an `Object` set property to merge of `target` and `source` properties
-  for (const key of Object.keys(source)) {
-    if (source[key] instanceof Object && !(source[key] instanceof Array)) {
-      Object.assign(source[key], merge(target[key] || {}, source[key]));
-    } else if (source[key] instanceof Array) {
-      //  If source property type is Array, then overwrite existing array
-      target[key] = source[key];
-    }
-  }
-
-  // Join `target` and modified `source`
-  Object.assign(target || {}, source);
-  return target;
-};
-
 type Runtime = "other" | "page" | "extension" | "unknown";
 
 export const isProduction = () => import.meta.env.PROD;

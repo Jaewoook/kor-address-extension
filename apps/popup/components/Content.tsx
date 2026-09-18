@@ -10,6 +10,10 @@ import type { AddressData } from "@shared/models/address";
 import * as SharedColors from "@shared/constants/colors";
 import * as PopupStrings from "../constants/strings";
 
+// Sub-pixel scroll math (zoom levels, high-DPI) rarely lands exactly on 0,
+// so treat "close enough to the bottom" as "at the bottom".
+const SCROLL_END_THRESHOLD_PX = 2;
+
 const Wrapper = styled(Layout.Content)`
   flex: 1;
   background-color: ${SharedColors.COLOR_BACKGROUND_LIGHT};
@@ -97,8 +101,9 @@ export const Content = () => {
       return;
     }
 
-    if (scrollContainer.scrollHeight - scrollContainer.scrollTop === scrollContainer.clientHeight) {
-      console.log("scroll occurred");
+    const distanceToBottom =
+      scrollContainer.scrollHeight - scrollContainer.scrollTop - scrollContainer.clientHeight;
+    if (distanceToBottom <= SCROLL_END_THRESHOLD_PX) {
       searchNextPage();
     }
   }, [searchNextPage]);
