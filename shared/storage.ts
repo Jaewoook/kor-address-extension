@@ -1,5 +1,6 @@
 import type { AddressData, SearchKey } from "./models/address";
 import type { SearchHistoryLimit } from "./models/history";
+import type { ThemeMode } from "./models/theme";
 import { isExtension, getExtensionAPI } from "./utils";
 import * as SharedValues from "./constants/values";
 
@@ -15,6 +16,7 @@ export type Settings = Partial<{
   prevSearchKey: SearchKey;
   searchHistory: string[];
   searchHistoryLimit: SearchHistoryLimit;
+  themeMode: ThemeMode;
 }>;
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -35,6 +37,7 @@ export const DEFAULT_SETTINGS: Settings = {
     enabled: true,
     value: SharedValues.DEFAULT_SEARCH_HISTORY_LIMIT,
   },
+  themeMode: "system",
 };
 
 const get = (key?: string) => {
@@ -65,10 +68,7 @@ const set = (items: Record<string, any>) => {
   }
 
   return Object.entries(items).forEach(([key, value]) => {
-    if (typeof value !== "string") {
-      value = JSON.stringify(value);
-    }
-    localStorage.setItem(key, value);
+    localStorage.setItem(key, JSON.stringify(value));
   });
 };
 
@@ -117,6 +117,15 @@ export const getSearchHistoryLimit = async (): Promise<SearchHistoryLimit | null
 
 export const setSearchHistoryLimit = async (limit: SearchHistoryLimit) => {
   set({ searchHistoryLimit: limit });
+};
+
+export const getThemeMode = async (): Promise<ThemeMode | null> => {
+  const themeMode = await get("themeMode");
+  return themeMode?.themeMode ?? null;
+};
+
+export const setThemeMode = async (mode: ThemeMode) => {
+  set({ themeMode: mode });
 };
 
 export const validateSettingsData = (

@@ -12,6 +12,27 @@ class ResizeObserverStub {
 }
 globalThis.ResizeObserver ??= ResizeObserverStub;
 
+// jsdom does not implement matchMedia; used to resolve "system" theme mode
+// and by antd internals. Default: OS reports no dark-mode preference.
+// Tests that need to control this call vi.stubGlobal("matchMedia", ...) themselves.
+class MatchMediaStub implements MediaQueryList {
+  matches = false;
+  media: string;
+  onchange = null;
+  addEventListener() {}
+  removeEventListener() {}
+  addListener() {}
+  removeListener() {}
+  dispatchEvent(): boolean {
+    return false;
+  }
+  constructor(media: string) {
+    this.media = media;
+  }
+}
+globalThis.matchMedia ??= ((media: string) =>
+  new MatchMediaStub(media)) as typeof window.matchMedia;
+
 afterEach(() => {
   cleanup();
 });

@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { Footer } from "@popup/components/Footer";
+import { useThemeStore } from "@shared/states/theme";
 
 describe("Footer", () => {
+  beforeEach(() => {
+    useThemeStore.setState({ mode: "light" });
+  });
+
   afterEach(() => {
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
@@ -29,5 +34,19 @@ describe("Footer", () => {
     await user.click(screen.getByLabelText("설정"));
 
     expect(openSpy).toHaveBeenCalledWith("/options");
+  });
+
+  it("cycles light -> dark -> system -> light when the theme icon is clicked", async () => {
+    const user = userEvent.setup();
+    render(<Footer />);
+
+    await user.click(screen.getByRole("button", { name: "다크 모드로 전환" }));
+    expect(useThemeStore.getState().mode).toBe("dark");
+
+    await user.click(screen.getByRole("button", { name: "시스템 설정 모드로 전환" }));
+    expect(useThemeStore.getState().mode).toBe("system");
+
+    await user.click(screen.getByRole("button", { name: "라이트 모드로 전환" }));
+    expect(useThemeStore.getState().mode).toBe("light");
   });
 });

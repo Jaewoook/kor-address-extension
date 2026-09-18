@@ -12,6 +12,9 @@ export const ALL_RESULTS_CHECKED_LABEL = "모든 검색 결과를 확인했습�
 // Footer
 export const SETTINGS_ARIA_LABEL = "설정";
 export const PRIVACY_POLICY_LABEL = "개인정보 처리방침";
+export const THEME_TOGGLE_LABEL_TO_DARK = "다크 모드로 전환";
+export const THEME_TOGGLE_LABEL_TO_SYSTEM = "시스템 설정 모드로 전환";
+export const THEME_TOGGLE_LABEL_TO_LIGHT = "라이트 모드로 전환";
 
 // index.tsx
 export const ERROR_FALLBACK_MESSAGE = "오류가 발생했습니다. 확장 프로그램을 다시 열어주세요.";
