@@ -11,6 +11,7 @@ import { useSearchStore } from "@shared/states/search";
 import { useSettingsStore } from "@shared/states/settings";
 import { useThemeStore } from "@shared/states/theme";
 import { useResolvedTheme } from "@shared/hooks/useResolvedTheme";
+import { BORDER_RADIUS } from "@shared/constants/theme";
 
 export const Layout = styled(_Layout)`
   display: flex;
@@ -24,6 +25,9 @@ export const App = () => {
   const theme: ThemeConfig = useMemo(
     () => ({
       algorithm: resolvedTheme === "dark" ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
+      token: {
+        borderRadius: BORDER_RADIUS,
+      },
       components: {
         Collapse: {
           contentPadding: "0 16px",

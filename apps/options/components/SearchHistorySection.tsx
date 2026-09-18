@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { useSearchHistoryStore } from "@shared/states/history";
 import * as SharedColors from "@shared/constants/colors";
+import { BORDER_RADIUS } from "@shared/constants/theme";
 import * as OptionsStrings from "../constants/strings";
 
 const Section = styled.section`
@@ -21,7 +22,8 @@ const HistoryList = styled.ul`
   margin: 0;
   padding: 0;
   border: 1px solid ${SharedColors.COLOR_BORDER};
-  border-radius: 6px;
+  border-radius: ${BORDER_RADIUS}px;
+  overflow: hidden;
 
   li {
     padding: 8px 12px;

@@ -10,6 +10,7 @@ import { ThemeSection } from "./components/ThemeSection";
 import { useSearchHistoryStore } from "@shared/states/history";
 import { useThemeStore } from "@shared/states/theme";
 import { useResolvedTheme } from "@shared/hooks/useResolvedTheme";
+import { BORDER_RADIUS } from "@shared/constants/theme";
 
 const Page = styled(Layout.Content)`
   max-width: 640px;
@@ -22,6 +23,9 @@ export const App = () => {
   const theme: ThemeConfig = useMemo(
     () => ({
       algorithm: resolvedTheme === "dark" ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
+      token: {
+        borderRadius: BORDER_RADIUS,
+      },
     }),
     [resolvedTheme],
   );

@@ -38,6 +38,7 @@ export const ClickToCopyText = (props: Props) => {
     <Tooltip
       title={!copied ? SharedStrings.COPY_TOOLTIP_IDLE : SharedStrings.COPY_TOOLTIP_DONE}
       color={copied ? SharedColors.COLOR_SUCCESS_TOOLTIP : SharedColors.COLOR_BLACK}
+      styles={{ container: { paddingInline: 14 } }}
       mouseEnterDelay={0}
       mouseLeaveDelay={0}
       onOpenChange={handleOpenChange}

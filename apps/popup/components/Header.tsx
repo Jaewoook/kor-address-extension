@@ -22,6 +22,12 @@ const OptionsWrapper = styled.div`
   }
 `;
 
+const DisplayOptionsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
 const SearchWrapper = styled(Layout.Content)`
   padding: 10px;
   background: linear-gradient(
@@ -34,7 +40,31 @@ const SearchWrapper = styled(Layout.Content)`
 `;
 
 const Search = styled(Input.Search)`
-  box-shadow: 0px 8px 8px -8px ${SharedColors.COLOR_SHADOW};
+  &.ant-input-search {
+    position: relative;
+    box-shadow: 0px 8px 8px -8px ${SharedColors.COLOR_SHADOW};
+
+    .ant-input-affix-wrapper {
+      border-radius: 999px !important;
+      padding-right: 44px;
+    }
+
+    .ant-input-search-btn {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      bottom: 3px;
+      width: 30px;
+      height: auto;
+      min-width: 0;
+      padding: 0;
+      border-radius: 50% !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+  }
 `;
 
 const DISPLAY_OPTIONS = [
@@ -67,7 +97,9 @@ export const Header = () => {
       DISPLAY_OPTIONS.map((displayOption) => (
         <Button
           key={displayOption.key}
-          type="link"
+          type={addressDisplayOptions[displayOption.key] ? "primary" : "default"}
+          shape="round"
+          size="small"
           onClick={() => toggleDisplayOption(displayOption.key)}
           icon={
             addressDisplayOptions[displayOption.key] ? (
@@ -109,7 +141,7 @@ export const Header = () => {
     <header>
       <OptionsWrapper>
         <h1>{PopupStrings.HEADER_TITLE}</h1>
-        <div>{displayOptions}</div>
+        <DisplayOptionsWrapper>{displayOptions}</DisplayOptionsWrapper>
       </OptionsWrapper>
       <SearchWrapper>
         <Search
