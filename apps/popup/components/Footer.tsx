@@ -23,18 +23,18 @@ const NEXT_THEME_LABEL: Record<ThemeMode, string> = {
 };
 
 export const Wrapper = styled(Layout.Footer)`
-    display: flex;
-    padding: 0 0 16px 0;
-    justify-content: center;
-    align-items: center;
-    background-color: ${SharedColors.COLOR_BACKGROUND_LIGHT};
+  display: flex;
+  padding: 0 0 16px 0;
+  justify-content: center;
+  align-items: center;
+  background-color: ${SharedColors.COLOR_BACKGROUND_LIGHT};
 
-    & * {
-        color: ${SharedColors.COLOR_TEXT_FAINT} !important;
-    }
-    & > div > * {
-        cursor: pointer;
-    }
+  & * {
+    color: ${SharedColors.COLOR_TEXT_FAINT} !important;
+  }
+  & > div > * {
+    cursor: pointer;
+  }
 `;
 
 export const Footer = () => {
@@ -72,7 +72,11 @@ export const Footer = () => {
         </Typography.Text>
         <AiFillGithub onClick={handleGitHubClick} />
         {resolvedTheme === "dark" ? (
-          <AiFillMoon aria-label={NEXT_THEME_LABEL[mode]} role="button" onClick={handleThemeClick} />
+          <AiFillMoon
+            aria-label={NEXT_THEME_LABEL[mode]}
+            role="button"
+            onClick={handleThemeClick}
+          />
         ) : (
           <AiFillSun aria-label={NEXT_THEME_LABEL[mode]} role="button" onClick={handleThemeClick} />
         )}

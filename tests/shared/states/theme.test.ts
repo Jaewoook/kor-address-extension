@@ -8,7 +8,7 @@ describe("useThemeStore", () => {
     useThemeStore.setState({ mode: "system" });
   });
 
-  it("defaults to \"system\"", () => {
+  it('defaults to "system"', () => {
     expect(useThemeStore.getState().mode).toBe("system");
   });
 

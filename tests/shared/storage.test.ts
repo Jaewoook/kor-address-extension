@@ -33,12 +33,22 @@ describe("storage (localStorage fallback)", () => {
 
   it("round-trips search result options through localStorage", async () => {
     await setSearchResultOptions({ showEng: false, showRoad: true, showLegacy: false });
-    expect(await getSearchResultOptions()).toEqual({ showEng: false, showRoad: true, showLegacy: false });
+    expect(await getSearchResultOptions()).toEqual({
+      showEng: false,
+      showRoad: true,
+      showLegacy: false,
+    });
   });
 
   it("round-trips the recent address list through localStorage", async () => {
     const list = [
-      { roadAddr: "road", roadAddrPart1: "road1", jibunAddr: "jibun", engAddr: "eng", zipNo: "12345" },
+      {
+        roadAddr: "road",
+        roadAddrPart1: "road1",
+        jibunAddr: "jibun",
+        engAddr: "eng",
+        zipNo: "12345",
+      },
     ];
     await setRecentAddressList(list);
     expect(await getRecentAddressList()).toEqual(list);

@@ -37,7 +37,7 @@ describe("useResolvedTheme", () => {
     vi.unstubAllGlobals();
   });
 
-  it("resolves \"light\" directly without calling matchMedia", () => {
+  it('resolves "light" directly without calling matchMedia', () => {
     const matchMediaSpy = vi.fn();
     vi.stubGlobal("matchMedia", matchMediaSpy);
     useThemeStore.setState({ mode: "light" });
@@ -48,7 +48,7 @@ describe("useResolvedTheme", () => {
     expect(matchMediaSpy).not.toHaveBeenCalled();
   });
 
-  it("resolves \"dark\" directly without calling matchMedia", () => {
+  it('resolves "dark" directly without calling matchMedia', () => {
     const matchMediaSpy = vi.fn();
     vi.stubGlobal("matchMedia", matchMediaSpy);
     useThemeStore.setState({ mode: "dark" });
@@ -59,7 +59,7 @@ describe("useResolvedTheme", () => {
     expect(matchMediaSpy).not.toHaveBeenCalled();
   });
 
-  it("resolves via matchMedia when mode is \"system\"", () => {
+  it('resolves via matchMedia when mode is "system"', () => {
     stubMatchMedia(true);
     useThemeStore.setState({ mode: "system" });
 
@@ -68,7 +68,7 @@ describe("useResolvedTheme", () => {
     expect(result.current).toBe("dark");
   });
 
-  it("updates live when the OS theme changes while mode is \"system\"", () => {
+  it('updates live when the OS theme changes while mode is "system"', () => {
     const { fireChange } = stubMatchMedia(false);
     useThemeStore.setState({ mode: "system" });
 
@@ -90,7 +90,7 @@ describe("useResolvedTheme", () => {
     expect(document.documentElement.dataset.theme).toBe("dark");
   });
 
-  it("re-resolves via matchMedia when mode transitions into \"system\"", () => {
+  it('re-resolves via matchMedia when mode transitions into "system"', () => {
     stubMatchMedia(true);
     useThemeStore.setState({ mode: "light" });
 

@@ -30,7 +30,8 @@ class MatchMediaStub implements MediaQueryList {
     this.media = media;
   }
 }
-globalThis.matchMedia ??= ((media: string) => new MatchMediaStub(media)) as typeof window.matchMedia;
+globalThis.matchMedia ??= ((media: string) =>
+  new MatchMediaStub(media)) as typeof window.matchMedia;
 
 afterEach(() => {
   cleanup();
