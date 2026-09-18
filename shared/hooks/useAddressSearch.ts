@@ -33,7 +33,10 @@ export const useAddressSearch = () => {
       form.append("countPerPage", searchKey.countPerPage);
       form.append("keyword", searchKey.keyword);
 
-      const res = await axios.post<FormData, AxiosResponse<AddressSearchAPIResponse>>(JUSO_API, form);
+      const res = await axios.post<FormData, AxiosResponse<AddressSearchAPIResponse>>(
+        JUSO_API,
+        form,
+      );
 
       setPrevSearchKey(searchKey);
 

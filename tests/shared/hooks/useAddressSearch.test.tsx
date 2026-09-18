@@ -49,7 +49,10 @@ describe("useAddressSearch", () => {
     localStorage.clear();
     useAddressStore.setState({ addressList: [] });
     useSearchStore.setState({ searchKeyword: "", searching: false, prevSearchKey: null });
-    useSearchHistoryStore.setState({ history: [], searchHistoryLimit: { enabled: true, value: 50 } });
+    useSearchHistoryStore.setState({
+      history: [],
+      searchHistoryLimit: { enabled: true, value: 50 },
+    });
   });
 
   it("searchAddress populates addressList from the API response", async () => {

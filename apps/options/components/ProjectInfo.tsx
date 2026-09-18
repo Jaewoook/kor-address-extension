@@ -24,8 +24,8 @@ export const ProjectInfo = () => {
           <span>{getVersion()}</span> ·{" "}
           <a href={SharedUrls.GITHUB_REPO_URL} target="_blank" rel="noreferrer">
             {OptionsStrings.SOURCE_CODE_LINK_LABEL}
-          </a> ·{" "}
-          <span>{OptionsStrings.MIT_LICENSE_LABEL}</span>
+          </a>{" "}
+          · <span>{OptionsStrings.MIT_LICENSE_LABEL}</span>
         </Typography.Paragraph>
       </div>
     </Section>
