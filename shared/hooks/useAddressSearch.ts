@@ -10,6 +10,14 @@ import { useSearchStore } from "@shared/states/search";
 const JUSO_API = "http://www.juso.go.kr/addrlink/addrLinkApi.do";
 const API_KEY = import.meta.env.VITE_JUSO_API_KEY;
 
+// Compares request identity only - keyword, currentPage, countPerPage - not
+// `end`, which is a result flag rather than part of what gets sent to the API.
+const isSameSearchKey = (a: SearchKey | null, b: SearchKey): boolean =>
+  a !== null &&
+  a.keyword === b.keyword &&
+  a.currentPage === b.currentPage &&
+  a.countPerPage === b.countPerPage;
+
 export const useAddressSearch = () => {
   const prevSearchKey = useSearchStore((state) => state.prevSearchKey);
   const setPrevSearchKey = useSearchStore((state) => state.setPrevSearchKey);
@@ -43,7 +51,7 @@ export const useAddressSearch = () => {
 
   const searchAddress = useCallback(
     async (searchKey: SearchKey) => {
-      if (searching || prevSearchKey?.keyword === searchKey.keyword) {
+      if (searching || isSameSearchKey(prevSearchKey, searchKey)) {
         return;
       }
 
