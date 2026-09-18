@@ -3,6 +3,7 @@ import type { AxiosResponse } from "axios";
 import { useCallback } from "react";
 
 import type { AddressSearchAPIResponse, SearchKey } from "@shared/models/address";
+import { DuplicateSearchError, SearchInProgressError } from "@shared/errors/search";
 import { useAddressStore } from "@shared/states/address";
 import { useSearchHistoryStore } from "@shared/states/history";
 import { useSearchStore } from "@shared/states/search";
@@ -17,22 +18,6 @@ const isSameSearchKey = (a: SearchKey | null, b: SearchKey): boolean =>
   a.keyword === b.keyword &&
   a.currentPage === b.currentPage &&
   a.countPerPage === b.countPerPage;
-
-// Typed so a future notification/toast layer can `instanceof`-check the
-// reason a search was skipped instead of parsing a log message.
-export class SearchInProgressError extends Error {
-  constructor() {
-    super("Search skipped: a search is already in progress");
-    this.name = "SearchInProgressError";
-  }
-}
-
-export class DuplicateSearchError extends Error {
-  constructor() {
-    super("Search skipped: identical to the previous search");
-    this.name = "DuplicateSearchError";
-  }
-}
 
 export const useAddressSearch = () => {
   const prevSearchKey = useSearchStore((state) => state.prevSearchKey);
