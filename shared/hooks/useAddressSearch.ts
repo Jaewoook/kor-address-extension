@@ -18,6 +18,22 @@ const isSameSearchKey = (a: SearchKey | null, b: SearchKey): boolean =>
   a.currentPage === b.currentPage &&
   a.countPerPage === b.countPerPage;
 
+// Typed so a future notification/toast layer can `instanceof`-check the
+// reason a search was skipped instead of parsing a log message.
+export class SearchInProgressError extends Error {
+  constructor() {
+    super("Search skipped: a search is already in progress");
+    this.name = "SearchInProgressError";
+  }
+}
+
+export class DuplicateSearchError extends Error {
+  constructor() {
+    super("Search skipped: identical to the previous search");
+    this.name = "DuplicateSearchError";
+  }
+}
+
 export const useAddressSearch = () => {
   const prevSearchKey = useSearchStore((state) => state.prevSearchKey);
   const setPrevSearchKey = useSearchStore((state) => state.setPrevSearchKey);
@@ -52,12 +68,12 @@ export const useAddressSearch = () => {
   const searchAddress = useCallback(
     async (searchKey: SearchKey) => {
       if (searching) {
-        console.warn("Search skipped: a search is already in progress");
+        console.warn(new SearchInProgressError());
         return;
       }
 
       if (isSameSearchKey(prevSearchKey, searchKey)) {
-        console.warn("Search skipped: identical to the previous search");
+        console.warn(new DuplicateSearchError());
         return;
       }
 
