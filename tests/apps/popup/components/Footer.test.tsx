@@ -49,4 +49,27 @@ describe("Footer", () => {
     await user.click(screen.getByRole("button", { name: "라이트 모드로 전환" }));
     expect(useThemeStore.getState().mode).toBe("light");
   });
+
+  it("shows a desktop icon when the mode is system", () => {
+    useThemeStore.setState({ mode: "system" });
+    render(<Footer />);
+
+    expect(screen.getByTestId("theme-icon-system")).toBeInTheDocument();
+    expect(screen.queryByTestId("theme-icon-light")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("theme-icon-dark")).not.toBeInTheDocument();
+  });
+
+  it("shows a sun icon when the mode is light", () => {
+    useThemeStore.setState({ mode: "light" });
+    render(<Footer />);
+
+    expect(screen.getByTestId("theme-icon-light")).toBeInTheDocument();
+  });
+
+  it("shows a moon icon when the mode is dark", () => {
+    useThemeStore.setState({ mode: "dark" });
+    render(<Footer />);
+
+    expect(screen.getByTestId("theme-icon-dark")).toBeInTheDocument();
+  });
 });
