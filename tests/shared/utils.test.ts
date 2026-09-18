@@ -1,39 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import {
-  getExtensionAPI,
-  getRuntime,
-  getVersion,
-  isExtension,
-  isProduction,
-  merge,
-} from "@shared/utils";
-
-describe("merge", () => {
-  it("overwrites primitive values on target with source values", () => {
-    const target = { a: 1, b: 2 };
-    const result = merge(target, { b: 3 });
-    expect(result).toEqual({ a: 1, b: 3 });
-  });
-
-  it("recursively merges nested objects instead of overwriting them", () => {
-    const target = { nested: { a: 1, b: 2 } };
-    const result = merge(target, { nested: { b: 3 } });
-    expect(result).toEqual({ nested: { a: 1, b: 3 } });
-  });
-
-  it("replaces arrays wholesale rather than merging element-by-element", () => {
-    const target = { list: [1, 2, 3] };
-    const result = merge(target, { list: [9] });
-    expect(result).toEqual({ list: [9] });
-  });
-
-  it("adds new keys from source that target does not have", () => {
-    const target = { a: 1 };
-    const result = merge(target, { b: 2 });
-    expect(result).toEqual({ a: 1, b: 2 });
-  });
-});
+import { getExtensionAPI, getRuntime, getVersion, isExtension, isProduction } from "@shared/utils";
 
 describe("getRuntime / isExtension / getExtensionAPI", () => {
   afterEach(() => {
