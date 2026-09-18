@@ -10,18 +10,12 @@ const distPath = path.join(__dirname, "../dist.zip");
 const distDirPath = path.join(__dirname, "../dist/");
 
 if (!fs.existsSync(distDirPath)) {
-  console.log(
-    chalk.red("error"),
-    "dist directory not found. Please run build first!"
-  );
+  console.log(chalk.red("error"), "dist directory not found. Please run build first!");
   process.exit(1);
 }
 
 if (fs.existsSync(distPath)) {
-  console.log(
-    chalk.yellow("wraning"),
-    "An existing dist file found. Replace it to new file..."
-  );
+  console.log(chalk.yellow("wraning"), "An existing dist file found. Replace it to new file...");
   fs.removeSync(distPath);
 }
 
@@ -33,10 +27,7 @@ output.on("close", () => {
 });
 
 archive.on("error", (err) => {
-  console.log(
-    chalk.red("error"),
-    "An error occured while creating distribution."
-  );
+  console.log(chalk.red("error"), "An error occured while creating distribution.");
   throw err;
 });
 

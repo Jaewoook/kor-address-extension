@@ -46,9 +46,15 @@ describe("useSearchHistoryStore", () => {
     const { setSearchHistoryLimit } = useSearchHistoryStore.getState();
     setSearchHistoryLimit({ enabled: true, value: 10 });
     setSearchHistoryLimit((prev) => ({ ...prev, enabled: false }));
-    expect(useSearchHistoryStore.getState().searchHistoryLimit).toEqual({ enabled: false, value: 10 });
+    expect(useSearchHistoryStore.getState().searchHistoryLimit).toEqual({
+      enabled: false,
+      value: 10,
+    });
     setSearchHistoryLimit((prev) => ({ ...prev, enabled: true }));
-    expect(useSearchHistoryStore.getState().searchHistoryLimit).toEqual({ enabled: true, value: 10 });
+    expect(useSearchHistoryStore.getState().searchHistoryLimit).toEqual({
+      enabled: true,
+      value: 10,
+    });
   });
 
   it("setSearchHistoryLimit truncates history immediately when enabled with a lower cap", () => {

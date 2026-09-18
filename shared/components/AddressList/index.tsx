@@ -39,15 +39,13 @@ const RowWrapper = styled.div`
   & > .addr-label {
     flex: 0 0 72px;
     margin: 0 !important;
-}
+  }
 `;
 
 const Row = ({ keyLabel, value }: RowProps) => {
   return (
     <RowWrapper>
-      <Typography.Paragraph className="addr-label">
-        {keyLabel}
-      </Typography.Paragraph>
+      <Typography.Paragraph className="addr-label">{keyLabel}</Typography.Paragraph>
       <div className="addr-value">
         <ClickToCopyText>{value}</ClickToCopyText>
       </div>

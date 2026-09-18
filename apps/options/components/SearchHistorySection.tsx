@@ -62,7 +62,9 @@ export const SearchHistorySection = () => {
         <Button onClick={clearHistory}>{OptionsStrings.CLEAR_ALL_LABEL}</Button>
       </LimitRow>
       {history.length === 0 ? (
-        <Typography.Text type="secondary">{OptionsStrings.SEARCH_HISTORY_EMPTY_LABEL}</Typography.Text>
+        <Typography.Text type="secondary">
+          {OptionsStrings.SEARCH_HISTORY_EMPTY_LABEL}
+        </Typography.Text>
       ) : (
         <HistoryList>
           {history.map((keyword) => (

@@ -8,7 +8,7 @@ import * as PopupStrings from "./constants/strings";
 if (isProduction()) {
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
-      integrations: [
+    integrations: [
       // If you're using react router, use the integration for your react router version instead.
       // Learn more at
       // https://docs.sentry.io/platforms/javascript/guides/react/configuration/integrations/react-router/

@@ -37,9 +37,6 @@ export default tseslint.config(
       // every file that imports it as default trips this rule.
       "import/no-named-as-default": "off",
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
-      "comma-dangle": ["warn", "always-multiline"],
-      quotes: ["error", "double", { allowTemplateLiterals: true }],
-      semi: ["error", "always"],
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/no-explicit-any": "off",
     },
