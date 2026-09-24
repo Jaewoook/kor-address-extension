@@ -1,4 +1,4 @@
-import { Button, Input, Layout } from "antd";
+import { Button, ConfigProvider, Input, Layout } from "antd";
 import { useCallback, useMemo } from "react";
 import { AiFillCheckCircle, AiOutlineCheckCircle } from "react-icons/ai";
 import styled from "styled-components";
@@ -93,25 +93,31 @@ export const Header = () => {
   const { addressDisplayOptions, toggleDisplayOption } = useSettings();
 
   const displayOptions = useMemo(
-    () =>
-      DISPLAY_OPTIONS.map((displayOption) => (
-        <Button
-          key={displayOption.key}
-          type={addressDisplayOptions[displayOption.key] ? "primary" : "default"}
-          shape="round"
-          size="small"
-          onClick={() => toggleDisplayOption(displayOption.key)}
-          icon={
-            addressDisplayOptions[displayOption.key] ? (
-              <AiFillCheckCircle />
-            ) : (
-              <AiOutlineCheckCircle />
-            )
-          }
-        >
-          {displayOption.name}
-        </Button>
-      )),
+    () => (
+      <ConfigProvider
+        theme={{ components: { Button: { colorPrimaryBg: "rgba(64, 150, 255, 0.15)" } } }}
+      >
+        {DISPLAY_OPTIONS.map((displayOption) => (
+          <Button
+            key={displayOption.key}
+            color={addressDisplayOptions[displayOption.key] ? "primary" : "default"}
+            variant="filled"
+            shape="round"
+            size="small"
+            onClick={() => toggleDisplayOption(displayOption.key)}
+            icon={
+              addressDisplayOptions[displayOption.key] ? (
+                <AiFillCheckCircle />
+              ) : (
+                <AiOutlineCheckCircle />
+              )
+            }
+          >
+            {displayOption.name}
+          </Button>
+        ))}
+      </ConfigProvider>
+    ),
     [addressDisplayOptions, toggleDisplayOption],
   );
 
