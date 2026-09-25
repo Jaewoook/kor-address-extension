@@ -22,6 +22,9 @@ fs.mkdirpSync(distIconsDirPath);
 
 fs.copyFileSync(path.join(__dirname, "../manifest.json"), path.join(distDirPath, "/manifest.json"));
 fs.copySync(buildDirPath, distDirPath);
-fs.copySync(iconDisPath, distIconsDirPath);
+// Only ship the PNGs the manifest references, not design sources like icon.ai.
+fs.copySync(iconDisPath, distIconsDirPath, {
+  filter: (src) => fs.statSync(src).isDirectory() || path.extname(src) === ".png",
+});
 
 console.log(chalk.green("success"), "unpacked package created!");
