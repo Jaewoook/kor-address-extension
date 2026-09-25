@@ -1,17 +1,10 @@
-import { Layout, Space, Typography } from "antd";
-import {
-  AiFillGithub,
-  AiFillMoon,
-  AiFillSetting,
-  AiFillSun,
-  AiOutlineDesktop,
-} from "react-icons/ai";
+import { Layout, Space } from "antd";
+import { AiFillMoon, AiFillSetting, AiFillSun, AiOutlineDesktop } from "react-icons/ai";
 import type { IconType } from "react-icons";
 import styled from "styled-components";
 
 import { getExtensionAPI } from "@shared/utils";
 import * as SharedColors from "@shared/constants/colors";
-import * as SharedUrls from "@shared/constants/urls";
 import { useResolvedTheme } from "@shared/hooks/useResolvedTheme";
 import { useThemeStore } from "@shared/states/theme";
 import type { ThemeMode } from "@shared/models/theme";
@@ -45,7 +38,7 @@ const THEME_ICON_TEST_ID: Record<ThemeMode, string> = {
 
 export const Wrapper = styled(Layout.Footer)`
   display: flex;
-  padding: 0 0 16px 0;
+  padding: 8px 0 16px 0;
   justify-content: center;
   align-items: center;
   background-color: ${SharedColors.COLOR_BACKGROUND_LIGHT};
@@ -62,14 +55,6 @@ export const Footer = () => {
   const mode = useThemeStore((state) => state.mode);
   const setMode = useThemeStore((state) => state.setMode);
   useResolvedTheme();
-
-  const handlePrivacyClick = () => {
-    window.open(SharedUrls.PRIVACY_POLICY_URL);
-  };
-
-  const handleGitHubClick = () => {
-    window.open(SharedUrls.GITHUB_REPO_URL);
-  };
 
   const handleSettingsClick = () => {
     // dev-only
@@ -90,10 +75,6 @@ export const Footer = () => {
   return (
     <Wrapper>
       <Space size="middle">
-        <Typography.Text onClick={handlePrivacyClick}>
-          {PopupStrings.PRIVACY_POLICY_LABEL}
-        </Typography.Text>
-        <AiFillGithub onClick={handleGitHubClick} />
         <ThemeIcon
           data-testid={THEME_ICON_TEST_ID[mode]}
           aria-label={NEXT_THEME_LABEL[mode]}
