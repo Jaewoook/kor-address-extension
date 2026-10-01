@@ -1,0 +1,80 @@
+name: "Release package"
+
+# Builds the extension for a published GitHub Release, uploads its source maps to Sentry,
+# and attaches the zip to the release. Upload that zip to the stores so the maps in Sentry
+# match the code users run.
+#
+# Repository secrets: VITE_SENTRY_DSN, VITE_JUSO_API_KEY, SENTRY_AUTH_TOKEN, SENTRY_ORG, SENTRY_PROJECT
+#
+# Releases created with the default GITHUB_TOKEN (e.g. by another workflow) don't trigger
+# this workflow; run it manually for those.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to package, e.g. v1.4.0"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .tool-versions
+          cache: "yarn"
+      - run: yarn install --frozen-lockfile
+
+      - name: Check the tag matches manifest.json
+        run: |
+          VERSION="v$(node -p "require('./manifest.json').version")"
+          if [ "$VERSION" != "$TAG" ]; then
+            echo "::error::Release tag $TAG does not match manifest.json version $VERSION"
+            exit 1
+          fi
+
+      # Secrets are scoped to this step only, so dependency install scripts never see them.
+      - name: Build and upload source maps
+        env:
+          VITE_SENTRY_DSN: ${{ secrets.VITE_SENTRY_DSN }}
+          VITE_JUSO_API_KEY: ${{ secrets.VITE_JUSO_API_KEY }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        run: |
+          missing=""
+          for name in VITE_SENTRY_DSN VITE_JUSO_API_KEY SENTRY_AUTH_TOKEN SENTRY_ORG SENTRY_PROJECT; do
+            if [ -z "${!name}" ]; then
+              echo "::error::$name is not set"
+              missing=1
+            fi
+          done
+          [ -z "$missing" ]
+          yarn build
+
+      - name: Make sure no source maps ship
+        run: |
+          if find build -name '*.map' | grep -q .; then
+            echo "::error::Source maps were left in build/ and would ship in the package"
+            exit 1
+          fi
+
+      - run: yarn package
+
+      - name: Attach the package to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp dist.zip "kor-address-extension-$TAG.zip"
+          gh release upload "$TAG" "kor-address-extension-$TAG.zip" --clobber

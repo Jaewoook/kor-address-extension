@@ -51,6 +51,13 @@ export default defineConfig(({ mode }) => {
           release: { name: SENTRY_RELEASE },
           sourcemaps: { filesToDeleteAfterUpload: ["./build/**/*.map"] },
           telemetry: false,
+          // A failed upload only logs and the build still succeeds; in CI that would publish
+          // a package with no usable source maps, so fail the build there instead.
+          errorHandler: process.env.CI
+            ? (err) => {
+                throw err;
+              }
+            : undefined,
         }),
     ],
     define: {
