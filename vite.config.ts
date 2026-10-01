@@ -1,9 +1,11 @@
 import { defineConfig } from "vitest/config";
 import path from "path";
 import react from "@vitejs/plugin-react";
+import { loadEnv } from "vite";
 import type { Plugin } from "vite";
 
 const REQUIRED_ENV_VARS = ["VITE_SENTRY_DSN", "VITE_JUSO_API_KEY"] as const;
+const DEFAULT_DEV_SERVER_PORT = 11200;
 
 // Only runs for `vite dev` - configureServer never fires for build/preview.
 const warnOnMissingEnv = (): Plugin => ({
@@ -19,10 +21,11 @@ const warnOnMissingEnv = (): Plugin => ({
 });
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react(), warnOnMissingEnv()],
   server: {
-    port: 11200,
+    // No VITE_ prefix: this is config-only and shouldn't be exposed to the client bundle.
+    port: Number(loadEnv(mode, import.meta.dirname, "").DEV_SERVER_PORT) || DEFAULT_DEV_SERVER_PORT,
   },
   build: {
     outDir: "build",
@@ -54,4 +57,4 @@ export default defineConfig({
       include: ["apps/**/*.{ts,tsx}", "shared/**/*.{ts,tsx}"],
     },
   },
-});
+}));
