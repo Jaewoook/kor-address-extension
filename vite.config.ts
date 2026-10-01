@@ -1,9 +1,15 @@
 import { defineConfig } from "vitest/config";
+import fs from "fs";
 import path from "path";
 import react from "@vitejs/plugin-react";
 import type { Plugin } from "vite";
 
 const REQUIRED_ENV_VARS = ["VITE_SENTRY_DSN", "VITE_JUSO_API_KEY"] as const;
+
+// manifest.json is what ships to users, so it's the source of truth for the version.
+const { version: EXTENSION_VERSION } = JSON.parse(
+  fs.readFileSync(path.resolve(import.meta.dirname, "manifest.json"), "utf-8"),
+);
 
 // Only runs for `vite dev` - configureServer never fires for build/preview.
 const warnOnMissingEnv = (): Plugin => ({
@@ -21,6 +27,9 @@ const warnOnMissingEnv = (): Plugin => ({
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), warnOnMissingEnv()],
+  define: {
+    __EXTENSION_VERSION__: JSON.stringify(EXTENSION_VERSION),
+  },
   server: {
     port: 11200,
   },
