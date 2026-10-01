@@ -23,7 +23,7 @@
     "package": "node scripts/CreatePackage.js",
     "postpackage": "node scripts/CreateDistribution.js",
     "generate:privacy": "node scripts/GeneratePrivacyHtml.js",
-    "screenshots": "yarn build && node scripts/CaptureStoreScreenshots.js"
+    "generate:screenshots": "yarn build && node scripts/CaptureStoreScreenshots.js"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

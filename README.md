@@ -1,13 +1,11 @@
 ![logo](/icons/icon_128.png)
 
-# 주소검색 확장 프로그램
+# 주소검색
 
-![CircleCI](https://img.shields.io/circleci/build/github/Jaewoook/kor-address-extension?style=flat-square)
+![Build status](https://img.shields.io/circleci/build/github/Jaewoook/kor-address-extension?style=flat-square)
+![Version](https://img.shields.io/github/package-json/v/Jaewoook/kor-address-extension?label=version&style=flat-square)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Jaewoook/kor-address-extension/pulls)
 ![GitHub License](https://img.shields.io/github/license/Jaewoook/kor-address-extension?color=brightgreen&style=flat-square)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/v/kiamcbcponnlbnanbbfnfdjhioebpiah?style=flat-square)
-![Mozilla Add-on](https://img.shields.io/amo/v/kor-address-extension?style=flat-square)
-![whale store](https://img.shields.io/github/package-json/v/Jaewoook/kor-address-extension?label=whale%20store&style=flat-square)
 ![Test Coverage](https://img.shields.io/badge/coverage-73.91%25-yellowgreen?style=flat-square)
 
 ## 프로젝트 소개
@@ -15,11 +13,12 @@
 해외 사이트에 영문 주소 입력을 할 때마다 매번 영문 주소 변환 사이트에서 주소 검색 후 복사하는게 불편했습니다. 그 뿐만 아니라 매번 헷갈리는 우편번호, 도로명주소 등을 검색하는 것까지 편하게 할 수 있으면 좋을 것 같다는 생각에 이 프로젝트를 시작하게 됐습니다.  
 주소 검색은 [도로명주소 오픈 API](https://www.juso.go.kr/)를 이용하여 구현했습니다.
 
-## 데모
-
-주소검색 확장 프로그램의 사용 데모입니다.
-
 ![Demo GIF](/images/demo.gif)
+
+![주소 검색 결과](/images/store/screenshot-1-search.png)
+![클릭 한 번으로 주소 복사](/images/store/screenshot-2-copy.png)
+![다크 모드](/images/store/screenshot-3-dark.png)
+![검색 기록과 설정](/images/store/screenshot-4-settings.png)
 
 ## 지원 브라우저
 
@@ -100,14 +99,6 @@ yarn test:ui       # 브라우저 기반 UI로 테스트 실행 및 결과 확�
 
 > [!NOTE]
 > 위 수치는 마지막으로 `yarn test:coverage`를 실행한 시점의 스냅샷입니다. CI에서 자동으로 갱신되지 않으므로, 테스트를 추가하거나 대규모로 변경한 뒤에는 다시 실행해 값을 갱신해주세요.
-
-## 스토어 스크린샷
-
-Chrome 웹 스토어, Firefox 부가 기능, 웨일 스토어에 공통으로 쓰는 1280×800 스크린샷과 Chrome 웹 스토어용 프로모션 타일(440×280)을 `images/store/`에 생성합니다. 로컬에 Google Chrome이 설치되어 있어야 하며, 실제 검색 결과를 위해 `.env`에 주소 검색 API 키가 필요합니다.
-
-```bash
-yarn screenshots
-```
 
 ## 제작자
 
