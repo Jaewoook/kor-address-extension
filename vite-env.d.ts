@@ -11,4 +11,4 @@ interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
-declare const __EXTENSION_VERSION__: string;
+declare const __SENTRY_RELEASE__: string;

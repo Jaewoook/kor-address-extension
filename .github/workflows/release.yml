@@ -1,0 +1,97 @@
+name: "Release"
+
+# Publishes a release when the manifest.json version changes on main: builds the extension,
+# uploads its source maps to Sentry, then creates the vX.Y.Z tag and GitHub Release with the
+# packaged zip attached. Upload that zip to the stores so the maps in Sentry match the code
+# users run, and edit the auto-generated release notes as needed.
+#
+# Repository secrets: VITE_SENTRY_DSN, VITE_JUSO_API_KEY, SENTRY_AUTH_TOKEN, SENTRY_ORG, SENTRY_PROJECT
+#
+# A version that is already tagged is skipped, so re-running a failed run (or running this
+# manually on main) is safe.
+
+on:
+  push:
+    branches: [main]
+    paths: [manifest.json]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+      exists: ${{ steps.version.outputs.exists }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Read the version from manifest.json
+        id: version
+        run: |
+          TAG="v$(node -p "require('./manifest.json').version")"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" > /dev/null; then
+            echo "$TAG is already released, nothing to do."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  release:
+    needs: check
+    if: needs.check.outputs.exists == 'false'
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ needs.check.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v7
+      # No dependency cache: this job holds release secrets, so don't restore shared caches.
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .tool-versions
+      - run: yarn install --frozen-lockfile
+      - run: yarn test
+
+      # Secrets are scoped to this step only, so dependency install scripts never see them.
+      - name: Build and upload source maps
+        env:
+          VITE_SENTRY_DSN: ${{ secrets.VITE_SENTRY_DSN }}
+          VITE_JUSO_API_KEY: ${{ secrets.VITE_JUSO_API_KEY }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        run: |
+          missing=""
+          for name in VITE_SENTRY_DSN VITE_JUSO_API_KEY SENTRY_AUTH_TOKEN SENTRY_ORG SENTRY_PROJECT; do
+            if [ -z "${!name}" ]; then
+              echo "::error::$name is not set"
+              missing=1
+            fi
+          done
+          [ -z "$missing" ]
+          yarn build
+
+      - name: Make sure no source maps ship
+        run: |
+          if find build -name '*.map' | grep -q .; then
+            echo "::error::Source maps were left in build/ and would ship in the package"
+            exit 1
+          fi
+
+      - run: yarn package
+
+      # Created last, so a failed build never leaves a release without its package.
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp dist.zip "kor-address-extension-$TAG.zip"
+          gh release create "$TAG" "kor-address-extension-$TAG.zip" \
+            --target "$GITHUB_SHA" --title "Release $TAG" --generate-notes
