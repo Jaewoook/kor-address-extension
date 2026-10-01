@@ -101,6 +101,14 @@ yarn test:ui       # 브라우저 기반 UI로 테스트 실행 및 결과 확�
 > [!NOTE]
 > 위 수치는 마지막으로 `yarn test:coverage`를 실행한 시점의 스냅샷입니다. CI에서 자동으로 갱신되지 않으므로, 테스트를 추가하거나 대규모로 변경한 뒤에는 다시 실행해 값을 갱신해주세요.
 
+## 스토어 스크린샷
+
+스토어 등록용 1280×800 스크린샷을 `images/store/`에 생성합니다. 로컬에 Google Chrome이 설치되어 있어야 하며, 실제 검색 결과를 위해 `.env`에 주소 검색 API 키가 필요합니다.
+
+```bash
+yarn screenshots
+```
+
 ## 제작자
 
 [Jaewook Ahn](https://github.com/Jaewoook)
