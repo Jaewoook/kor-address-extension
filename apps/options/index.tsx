@@ -2,18 +2,10 @@ import * as Sentry from "@sentry/react";
 import ReactDOM from "react-dom/client";
 
 import { App } from "./App";
-import { isProduction } from "@shared/utils";
-import { SENTRY_RELEASE } from "@shared/constants/values";
+import { initSentry } from "@shared/sentry";
 import * as OptionsStrings from "./constants/strings";
 
-if (isProduction()) {
-  Sentry.init({
-    dsn: import.meta.env.VITE_SENTRY_DSN,
-    release: SENTRY_RELEASE,
-    integrations: [Sentry.browserTracingIntegration()],
-    tracesSampleRate: 1.0,
-  });
-}
+initSentry();
 
 const ErrorFallback = () => <p style={{ padding: 16 }}>{OptionsStrings.ERROR_FALLBACK_MESSAGE}</p>;
 
