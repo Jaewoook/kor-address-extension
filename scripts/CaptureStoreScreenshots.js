@@ -1,4 +1,5 @@
-// Generates 1280x800 store screenshots into images/store/ from the current build.
+// Generates store listing images into images/store/ from the current build: 1280x800
+// screenshots (Chrome Web Store, Firefox Add-ons, Whale Store) and Chrome's 440x280 promo tile.
 // Run `yarn build` first (needs VITE_JUSO_API_KEY in .env for real search results).
 // Uses the locally installed Google Chrome and loads Noto Sans KR from Google Fonts.
 import fs from "fs";
@@ -39,7 +40,7 @@ const THEMES = {
 
 const SHOTS = [
   {
-    file: "whale-store-1-search.png",
+    file: "screenshot-1-search.png",
     theme: "light",
     image: "popup-results.png",
     width: 600,
@@ -47,7 +48,7 @@ const SHOTS = [
     body: "도로명·지번·영문 주소와 우편번호를<br>팝업 하나에서 바로 확인하세요.",
   },
   {
-    file: "whale-store-2-copy.png",
+    file: "screenshot-2-copy.png",
     theme: "light",
     image: "popup-copy.png",
     width: 600,
@@ -55,7 +56,7 @@ const SHOTS = [
     body: "필요한 항목을 누르면 바로 복사돼요.<br>해외 사이트 주소 입력도 간편하게.",
   },
   {
-    file: "whale-store-3-dark.png",
+    file: "screenshot-3-dark.png",
     theme: "dark",
     image: "popup-dark.png",
     width: 600,
@@ -63,7 +64,7 @@ const SHOTS = [
     body: "라이트·다크 모드 중 고르거나<br>시스템 설정에 맞춰 자동으로 바뀌어요.",
   },
   {
-    file: "whale-store-4-settings.png",
+    file: "screenshot-4-settings.png",
     theme: "light",
     image: "options.png",
     width: 680,
@@ -219,11 +220,39 @@ const composeStoreScreens = async (browser) => {
   }
 };
 
+// Chrome Web Store requires a 440x280 small promo tile in addition to screenshots.
+const composePromoTile = async (browser) => {
+  const icon = toDataUri(path.join(rootPath, "icons/icon_128.png"));
+  const tile = await browser.newPage({ viewport: { width: 440, height: 280 } });
+  await tile.setContent(
+    `<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;800&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 440px; height: 280px; overflow: hidden; }
+  body { font-family: "Noto Sans KR", sans-serif; background: linear-gradient(135deg, #1677ff 0%, #4096ff 100%);
+         display: flex; align-items: center; gap: 26px; padding-left: 40px; box-sizing: border-box; }
+  .icon { width: 112px; height: 112px; border-radius: 26px; background: #fff; display: flex; align-items: center;
+          justify-content: center; box-shadow: 0 12px 30px rgba(0, 30, 90, 0.3); flex: none; }
+  .icon img { width: 88px; height: 88px; }
+  h1 { margin: 0; font-size: 40px; font-weight: 800; color: #fff; letter-spacing: -1px; }
+  p { margin: 8px 0 0; font-size: 18px; font-weight: 500; line-height: 1.45; color: rgba(255, 255, 255, 0.9); }
+</style></head><body>
+  <div class="icon"><img src="${icon}"></div>
+  <div><h1>주소검색</h1><p>영문 주소까지<br>한 번에 검색·복사</p></div>
+</body></html>`,
+    { waitUntil: "networkidle" },
+  );
+  await tile.evaluate(() => document.fonts.ready);
+  await tile.screenshot({ path: path.join(outDirPath, "promo-tile-440x280.png") });
+  console.log(chalk.green("success"), "images/store/promo-tile-440x280.png");
+};
+
 const server = await preview({ root: rootPath, logLevel: "warn", preview: { port: 4173 } });
 const browser = await chromium.launch({ channel: "chrome", headless: true });
 try {
   await captureRawScreens(browser, server.resolvedUrls.local[0]);
   await composeStoreScreens(browser);
+  await composePromoTile(browser);
 } finally {
   await browser.close();
   await server.close();

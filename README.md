@@ -103,7 +103,7 @@ yarn test:ui       # 브라우저 기반 UI로 테스트 실행 및 결과 확�
 
 ## 스토어 스크린샷
 
-스토어 등록용 1280×800 스크린샷을 `images/store/`에 생성합니다. 로컬에 Google Chrome이 설치되어 있어야 하며, 실제 검색 결과를 위해 `.env`에 주소 검색 API 키가 필요합니다.
+Chrome 웹 스토어, Firefox 부가 기능, 웨일 스토어에 공통으로 쓰는 1280×800 스크린샷과 Chrome 웹 스토어용 프로모션 타일(440×280)을 `images/store/`에 생성합니다. 로컬에 Google Chrome이 설치되어 있어야 하며, 실제 검색 결과를 위해 `.env`에 주소 검색 API 키가 필요합니다.
 
 ```bash
 yarn screenshots
