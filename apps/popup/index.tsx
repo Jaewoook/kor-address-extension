@@ -3,11 +3,13 @@ import ReactDOM from "react-dom/client";
 
 import { App } from "./App";
 import { isProduction } from "@shared/utils";
+import { SENTRY_RELEASE } from "@shared/constants/values";
 import * as PopupStrings from "./constants/strings";
 
 if (isProduction()) {
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
+    release: SENTRY_RELEASE,
     integrations: [
       // If you're using react router, use the integration for your react router version instead.
       // Learn more at
