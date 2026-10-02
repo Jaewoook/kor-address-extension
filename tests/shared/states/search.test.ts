@@ -40,6 +40,22 @@ describe("useSearchStore", () => {
     expect(useSearchStore.getState().searchKeyword).toBe("강남대로");
   });
 
+  it("restores the previous search key on hydrate so paging can continue", async () => {
+    await setPrevSearchKey(searchKey);
+
+    await useSearchStore.getState().hydrate();
+
+    expect(useSearchStore.getState().prevSearchKey).toEqual(searchKey);
+  });
+
+  it("ignores a persisted search key that doesn't match the expected shape", async () => {
+    localStorage.setItem("prevSearchKey", JSON.stringify({ keyword: "강남대로", currentPage: 2 }));
+
+    await useSearchStore.getState().hydrate();
+
+    expect(useSearchStore.getState().prevSearchKey).toBeNull();
+  });
+
   it("starts with an empty keyword when nothing was persisted", async () => {
     await useSearchStore.getState().hydrate();
 
