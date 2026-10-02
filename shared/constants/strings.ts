@@ -4,7 +4,7 @@ export const COPY_TOOLTIP_DONE = "복사완료!";
 
 // FeedbackPopover
 export const FEEDBACK_PLACEHOLDER =
-  "이곳에 피드백 내용을 입력해주세요.&#10;작성해주신 소중한 피드백이 더 좋은 주소검색을 만들어요!";
+  "이곳에 피드백 내용을 입력해주세요.\n작성해주신 소중한 피드백이 더 좋은 주소검색을 만들어요!";
 export const FEEDBACK_SEND_LABEL = "보내기 🎉";
 export const FEEDBACK_SENT_LABEL = "피드백 전달 완료! 💛";
 export const FEEDBACK_TRIGGER_LABEL = "피드백 보내기";

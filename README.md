@@ -6,7 +6,7 @@
 ![Version](https://img.shields.io/github/package-json/v/Jaewoook/kor-address-extension?label=version&style=flat-square)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Jaewoook/kor-address-extension/pulls)
 ![GitHub License](https://img.shields.io/github/license/Jaewoook/kor-address-extension?color=brightgreen&style=flat-square)
-![Test Coverage](https://img.shields.io/badge/coverage-73.91%25-yellowgreen?style=flat-square)
+![Test Coverage](https://img.shields.io/badge/coverage-97.2%25-brightgreen?style=flat-square)
 
 ## 프로젝트 소개
 
@@ -93,9 +93,9 @@ yarn test:ui       # 브라우저 기반 UI로 테스트 실행 및 결과 확�
 
 현재 커버리지 (`yarn test:coverage` 기준):
 
-| Statements | Branches | Functions | Lines |
-| :--------: | :------: | :-------: | :---: |
-|   73.91%   |  64.74%  |  73.61%   | 73.5% |
+| Statements | Branches | Functions | Lines  |
+| :--------: | :------: | :-------: | :----: |
+|   97.2%    |  93.44%  |  97.05%   | 97.62% |
 
 > [!NOTE]
 > 위 수치는 마지막으로 `yarn test:coverage`를 실행한 시점의 스냅샷입니다. CI에서 자동으로 갱신되지 않으므로, 테스트를 추가하거나 대규모로 변경한 뒤에는 다시 실행해 값을 갱신해주세요.
