@@ -25,6 +25,18 @@ describe("FeedbackPopover", () => {
     vi.restoreAllMocks();
   });
 
+  it("shows the placeholder hint on two lines", async () => {
+    const user = userEvent.setup();
+    render(<FeedbackPopover />);
+
+    const { textarea } = await openForm(user);
+
+    expect(textarea).toHaveAttribute(
+      "placeholder",
+      "이곳에 피드백 내용을 입력해주세요.\n작성해주신 소중한 피드백이 더 좋은 주소검색을 만들어요!",
+    );
+  });
+
   it("can't be sent while the message is empty", async () => {
     const user = userEvent.setup();
     render(<FeedbackPopover />);
