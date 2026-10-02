@@ -22,7 +22,8 @@
     "test:ui": "vitest --ui",
     "package": "node scripts/CreatePackage.js",
     "postpackage": "node scripts/CreateDistribution.js",
-    "generate:privacy": "node scripts/GeneratePrivacyHtml.js"
+    "generate:privacy": "node scripts/GeneratePrivacyHtml.js",
+    "generate:screenshots": "yarn build && node scripts/CaptureStoreScreenshots.js"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -51,6 +52,7 @@
     "fs-extra": "^11.4.0",
     "globals": "^17.11.0",
     "jsdom": "^30.0.1",
+    "playwright-core": "^1.63.0",
     "prettier": "3.9.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.67.0",

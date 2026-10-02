@@ -1,13 +1,11 @@
 ![logo](/icons/icon_128.png)
 
-# 주소검색 확장 프로그램
+# 주소검색
 
-![CircleCI](https://img.shields.io/circleci/build/github/Jaewoook/kor-address-extension?style=flat-square)
+![Build status](https://img.shields.io/circleci/build/github/Jaewoook/kor-address-extension?style=flat-square)
+![Version](https://img.shields.io/github/package-json/v/Jaewoook/kor-address-extension?label=version&style=flat-square)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Jaewoook/kor-address-extension/pulls)
 ![GitHub License](https://img.shields.io/github/license/Jaewoook/kor-address-extension?color=brightgreen&style=flat-square)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/v/kiamcbcponnlbnanbbfnfdjhioebpiah?style=flat-square)
-![Mozilla Add-on](https://img.shields.io/amo/v/kor-address-extension?style=flat-square)
-![whale store](https://img.shields.io/github/package-json/v/Jaewoook/kor-address-extension?label=whale%20store&style=flat-square)
 ![Test Coverage](https://img.shields.io/badge/coverage-73.91%25-yellowgreen?style=flat-square)
 
 ## 프로젝트 소개
@@ -15,11 +13,12 @@
 해외 사이트에 영문 주소 입력을 할 때마다 매번 영문 주소 변환 사이트에서 주소 검색 후 복사하는게 불편했습니다. 그 뿐만 아니라 매번 헷갈리는 우편번호, 도로명주소 등을 검색하는 것까지 편하게 할 수 있으면 좋을 것 같다는 생각에 이 프로젝트를 시작하게 됐습니다.  
 주소 검색은 [도로명주소 오픈 API](https://www.juso.go.kr/)를 이용하여 구현했습니다.
 
-## 데모
-
-주소검색 확장 프로그램의 사용 데모입니다.
-
 ![Demo GIF](/images/demo.gif)
+
+![주소 검색 결과](/images/store/screenshot-1-search.png)
+![클릭 한 번으로 주소 복사](/images/store/screenshot-2-copy.png)
+![다크 모드](/images/store/screenshot-3-dark.png)
+![검색 기록과 설정](/images/store/screenshot-4-settings.png)
 
 ## 지원 브라우저
 
