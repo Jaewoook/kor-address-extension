@@ -17,7 +17,8 @@ const SCROLL_END_THRESHOLD_PX = 2;
 const Wrapper = styled(Layout.Content)`
   flex: 1;
   background-color: ${SharedColors.COLOR_BACKGROUND_LIGHT};
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 const ListTopWrapper = styled.div`

@@ -34,6 +34,30 @@ describe("getRuntime / isExtension / getExtensionAPI", () => {
     expect(getRuntime()).toBe("page");
     expect(isExtension()).toBe(false);
   });
+
+  it('returns "extension" and the browser API when only a Firefox runtime id is present', () => {
+    vi.stubGlobal("browser", { runtime: { id: "test-extension-id" } });
+    expect(getRuntime()).toBe("extension");
+    expect(getExtensionAPI()).toBe(globalThis.browser);
+  });
+
+  it('returns "unknown" when reading the runtime throws a ReferenceError', () => {
+    vi.stubGlobal("chrome", {
+      get runtime() {
+        throw new ReferenceError("runtime is not available");
+      },
+    });
+    expect(getRuntime()).toBe("unknown");
+  });
+
+  it("rethrows any other error raised while reading the runtime", () => {
+    vi.stubGlobal("chrome", {
+      get runtime() {
+        throw new TypeError("unexpected");
+      },
+    });
+    expect(() => getRuntime()).toThrow(TypeError);
+  });
 });
 
 describe("getVersion", () => {

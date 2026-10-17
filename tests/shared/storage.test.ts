@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
   DEFAULT_SETTINGS,
@@ -125,5 +125,28 @@ describe("validateSettingsData", () => {
 
   it("accepts an empty object as trivially valid", () => {
     expect(validateSettingsData({}, DEFAULT_SETTINGS)).toBe(true);
+  });
+});
+
+describe("storage (extension)", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("reads and writes through chrome.storage.local instead of localStorage", async () => {
+    const local = {
+      get: vi.fn(async (key: string) => ({ [key]: "dark" })),
+      set: vi.fn(async () => {}),
+    };
+    vi.stubGlobal("chrome", { runtime: { id: "test-extension-id" }, storage: { local } });
+    localStorage.clear();
+
+    await setThemeMode("dark");
+    const mode = await getThemeMode();
+
+    expect(local.set).toHaveBeenCalledWith({ themeMode: "dark" });
+    expect(local.get).toHaveBeenCalledWith("themeMode");
+    expect(mode).toBe("dark");
+    expect(localStorage.getItem("themeMode")).toBeNull();
   });
 });

@@ -32,11 +32,7 @@ export const useSearchStore = create<SearchStore>((set) => ({
     const prevSearchKey = await getPrevSearchKey();
     set({ searchKeyword: prevSearchKey?.keyword ?? "" });
 
-    // NOTE: preserved as-is from the original Recoil atom effect. This looks
-    // inverted (skips restoring prevSearchKey when it IS valid) but this
-    // migration is behavior-preserving; see PR description for the
-    // discovered-bug follow-up.
-    if (!prevSearchKey || validateSettingsData(prevSearchKey, DEFAULT_SETTINGS.prevSearchKey)) {
+    if (!prevSearchKey || !validateSettingsData(prevSearchKey, DEFAULT_SETTINGS.prevSearchKey)) {
       return;
     }
 

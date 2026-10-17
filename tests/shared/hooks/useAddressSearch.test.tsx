@@ -3,6 +3,8 @@ import axios from "axios";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { AddressData, SearchKey } from "@shared/models/address";
+import { DuplicateSearchError, SearchInProgressError } from "@shared/errors/search";
+import { setPrevSearchKey } from "@shared/storage";
 import { useAddressSearch } from "@shared/hooks/useAddressSearch";
 import { useAddressStore } from "@shared/states/address";
 import { useSearchHistoryStore } from "@shared/states/history";
@@ -179,5 +181,69 @@ describe("useAddressSearch", () => {
     });
 
     expect(useSearchHistoryStore.getState().history).toEqual([]);
+  });
+
+  it("skips and warns when a search is already in progress", async () => {
+    useSearchStore.setState({ searching: true });
+    const consoleWarn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const { result } = renderHook(() => useAddressSearch());
+
+    await act(async () => {
+      await result.current.searchAddress(makeSearchKey());
+    });
+
+    expect(mockedPost).not.toHaveBeenCalled();
+    expect(consoleWarn).toHaveBeenCalledWith(expect.any(SearchInProgressError));
+    consoleWarn.mockRestore();
+  });
+
+  it("warns when the search is identical to the previous one", async () => {
+    mockedPost.mockResolvedValue(makeApiResponse([]));
+    const consoleWarn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const { result } = renderHook(() => useAddressSearch());
+
+    await act(async () => {
+      await result.current.searchAddress(makeSearchKey());
+    });
+    await act(async () => {
+      await result.current.searchAddress(makeSearchKey());
+    });
+
+    expect(consoleWarn).toHaveBeenCalledWith(expect.any(DuplicateSearchError));
+    consoleWarn.mockRestore();
+  });
+
+  it("continues paging from the restored search after the popup is reopened", async () => {
+    await setPrevSearchKey(makeSearchKey({ currentPage: "2" }));
+    await useSearchStore.getState().hydrate();
+    mockedPost.mockResolvedValueOnce(makeApiResponse([makeAddress({ zipNo: "333" })]));
+    const { result } = renderHook(() => useAddressSearch());
+
+    await act(async () => {
+      await result.current.searchNextPage();
+    });
+
+    expect(mockedPost).toHaveBeenCalledTimes(1);
+    expect((mockedPost.mock.calls[0][1] as FormData).get("currentPage")).toBe("3");
+  });
+
+  it("keeps the current results when loading the next page fails", async () => {
+    mockedPost
+      .mockResolvedValueOnce(makeApiResponse([makeAddress({ zipNo: "111" })]))
+      .mockRejectedValueOnce(new Error("network error"));
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    const { result } = renderHook(() => useAddressSearch());
+
+    await act(async () => {
+      await result.current.searchAddress(makeSearchKey());
+    });
+    await act(async () => {
+      await result.current.searchNextPage();
+    });
+
+    expect(result.current.addressList.map((a) => a.zipNo)).toEqual(["111"]);
+    expect(result.current.searching).toBe(false);
+    expect(consoleError).toHaveBeenCalled();
+    consoleError.mockRestore();
   });
 });

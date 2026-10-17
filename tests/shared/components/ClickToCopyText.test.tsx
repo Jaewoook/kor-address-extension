@@ -21,4 +21,20 @@ describe("ClickToCopyText", () => {
 
     expect(mockCopy).toHaveBeenCalledWith("06627");
   });
+
+  it("confirms the copy, then resets the tooltip after it closes", async () => {
+    const user = userEvent.setup();
+    render(<ClickToCopyText>06627</ClickToCopyText>);
+    const text = screen.getByText("06627");
+
+    await user.hover(text);
+    expect(await screen.findByText("클릭해서 복사하기")).toBeInTheDocument();
+
+    await user.click(text);
+    expect(await screen.findByText("복사완료!")).toBeInTheDocument();
+
+    await user.unhover(text);
+    await user.hover(text);
+    expect(await screen.findByText("클릭해서 복사하기")).toBeInTheDocument();
+  });
 });
