@@ -68,6 +68,13 @@ describe("Content", () => {
     expect(screen.getByText("검색 결과가 없습니다.")).toBeInTheDocument();
   });
 
+  it("hides horizontal overflow and enables vertical scrolling only as needed", () => {
+    render(<Content />);
+
+    const content = document.getElementById("content")!;
+    expect(content).toHaveStyle({ overflowX: "hidden", overflowY: "auto" });
+  });
+
   it("clears the results and keyword when reset is clicked", async () => {
     useAddressStore.setState({ addressList: [makeAddress("00001")] });
     useSearchStore.setState({ searchKeyword: "테스트로", prevSearchKey: firstPageKey });
